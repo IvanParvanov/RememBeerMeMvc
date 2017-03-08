@@ -35,6 +35,7 @@ namespace RememBeer.MvcClient.Controllers
 
             var skip = page * pageSize;
             var reviews = this.reviewService.GetReviewsForUser(userId, skip, pageSize);
+            var totalCount = this.reviewService.CountUserReviews(userId);
 
             var mappedReviews = this.mapper.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(reviews, opts: options => options.AfterMap((s, d) =>
                                                                                                                                                          {
@@ -43,8 +44,8 @@ namespace RememBeer.MvcClient.Controllers
                                                                                                                                                                  model.IsEdit = true;
                                                                                                                                                              }
                                                                                                                                                          }));
-
-            return this.View(mappedReviews);
+            var viewModel = new PaginatedReviewsViewModel() { Page = page, Reviews = mappedReviews, TotalCount = totalCount, CurrentPage = page, PageSize = pageSize };
+            return this.View(viewModel);
         }
 
         // GET: Reviews/{id}

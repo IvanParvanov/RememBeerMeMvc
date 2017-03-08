@@ -46,3 +46,7 @@ ul.list-inline li { display: inline; }
     max-height: 300px;
     max-width: 100%;
 }
+
+ul.pagination li.active {
+    background-color: #26a69a;
+}

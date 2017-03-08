@@ -258,7 +258,9 @@
     <Compile Include="Models\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Models\Manage\SetPasswordViewModel.cs" />
     <Compile Include="Models\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Models\Reviews\PaginatedReviewsViewModel.cs" />
     <Compile Include="Models\Reviews\SingleReviewViewModel.cs" />
+    <Compile Include="Models\Shared\PaginatedViewModel.cs" />
     <Compile Include="Ninject\Compositions\Base\ModuleCompositionBase.cs" />
     <Compile Include="Ninject\Compositions\Contracts\IModuleComposition.cs" />
     <Compile Include="Ninject\NinjectModules\AuthNinjectModule.cs" />
@@ -375,6 +377,7 @@
     <Content Include="Views\Top\TopBeers.cshtml" />
     <Content Include="Views\Top\TopBreweries.cshtml" />
     <Content Include="Views\Reviews\Partial\_SingleReview.cshtml" />
+    <Content Include="Views\Shared\_Pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

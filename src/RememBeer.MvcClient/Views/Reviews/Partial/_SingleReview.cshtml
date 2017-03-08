@@ -11,36 +11,36 @@
             <div class="card-content review-body">
                 <div class="card-title">
                     <h5>
-                        @Model.BeerName
+                        @Html.DisplayFor(x => x.BeerName)
                         <span>
-                            @@<em>@Model.Place</em>
+                            @@<em>@Html.DisplayFor(x => x.Place)</em>
                         </span>
-                        <small class="right">@Model.CreatedAt.ToShortDateString()</small>
+                        <small class="right">@Html.DisplayFor(x => x.CreatedAt)</small>
                     </h5>
 
-                    <small>@Model.BeerBeerTypeType by <em>@Model.BeerBreweryName</em></small>
+                    <small>@Html.DisplayFor(x => x.BeerBeerTypeType) by <em>@Html.DisplayFor(x => x.BeerBreweryName)</em></small>
                 </div>
-                <p>@Model.Description</p>
+                <p>@Html.DisplayFor(x => x.Description)</p>
                 <hr/>
                 <ul class="list-inline flow-text">
                     <li>
                         Overall:
-                        <span class="">@Model.Overall</span>
+                        <span class="">@Html.DisplayFor(x => x.Overall)</span>
                     </li>
                     <li>|</li>
                     <li>
                         Taste:
-                        <span class="">@Model.Taste</span>
+                        <span class="">@Html.DisplayFor(x => x.Taste)</span>
                     </li>
                     <li>|</li>
                     <li>
-                        Look:
-                        <span class="">@Model.Look</span>
+                        Looks:
+                        <span class="">@Html.DisplayFor(x => x.Look)</span>
                     </li>
                     <li>|</li>
                     <li>
                         Aroma:
-                        <span class="">@Model.Smell</span>
+                        <span class="">@Html.DisplayFor(x => x.Smell)</span>
                     </li>
                 </ul>
 

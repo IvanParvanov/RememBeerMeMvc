@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel>
+﻿@model RememBeer.MvcClient.Models.Reviews.PaginatedReviewsViewModel
 
 @{
     ViewBag.Title = "My";
@@ -26,9 +26,9 @@
     </div>
 </div>
 
-@if (Model.Any())
+@if (Model.Reviews.Any())
 {
-    foreach (var review in Model)
+    foreach (var review in Model.Reviews)
     {
         @Html.Partial("Partial/_SingleReview", review)
     }
@@ -38,6 +38,9 @@ else
 {
     <h3>You don't have any reviews yet!</h3>
 }
+
+@Html.Partial("_Pagination", Model)
+
 
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large waves-effect waves-light modal-trigger" href="#modal1">
