@@ -3,17 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.WebFormsClient", "RememBeer.WebClient\RememBeer.WebFormsClient.csproj", "{11B0A8B1-CFAE-40D9-ADB0-83327D640497}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.Data", "RememBeer.Data\RememBeer.Data.csproj", "{905184B3-89C7-4140-9528-E92D5F70EC0D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.Business", "RememBeer.Business\RememBeer.Business.csproj", "{FF610202-F224-4C4E-8AC2-6CEC03814242}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.Models", "RememBeer.Models\RememBeer.Models.csproj", "{08B751C2-A59B-4C0D-A981-5E03F48E5722}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.Common", "RememBeer.Common\RememBeer.Common.csproj", "{F3D7079C-15D3-42A6-8359-6F0FEE921E83}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.CompositionRoot", "RememBeer.CompositionRoot\RememBeer.CompositionRoot.csproj", "{35498D53-F519-4B59-872B-1E8AFDD43091}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememBeer.Tests", "RememBeer.Tests\RememBeer.Tests.csproj", "{595FA6BF-427E-4544-BC9F-E2A29F1775E6}"
 EndProject
@@ -27,19 +21,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{11B0A8B1-CFAE-40D9-ADB0-83327D640497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11B0A8B1-CFAE-40D9-ADB0-83327D640497}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11B0A8B1-CFAE-40D9-ADB0-83327D640497}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11B0A8B1-CFAE-40D9-ADB0-83327D640497}.Release|Any CPU.Build.0 = Release|Any CPU
 		{905184B3-89C7-4140-9528-E92D5F70EC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{905184B3-89C7-4140-9528-E92D5F70EC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{905184B3-89C7-4140-9528-E92D5F70EC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{905184B3-89C7-4140-9528-E92D5F70EC0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF610202-F224-4C4E-8AC2-6CEC03814242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF610202-F224-4C4E-8AC2-6CEC03814242}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF610202-F224-4C4E-8AC2-6CEC03814242}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{FF610202-F224-4C4E-8AC2-6CEC03814242}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF610202-F224-4C4E-8AC2-6CEC03814242}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08B751C2-A59B-4C0D-A981-5E03F48E5722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08B751C2-A59B-4C0D-A981-5E03F48E5722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B751C2-A59B-4C0D-A981-5E03F48E5722}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,10 +33,6 @@ Global
 		{F3D7079C-15D3-42A6-8359-6F0FEE921E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3D7079C-15D3-42A6-8359-6F0FEE921E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3D7079C-15D3-42A6-8359-6F0FEE921E83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35498D53-F519-4B59-872B-1E8AFDD43091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35498D53-F519-4B59-872B-1E8AFDD43091}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35498D53-F519-4B59-872B-1E8AFDD43091}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35498D53-F519-4B59-872B-1E8AFDD43091}.Release|Any CPU.Build.0 = Release|Any CPU
 		{595FA6BF-427E-4544-BC9F-E2A29F1775E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{595FA6BF-427E-4544-BC9F-E2A29F1775E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{595FA6BF-427E-4544-BC9F-E2A29F1775E6}.Release|Any CPU.ActiveCfg = Release|Any CPU

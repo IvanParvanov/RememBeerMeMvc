@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +11,6 @@ using Microsoft.Owin.Security;
 
 using RememBeer.Models;
 using RememBeer.Models.Identity.Contracts;
-using RememBeer.MvcClient.Models;
 using RememBeer.MvcClient.Models.AccountModels;
 
 namespace RememBeer.MvcClient.Controllers

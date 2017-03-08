@@ -8,7 +8,6 @@ using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 
 using RememBeer.Models.Contracts;
-using RememBeer.MvcClient.Models;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 

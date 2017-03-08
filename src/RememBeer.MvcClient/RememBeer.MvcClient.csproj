@@ -91,6 +91,10 @@
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject.Extensions.Factory, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Extensions.Factory.3.2.1.0\lib\net45-full\Ninject.Extensions.Factory.dll</HintPath>
       <Private>True</Private>
@@ -225,7 +229,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -256,6 +259,12 @@
     <Compile Include="Models\Manage\SetPasswordViewModel.cs" />
     <Compile Include="Models\Manage\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\Reviews\SingleReviewViewModel.cs" />
+    <Compile Include="Ninject\Compositions\Base\ModuleCompositionBase.cs" />
+    <Compile Include="Ninject\Compositions\Contracts\IModuleComposition.cs" />
+    <Compile Include="Ninject\NinjectModules\AuthNinjectModule.cs" />
+    <Compile Include="Ninject\NinjectModules\BusinessNinjectModule.cs" />
+    <Compile Include="Ninject\NinjectModules\DataNinjectModule.cs" />
+    <Compile Include="Ninject\Compositions\DefaultComposition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -382,17 +391,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RememBeer.Business\RememBeer.Business.csproj">
-      <Project>{ff610202-f224-4c4e-8ac2-6cec03814242}</Project>
-      <Name>RememBeer.Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RememBeer.Common\RememBeer.Common.csproj">
       <Project>{f3d7079c-15d3-42a6-8359-6f0fee921e83}</Project>
       <Name>RememBeer.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RememBeer.CompositionRoot\RememBeer.CompositionRoot.csproj">
-      <Project>{35498d53-f519-4b59-872b-1e8afdd43091}</Project>
-      <Name>RememBeer.CompositionRoot</Name>
     </ProjectReference>
     <ProjectReference Include="..\RememBeer.Data\RememBeer.Data.csproj">
       <Project>{905184b3-89c7-4140-9528-e92d5f70ec0d}</Project>

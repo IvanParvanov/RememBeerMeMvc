@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -7,11 +6,9 @@ using System.Web.Mvc;
 using Bytes2you.Validation;
 
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
 using RememBeer.Models.Identity.Contracts;
-using RememBeer.MvcClient.Models;
 using RememBeer.MvcClient.Models.Manage;
 
 namespace RememBeer.MvcClient.Controllers

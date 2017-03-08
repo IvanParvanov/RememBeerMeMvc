@@ -117,70 +117,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Business\Logic\Common\EventArgs\PaginationEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Account\Common\UserServicePresenterTests.cs" />
-    <Compile Include="Business\Logic\Account\Confirm\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\Confirm\Presenter\OnSubmit_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Breweries\Presenter\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Breweries\Presenter\OnViewInitialized_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Breweries\Presenter\OnViewSearch_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Breweries\ViewModel\Setters_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\EventArgs\CreateBeerEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\EventArgs\UpdateEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\Presenter\OnUpdateBrewery_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\Presenter\OnViewBreweryAddBeer_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\Presenter\OnViewBreweryRemoveBeer_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\Presenter\OnViewInitialized_Should.cs" />
-    <Compile Include="Business\Logic\Admin\Brewery\ViewModel\Setters_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewDisableUser_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewEnableUser_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewMakeAdmin_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewRemoveAdmin_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewUpdateUser_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\Presenter\OnViewUserSearch_Should.cs" />
-    <Compile Include="Business\Logic\Admin\ManageUsers\ViewModel\Setters_Should.cs" />
-    <Compile Include="Business\Logic\Admin\UserDetails\Presenter\OnViewInitialized_Should.cs" />
-    <Compile Include="Business\Logic\Admin\UserDetails\ViewModel\Setters_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\Create\Presenter\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\Create\Presenter\OnViewCreateReview_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\My\EventArgs\UserReviewsEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Top\Breweries\Presenter\OnViewInitialize_Should.cs" />
-    <Compile Include="Business\Logic\Top\Breweries\ViewModel\TopBreweriesViewModelTests.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
-    <Compile Include="Business\Logic\Account\ForgotPassword\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\ForgotPassword\Presenter\OnForgot_Should.cs" />
-    <Compile Include="Business\Logic\Account\Login\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\Login\Presenter\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\Login\Presenter\OnLogin_Should.cs" />
-    <Compile Include="Business\Logic\Account\ManagePassword\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\ManagePassword\Presenter\OnChangePassword_Should.cs" />
-    <Compile Include="Business\Logic\Account\Register\EventArgs\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Account\Register\Presenter\OnRegister_Should.cs" />
-    <Compile Include="Business\Logic\Common\EventArgs\IdentifiableEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Common\EventArgs\SearchEventArgsTests.cs" />
     <Compile Include="Utils\MockedClasses\IDisposablePresenter.cs" />
-    <Compile Include="Utils\MockedClasses\MockedBreweriesViewModel.cs" />
-    <Compile Include="Utils\MockedClasses\MockedManageUsersViewModel.cs" />
-    <Compile Include="Utils\MockedClasses\MockedSingleBreweryViewModel.cs" />
-    <Compile Include="Business\Logic\MvpPresenterFactory\Create_Should.cs" />
-    <Compile Include="Business\Logic\MvpPresenterFactory\Release_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\Common\Presenters\BeerReviewPresenterTests.cs" />
-    <Compile Include="Business\Logic\Reviews\Common\ViewModels\BeerReviewViewModelTests.cs" />
-    <Compile Include="Business\Logic\Reviews\Default\Presenter\OnViewinitialise_Should.cs" />
-    <Compile Include="Utils\MockedClasses\MockedBeerReviewViewModel.cs" />
-    <Compile Include="Business\Logic\Reviews\My\EventArgs\BeerReviewEventArgsTests.cs" />
-    <Compile Include="Business\Logic\Reviews\My\Presenter\OnDeleteReview_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\My\Presenter\OnViewInitialise_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\My\Presenter\OnUpdateReview_Should.cs" />
-    <Compile Include="Business\Logic\Reviews\My\ViewModel\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Top\Beers\Common\TopPresenterBase\Ctor_Should.cs" />
-    <Compile Include="Business\Logic\Top\Beers\Presenter\OnViewInitialize_Should.cs" />
-    <Compile Include="Business\Logic\Top\Beers\ViewModel\Setters_Should.cs" />
-    <Compile Include="Utils\MockedClasses\MockedTopBeersViewModel.cs" />
-    <Compile Include="Utils\MockedClasses\MockedTopBreweriesViewModel.cs" />
-    <Compile Include="Utils\MockedClasses\MockedUserDetailsViewModel.cs" />
     <Compile Include="Services\BeerReviewServiceTests\CountUserReviews_Should.cs" />
     <Compile Include="Services\BeerReviewServiceTests\CreateReview_Should.cs" />
     <Compile Include="Services\BeerReviewServiceTests\Ctor_Should.cs" />
@@ -201,7 +140,6 @@
     <Compile Include="Services\UserServiceTests\RemoveAdmin_Should.cs" />
     <Compile Include="Services\UserServiceTests\Search_Should.cs" />
     <Compile Include="Services\UserServiceTests\UpdateUser_Should.cs" />
-    <Compile Include="Utils\MockedEventArgsGenerator.cs" />
     <Compile Include="Utils\MockedClasses\MockedHttpContextBase.cs" />
     <Compile Include="Utils\MockedClasses\MockedHttpRequest.cs" />
     <Compile Include="Utils\MockedClasses\MockedHttpResponse.cs" />
@@ -236,17 +174,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RememBeer.Business\RememBeer.Business.csproj">
-      <Project>{ff610202-f224-4c4e-8ac2-6cec03814242}</Project>
-      <Name>RememBeer.Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RememBeer.Common\RememBeer.Common.csproj">
       <Project>{f3d7079c-15d3-42a6-8359-6f0fee921e83}</Project>
       <Name>RememBeer.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RememBeer.CompositionRoot\RememBeer.CompositionRoot.csproj">
-      <Project>{35498d53-f519-4b59-872b-1e8afdd43091}</Project>
-      <Name>RememBeer.CompositionRoot</Name>
     </ProjectReference>
     <ProjectReference Include="..\RememBeer.Data\RememBeer.Data.csproj">
       <Project>{905184b3-89c7-4140-9528-e92d5f70ec0d}</Project>

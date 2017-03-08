@@ -1,18 +1,18 @@
+using System;
+using System.Web;
+
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
+using Ninject;
+using Ninject.Web.Common;
+
+using RememBeer.MvcClient.Ninject.Compositions;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(RememBeer.MvcClient.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(RememBeer.MvcClient.App_Start.NinjectWebCommon), "Stop")]
 
 namespace RememBeer.MvcClient.App_Start
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
-    using RememBeer.CompositionRoot.Compositions;
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
