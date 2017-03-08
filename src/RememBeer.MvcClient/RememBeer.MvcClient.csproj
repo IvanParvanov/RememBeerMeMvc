@@ -225,6 +225,7 @@
     <Content Include="Content\materialize-v0.97.5\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\materialize-v0.97.5\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\materialize.js" />
     <Content Include="Scripts\materialize.min.js" />
     <Content Include="favicon.ico" />

@@ -1,10 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Constants = RememBeer.Common.Constants.Constants
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -14,22 +16,48 @@
     <div class="nav-wrapper teal darken-1">
         <a class="brand-logo center" runat="server" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
-            @if ( Request.IsAuthenticated )
+            <li>
+                <a class="dropdown-button" data-activates="topDropdown"><i class="fa fa-trophy"></i> Top<i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            @if (Request.IsAuthenticated)
             {
+                if (this.User.IsInRole(Constants.AdminRole))
+                {
+                    <li>
+                        <a class="dropdown-button" data-activates="adminDropdown"><i class="fa fa-address-card"></i> Admin<i class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                }
+
                 <li class="waves-effect waves-light">
                     <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
                 </li>
             }
-            
-            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li class="waves-effect waves-light">
-                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-trophy" aria-hidden="true"></i> Top</a>
-            </li>
-
         </ul>
+
         @Html.Partial("_LoginPartial")
     </div>
+    @if (this.User.IsInRole(Constants.AdminRole))
+    {
+        <ul id="adminDropdown" class="dropdown-content">
+            <li>
+                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
+            </li>
+            <li>
+                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
+            </li>
+        </ul>
+    }
+
+    <ul id="topDropdown" class="dropdown-content">
+        <li>
+            <a href="@Url.Action("My", "Reviews")">Beers</a>
+        </li>
+        <li>
+            <a href="@Url.Action("My", "Reviews")">Breweries</a>
+        </li>
+    </ul>
 </nav>
+
 
 <main class="container body-content">
     @RenderBody()
@@ -39,12 +67,13 @@
     <div class="footer-copyright">
         <div class="container">
             &copy; @DateTime.Now.Year - RememBeerMe
-            <a class="grey-text text-lighten-4 right" href="#">More Links</a>
+            <a class="grey-text text-lighten-4 right" href="https://github.com/J0hnyBG/RememBeerMeMvc" target="_blank"><i class="fa fa-github"></i> View Source</a>
         </div>
     </div>
 </footer>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/materialize")
+@Scripts.Render("~/bundles/custom")
 
 @RenderSection("scripts", required: false)
 </body>
