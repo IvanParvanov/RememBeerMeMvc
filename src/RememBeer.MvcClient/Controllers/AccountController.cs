@@ -15,6 +15,7 @@ using Microsoft.Owin.Security;
 using RememBeer.Models;
 using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Models;
+using RememBeer.MvcClient.Models.AccountModels;
 
 namespace RememBeer.MvcClient.Controllers
 {

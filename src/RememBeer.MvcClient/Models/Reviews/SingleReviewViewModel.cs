@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace RememBeer.MvcClient.Models
+namespace RememBeer.MvcClient.Models.Reviews
 {
     public class SingleReviewViewModel
     {

@@ -2,6 +2,7 @@
 
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Models;
+using RememBeer.MvcClient.Models.Reviews;
 
 namespace RememBeer.MvcClient
 {
