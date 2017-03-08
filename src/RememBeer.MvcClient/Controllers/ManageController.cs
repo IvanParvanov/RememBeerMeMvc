@@ -104,120 +104,6 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         //
-        // GET: /Manage/AddPhoneNumber
-        public ActionResult AddPhoneNumber()
-        {
-            return this.View();
-        }
-
-        //
-        // POST: /Manage/AddPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-            // Generate the token and send it
-            var code = await this.UserManager.GenerateChangePhoneNumberTokenAsync(this.User.Identity.GetUserId(), model.Number);
-            if (this.UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await this.UserManager.SmsService.SendAsync(message);
-            }
-            return this.RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-        }
-
-        //
-        // POST: /Manage/EnableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EnableTwoFactorAuthentication()
-        {
-            await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), true);
-            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
-            if (user != null)
-            {
-                await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return this.RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // POST: /Manage/DisableTwoFactorAuthentication
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DisableTwoFactorAuthentication()
-        {
-            await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), false);
-            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
-            if (user != null)
-            {
-                await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return this.RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // GET: /Manage/VerifyPhoneNumber
-        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
-        {
-            var code = await this.UserManager.GenerateChangePhoneNumberTokenAsync(this.User.Identity.GetUserId(), phoneNumber);
-            // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? this.View("Error") : this.View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
-        }
-
-        //
-        // POST: /Manage/VerifyPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-            var result = await this.UserManager.ChangePhoneNumberAsync(this.User.Identity.GetUserId(), model.PhoneNumber, model.Code);
-            if (result.Succeeded)
-            {
-                var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return this.RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
-            }
-            // If we got this far, something failed, redisplay form
-            this.ModelState.AddModelError("", "Failed to verify phone");
-            return this.View(model);
-        }
-
-        //
-        // POST: /Manage/RemovePhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemovePhoneNumber()
-        {
-            var result = await this.UserManager.SetPhoneNumberAsync(this.User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
-            {
-                return this.RedirectToAction("Index", new { Message = ManageMessageId.Error });
-            }
-            var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
-            if (user != null)
-            {
-                await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return this.RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
-        }
-
-        //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
@@ -364,13 +250,6 @@ namespace RememBeer.MvcClient.Controllers
             var user = this.UserManager.FindById(this.User.Identity.GetUserId());
 
             return user?.PasswordHash != null;
-        }
-
-        private bool HasPhoneNumber()
-        {
-            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
-
-            return user?.PhoneNumber != null;
         }
 
         public enum ManageMessageId
