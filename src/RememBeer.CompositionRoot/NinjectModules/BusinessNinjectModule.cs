@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using AutoMapper;
+
 using Ninject;
 using Ninject.Activation;
 using Ninject.Extensions.Factory;
@@ -22,6 +24,8 @@ using RememBeer.Services.RankingStrategies.Contracts;
 
 using WebFormsMvp;
 using WebFormsMvp.Binder;
+
+using IConfigurationProvider = RememBeer.Common.Configuration.IConfigurationProvider;
 
 namespace RememBeer.CompositionRoot.NinjectModules
 {
@@ -52,6 +56,8 @@ namespace RememBeer.CompositionRoot.NinjectModules
             this.Rebind<ITopBeersService>().To<TopBeersService>().InRequestScope();
             this.Rebind<IBeerReviewService>().To<BeerReviewService>().InRequestScope();
             this.Rebind<IBreweryService>().To<BreweryService>().InRequestScope();
+
+            this.Bind<IMapper>().ToMethod(m => Mapper.Instance);
         }
 
         private static IPresenter GetPresenter(IContext context)

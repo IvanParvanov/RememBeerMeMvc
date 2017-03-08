@@ -20,6 +20,7 @@ namespace RememBeer.MvcClient
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapConfig.RegisterMappings();
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<RememBeerMeDbContext, Data.Migrations.Configuration>());
         }

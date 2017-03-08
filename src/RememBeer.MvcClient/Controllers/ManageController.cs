@@ -21,10 +21,6 @@ namespace RememBeer.MvcClient.Controllers
         private IApplicationSignInManager _signInManager;
         private IApplicationUserManager _userManager;
 
-        //public ManageController()
-        //{
-        //}
-
         public ManageController(IApplicationUserManager userManager, IApplicationSignInManager signInManager)
         {
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
@@ -38,7 +34,7 @@ namespace RememBeer.MvcClient.Controllers
         {
             get
             {
-                return this._signInManager;// ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this._signInManager;
             }
             private set 
             {
@@ -50,7 +46,7 @@ namespace RememBeer.MvcClient.Controllers
         {
             get
             {
-                return this._userManager;// ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this._userManager;
             }
             private set
             {

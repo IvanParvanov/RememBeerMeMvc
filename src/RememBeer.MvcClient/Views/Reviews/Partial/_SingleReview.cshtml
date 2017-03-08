@@ -1,0 +1,62 @@
+﻿@model RememBeer.MvcClient.Models.SingleReviewViewModel
+
+<div class="card horizontal">
+    <div class="row">
+        <div class="col s12 l4 center-align">
+            <div class="">
+                <img class="responsive-img thumbnail" src="@Model.ImgUrl" alt="Review image">
+            </div>
+        </div>
+        <div class="col s12 l8">
+            <div class="card-content review-body">
+                <div class="card-title">
+                    <h5>
+                        @Model.BeerName
+                        <span>
+                            @@<em>@Model.Place</em>
+                        </span>
+                        <small class="right">@Model.CreatedAt.ToShortDateString()</small>
+                    </h5>
+
+                    <small>@Model.BeerBeerTypeType by <em>@Model.BeerBreweryName</em></small>
+                </div>
+                <p>@Model.Description</p>
+                <hr/>
+                <ul class="list-inline flow-text">
+                    <li>
+                        Overall:
+                        <span class="">@Model.Overall</span>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        Taste:
+                        <span class="">@Model.Taste</span>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        Look:
+                        <span class="">@Model.Look</span>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        Aroma:
+                        <span class="">@Model.Smell</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="card-action clearfix">
+
+            @if (Model.IsEdit)
+            {
+                <a class="btn btn-flat amber darken-2 white-text">Edit</a>
+                <a class="btn btn-flat deep-orange darken-2 white-text">Delete</a>
+            }
+
+            <a class="right" href="@Url.Action("Details", "Reviews", new { id = Model.Id })">Share</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

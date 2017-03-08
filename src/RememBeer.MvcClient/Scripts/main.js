@@ -6,5 +6,7 @@
         belowOrigin: true,
         alignment: 'right'
     });
+
+    $('.modal').modal();
 });
 
