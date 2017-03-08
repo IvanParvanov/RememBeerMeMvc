@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper teal darken-1">
+        <a class="brand-logo center" runat="server" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            @if ( Request.IsAuthenticated )
+            {
+                <li class="waves-effect waves-light">
+                    <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
+                </li>
+            }
+            
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li class="waves-effect waves-light">
+                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-trophy" aria-hidden="true"></i> Top</a>
+            </li>
+
+        </ul>
+        @Html.Partial("_LoginPartial")
+    </div>
+</nav>
+
+<main class="container body-content">
+    @RenderBody()
+</main>
+
+<footer class="page-footer blue-grey darken-2">
+    <div class="footer-copyright">
+        <div class="container">
+            &copy; @DateTime.Now.Year - RememBeerMe
+            <a class="grey-text text-lighten-4 right" href="#">More Links</a>
+        </div>
+    </div>
+</footer>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/materialize")
+
+@RenderSection("scripts", required: false)
+</body>
+</html>

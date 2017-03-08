@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace RememBeer.MvcClient.Controllers
+{
+    public class ReviewsController : Controller
+    {
+        // GET: Reviews\My
+        public ActionResult My()
+        {
+            return View();
+        }
+    }
+}
