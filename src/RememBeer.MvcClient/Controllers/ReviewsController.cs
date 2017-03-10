@@ -49,14 +49,11 @@ namespace RememBeer.MvcClient.Controllers
             var reviews = this.reviewService.GetReviewsForUser(userId, skip, pageSize);
             var totalCount = this.reviewService.CountUserReviews(userId);
 
-            var mappedReviews = this.mapper.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>
-                (reviews, opts: options => options.AfterMap((s, d) =>
-                                                            {
-                                                                foreach (var model in d)
-                                                                {
-                                                                    model.IsEdit = true;
-                                                                }
-                                                            }));
+            var mappedReviews = this.mapper.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(reviews);
+            foreach (var singleReviewViewModel in mappedReviews)
+            {
+                singleReviewViewModel.IsEdit = true;
+            }
 
             var viewModel = new PaginatedReviewsViewModel()
                             {

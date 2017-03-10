@@ -6,6 +6,6 @@ namespace RememBeer.MvcClient.Models.Reviews
 {
     public class PaginatedReviewsViewModel : PaginatedViewModel
     {
-        public  IEnumerable<SingleReviewViewModel> Reviews { get; set; }
+        public IEnumerable<SingleReviewViewModel> Reviews { get; set; }
     }
 }
