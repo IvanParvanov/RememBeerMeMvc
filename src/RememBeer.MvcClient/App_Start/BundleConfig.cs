@@ -30,6 +30,9 @@ namespace RememBeer.MvcClient
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                       "~/Scripts/main.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/img-upload").Include(
+                      "~/Scripts/img-upload.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/materialize-v0.97.5/css/materialize.min.css",
                       "~/Content/font-awesome.min.css",

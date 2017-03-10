@@ -3,24 +3,39 @@
 @model SingleReviewViewModel
 
 <div class="card horizontal" id="review-@Model.Id">
-    @using (Ajax.BeginForm("Index", "Reviews", new AjaxOptions()
-                                               {
-                                                   HttpMethod = "PUT",
-                                                   UpdateTargetId = "review-" + Model.Id,
-                                                   LoadingElementId = "loading",
-                                                   OnFailure = "handleAjaxError",
-                                                   InsertionMode = InsertionMode.ReplaceWith
-                                               }))
-    {
-        <div class="row">
-            <div class="col s12 l4 center-align">
-                <div class="">
-                    <img class="responsive-img thumbnail" src="@Model.ImgUrl" alt="Review image">
-                </div>
+
+
+    <div class="row">
+        <div class="col s12 l4 center-align">
+            <div class="">
+                <img class="responsive-img thumbnail" src="@Model.ImgUrl" alt="Review image">
+                <p>
+                    Upload a new image:
+                    @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => x.Id, new { id = "review-id" })
+
+                        <input type="file" accept="image/*" id="imgUpload"/>
+                    }
+                </p>
             </div>
-            <div class="col s12 l8">
-                @Html.HiddenFor(x => x.Id)
+        </div>
+        <div class="col s12 l8">
+            @using (Ajax.BeginForm("Index", "Reviews", null,
+                                   new AjaxOptions()
+                                   {
+                                       HttpMethod = "PUT",
+                                       UpdateTargetId = "review-" + Model.Id,
+                                       LoadingElementId = "loading",
+                                       OnFailure = "handleAjaxError",
+                                       OnSuccess = "showSuccess('Review has been successfully updated!')",
+                                       InsertionMode = InsertionMode.ReplaceWith
+                                   },
+                                   new { enctype = "multipart/form-data", accept = "image/*" }))
+            {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
                 <div class="card-content review-body">
                     <div class="card-title">
                         <h5>
@@ -77,13 +92,16 @@
                         </li>
                     </ul>
                 </div>
-            </div>
 
-            <div class="card-action clearfix">
-                <input type="submit" class="btn btn-flat green darken-1 white-text"/>
-                
-                @Ajax.PageRefreshActionLink("Cancel", "btn btn-flat amber darken-2 white-text", "My", "Reviews", new { page = Request.QueryString["page"] })
-            </div>
+                <div class="card-action clearfix">
+                    <input type="submit" class="btn btn-flat green darken-1 white-text"/>
+
+                    @Ajax.PageRefreshActionLink("Cancel", "btn btn-flat amber darken-2 white-text", "My", "Reviews", new { page = Request.QueryString["page"] })
+                </div>
+            }
         </div>
-    }
+
+    </div>
 </div>
+
+@Scripts.Render("~/bundles/img-upload")

@@ -18,6 +18,7 @@ function scrollToTop() {
 function initMaterialize() {
     Materialize.updateTextFields();
     $('select').material_select();
+    $.validator.unobtrusive.parse($("form"));
 }
 
 function handleAjaxError(response) {
@@ -29,4 +30,8 @@ function handleAjaxError(response) {
     }
     
     Materialize.toast(message, 5000, 'red');
+}
+
+function showSuccess(message) {
+    Materialize.toast(message, 5000, 'green');
 }
