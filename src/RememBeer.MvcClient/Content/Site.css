@@ -79,3 +79,13 @@ input:not([type]).input-validation-error, input:not([type]):focus.input-validati
 .field-validation-error {
     color: #f00;
 }
+
+.full-width {
+    width: 100%;
+}
+
+#mobile-menu-trigger {
+    color: #00897b;
+    top: 20px;
+    left: 20px;
+}

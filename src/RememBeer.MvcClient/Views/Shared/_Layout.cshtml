@@ -11,10 +11,51 @@
 
 </head>
 <body>
-<nav>
+<ul id="slide-out" class="side-nav">
+
+    @if (Request.IsAuthenticated)
+    {
+        <li>
+            <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
+        </li>
+
+        if (this.User.IsInRole(Constants.AdminRole))
+        {
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a class="subheader"><i class="fa fa-address-card"></i> Admin</a>
+            </li>
+            <li>
+                <a href="@Url.Action("My", "Reviews")">Breweries</a>
+            </li>
+            <li>
+                <a href="@Url.Action("My", "Reviews")">Users</a>
+            </li>
+        }
+    }
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li>
+        <a class="subheader"><i class="fa fa-trophy"></i> Top</a>
+    </li>
+    <li>
+        <a href="@Url.Action("TopBeers", "Top")">Beers</a>
+    </li>
+    <li>
+        <a href="@Url.Action("TopBreweries", "Top")">Breweries</a>
+    </li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only" id="mobile-menu-trigger">
+    <i class="material-icons large">menu</i>
+</a>
+
+<nav class="hide-on-med-and-down">
     <div class="nav-wrapper teal darken-1">
         <a class="brand-logo center" runat="server" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <ul id="nav-mobile" class="left">
             <li>
                 <a class="dropdown-button" data-activates="topDropdown"><i class="fa fa-trophy"></i> Top<i class="material-icons right">arrow_drop_down</i></a>
             </li>
@@ -32,7 +73,6 @@
                 </li>
             }
         </ul>
-
         @Html.Partial("_LoginPartial")
     </div>
     @if (this.User.IsInRole(Constants.AdminRole))
@@ -60,12 +100,12 @@
     <span class="vh-center white-text">
         <i class="fa fa-cog fa-spin fa-5x"></i>
     </span>
-</div> 
+</div>
 
 <main class="container body-content" id="content">
     @RenderBody()
 </main>
-     
+
 <footer class="page-footer blue-grey darken-2">
     <div class="footer-copyright">
         <div class="container">

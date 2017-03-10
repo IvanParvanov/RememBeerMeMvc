@@ -1,13 +1,6 @@
 ﻿$(document).ready(function() {
-    $(".dropdown-button").dropdown({
-        inDuration: 300,
-        outDuration: 225,
-        hover: true,
-        belowOrigin: true,
-        alignment: 'right'
-    });
-    $('.modal-trigger').leanModal();
-    $('select').material_select();
+    initMaterialize();
+    $(".button-collapse").sideNav();
 });
 
 function scrollToTop() {
@@ -15,15 +8,23 @@ function scrollToTop() {
 }
 
 function initMaterialize() {
+    $(".dropdown-button").dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        hover: true,
+        belowOrigin: true,
+        alignment: 'right'
+    });
     Materialize.updateTextFields();
     $('select').material_select();
     $.validator.unobtrusive.parse($("form"));
+    $('.modal').modal();
 }
 
 function handleAjaxError(response) {
     var message;
-    if (!response || !response.statusText || response.statusText.toLowerCase() == "error") {
-        message = 'There was a problem with your request. Please try again.'
+    if (!response || !response.statusText || response.statusText.toLowerCase() === "error") {
+        message = 'There was a problem with your request. Please try again.';
     } else {
         message = response.statusText;
     }
