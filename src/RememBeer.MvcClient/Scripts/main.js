@@ -6,8 +6,7 @@
         belowOrigin: true,
         alignment: 'right'
     });
-
-    $('.modal').modal();
+    $('.modal-trigger').leanModal();
     $('select').material_select();
 });
 
