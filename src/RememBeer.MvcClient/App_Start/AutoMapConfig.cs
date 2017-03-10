@@ -12,6 +12,8 @@ namespace RememBeer.MvcClient
             Mapper.Initialize(cfg =>
                               {
                                   cfg.CreateMap<IBeerReview, SingleReviewViewModel>();
+                                  cfg.CreateMap<SingleReviewViewModel, IBeerReview>();
+                                  cfg.CreateMap<EditReviewBindingModel, IBeerReview>();
                               });
         }
     }

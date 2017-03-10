@@ -241,6 +241,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Models\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Models\Manage\SetPasswordViewModel.cs" />
     <Compile Include="Models\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Models\Reviews\EditReviewBindingModel.cs" />
     <Compile Include="Models\Reviews\PaginatedReviewsViewModel.cs" />
     <Compile Include="Models\Reviews\SingleReviewViewModel.cs" />
     <Compile Include="Models\Shared\PaginatedViewModel.cs" />
@@ -381,6 +383,7 @@
     <Content Include="Views\Reviews\Partial\_SingleReview.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Reviews\Partial\_ReviewList.cshtml" />
+    <Content Include="Views\Reviews\Partial\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

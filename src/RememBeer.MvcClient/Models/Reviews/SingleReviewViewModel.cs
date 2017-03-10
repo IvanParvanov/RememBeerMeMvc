@@ -5,10 +5,8 @@ using System.Web.Mvc;
 
 namespace RememBeer.MvcClient.Models.Reviews
 {
-    public class SingleReviewViewModel
+    public class SingleReviewViewModel : EditReviewBindingModel
     {
-        public string Id { get; set; }
-
         public string ImgUrl { get; set; }
 
         [DisplayName("Beer Name")]
@@ -20,22 +18,7 @@ namespace RememBeer.MvcClient.Models.Reviews
         [DisplayName("Brewery")]
         public string BeerBreweryName { get; set; }
 
-        [DisplayName("Location")]
-        public string Place { get; set; }
-
-        public string Description { get; set; }
-
-        public int Overall { get; set; }
-
-        public int Taste { get; set; }
-
-        [DisplayName("Aroma")]
-        public int Smell { get; set; }
-
-        [DisplayName("Looks")]
-        public int Look { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:dd.mm.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CreatedAt { get; set; }
 
         [HiddenInput(DisplayValue = false)]

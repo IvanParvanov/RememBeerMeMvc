@@ -1,6 +1,6 @@
 ﻿@model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
 
-<div class="card horizontal">
+<div id="review-@Model.Id"  class="card horizontal">
     <div class="row">
         <div class="col s12 l4 center-align">
             <div class="">
@@ -54,18 +54,27 @@
 
             </div>
         </div>
-
         <div class="card-action clearfix">
 
             @if (Model.IsEdit)
             {
-                <a class="btn btn-flat amber darken-2 white-text">Edit</a>
+                @Ajax.ActionLink("Edit", "Edit",
+                                 new { id = Model.Id },
+                                 new AjaxOptions()
+                                 {
+                                     HttpMethod = "GET",
+                                     InsertionMode = InsertionMode.ReplaceWith,
+                                     LoadingElementId = "loading",
+                                     UpdateTargetId = "review-" + Model.Id,
+                                     OnSuccess = "initMaterialize()"
+                                 },
+                                 new { @class = "btn btn-flat amber darken-2 white-text" })
+
                 <a class="btn btn-flat deep-orange darken-2 white-text">Delete</a>
 
                 <a class="right" href="@Url.Action("Details", "Reviews", new { id = Model.Id })">Share Link</a>
                 <div class="clearfix"></div>
             }
-
         </div>
     </div>
 </div>

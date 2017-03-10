@@ -19,12 +19,6 @@
 
 .dl-horizontal dt { white-space: normal; }
 
-/* Set width on the form input elements since they're 100% wide by default */
-
-input,
-select,
-textarea { max-width: 280px; }
-
 .text-danger { color: #f00; }
 
 .validation-summary-errors { font-weight: bold; }
@@ -40,6 +34,7 @@ ul.list-inline li { display: inline; }
 .review-body {
     padding: 10px 0;
     float: left;
+    width: 100%;
 }
 
 .thumbnail {
@@ -49,6 +44,14 @@ ul.list-inline li { display: inline; }
 
 ul.pagination li.active {
     background-color: #26a69a;
+}
+
+ul.pagination li {
+   padding: 0 0;
+}
+
+ul.pagination li a {
+   padding: 0 10px;
 }
 
 #loading {

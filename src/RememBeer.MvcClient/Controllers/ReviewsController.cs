@@ -13,6 +13,7 @@ using RememBeer.Services.Contracts;
 
 namespace RememBeer.MvcClient.Controllers
 {
+    [Authorize]
     public class ReviewsController : Controller
     {
         private readonly IBeerReviewService reviewService;
@@ -31,7 +32,6 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         // GET: Reviews/My
-        [Authorize]
         public ActionResult My(int page = 0, int pageSize = 5)
         {
             var userId = this.User?.Identity?.GetUserId();
@@ -58,6 +58,7 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         // GET: Reviews/Details/{id}
+        [AllowAnonymous]
         public ViewResult Details(int id)
         {
             var review = this.reviewService.GetById(id);
@@ -69,6 +70,35 @@ namespace RememBeer.MvcClient.Controllers
             var mappedReview = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
 
             return this.View(mappedReview);
+        }
+
+        // GET: Reviews/Edit/{id}
+        public ActionResult Edit(int id)
+        {
+            var review = this.reviewService.GetById(id);
+            var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
+
+            return this.PartialView("Partial/_Edit", mapped);
+
+        }
+
+        // PUT: Reviews
+        [HttpPut]
+        public ActionResult Index(EditReviewBindingModel m)
+        {
+            var review = this.reviewService.GetById(m.Id);
+            this.mapper.Map(m, review);
+
+            var result = this.reviewService.UpdateReview(review);
+            if (result.Successful)
+            {
+                var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
+                mapped.IsEdit = true;
+
+                return this.PartialView("Partial/_SingleReview", mapped);
+            }
+
+            return this.View("NotFound");
         }
     }
 }

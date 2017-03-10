@@ -1,4 +1,5 @@
-﻿@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel
+﻿@using RememBeer.MvcClient.Helpers
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel
 
 <div class="center-align">
     <ul class="pagination">
@@ -11,21 +12,14 @@
         {
             <li class="disabled">
                 <a>
-                    <i class="material-icons">chevron_left</i>
+                    Previous
                 </a>
             </li>
         }
         else
         {
             <li class="waves-effect">
-                <a data-ajax="true"
-                   data-ajax-method="GET"
-                   data-ajax-mode="replace"
-                   data-ajax-loading="#loading"
-                   data-ajax-update="#content"
-                   href="@Url.Action(action, controller, new { page = Model.CurrentPage - 1 })">
-                    <i class="material-icons">chevron_left</i>
-                </a>
+                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1 })
             </li>
         }
 
@@ -34,14 +28,7 @@
             if (i == Model.CurrentPage)
             {
                 <li class="active">
-                    <a data-ajax="true"
-                       data-ajax-method="GET"
-                       data-ajax-mode="replace"
-                       data-ajax-loading="#loading"
-                       data-ajax-update="#content"
-                       href="@Url.Action(action, controller, new { page = i })">
-                        @(i + 1)
-                    </a>
+                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i })
                 </li>
                 continue;
             }
@@ -52,14 +39,7 @@
             }
 
             <li class="waves-effect">
-                <a data-ajax="true"
-                   data-ajax-method="GET"
-                   data-ajax-mode="replace"
-                   data-ajax-loading="#loading"
-                   data-ajax-update="#content"
-                   href="@Url.Action(action, controller, new { page = i })">
-                    @(i + 1)
-                </a>
+                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i })
             </li>
         }
 
@@ -67,21 +47,14 @@
         {
             <li class="disabled">
                 <a>
-                    <i class="material-icons">chevron_right</i>
+                    Next
                 </a>
             </li>
         }
         else
         {
             <li class="waves-effect">
-                <a data-ajax="true"
-                   data-ajax-method="GET"
-                   data-ajax-mode="replace"
-                   data-ajax-loading="#loading"
-                   data-ajax-update="#content"
-                   href="@Url.Action(action, controller, new { page = Model.CurrentPage + 1 })">
-                    <i class="material-icons">chevron_right</i>
-                </a>
+                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1 })
             </li>
         }
     </ul>

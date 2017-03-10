@@ -8,5 +8,15 @@
     });
 
     $('.modal').modal();
+    $('select').material_select();
 });
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
+function initMaterialize() {
+    Materialize.updateTextFields();
+    $('select').material_select();
+}
 
