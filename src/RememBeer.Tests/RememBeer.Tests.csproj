@@ -161,6 +161,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="Controllers\ReviewsControllerTests\My_Should.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
