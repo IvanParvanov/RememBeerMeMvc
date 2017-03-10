@@ -17,6 +17,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void ReturnResultFromRepository()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var expected = new Brewery();
             var repository = new Mock<IRepository<Brewery>>();
@@ -26,8 +27,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             var result = service.GetById(id);
 
+            // Assert
             Assert.AreSame(expected, result);
         }
     }

@@ -15,12 +15,15 @@ namespace RememBeer.Tests.Models
         [Test]
         public void Setters_ShouldSetUpPropertiesCorrectly()
         {
+            // Arrange
             var expectedId = this.Fixture.Create<int>();
             var expectedText = this.Fixture.Create<string>();
             var isPublic = true;
             var expectedDate = DateTime.Now;
+
+            // Act
             var review = new BeerReview()
-                         {
+            {
                              Id = expectedId,
                              BeerId = expectedId,
                              ApplicationUserId = expectedText,
@@ -39,6 +42,7 @@ namespace RememBeer.Tests.Models
                              ImgUrl = expectedText
                          };
 
+            // Assert
             Assert.AreEqual(expectedId, review.Id);
             Assert.AreEqual(expectedId, review.Overall);
             Assert.AreEqual(expectedId, review.Look);

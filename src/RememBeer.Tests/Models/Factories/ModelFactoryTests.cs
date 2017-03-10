@@ -33,6 +33,7 @@ namespace RememBeer.Tests.Models.Factories
         [Test]
         public void CreateBeerRank_ShouldReturnCorrectBeerRank()
         {
+            // Arrange
             var overallScore = this.Fixture.Create<decimal>();
             var tasteScore = this.Fixture.Create<decimal>();
             var looksScore = this.Fixture.Create<decimal>();
@@ -41,6 +42,7 @@ namespace RememBeer.Tests.Models.Factories
             var compositeScore = this.Fixture.Create<decimal>();
             var beer = new Mock<IBeer>();
 
+            // Act
             var rank = new ModelFactory().CreateBeerRank(overallScore,
                                                          tasteScore,
                                                          looksScore,
@@ -49,6 +51,7 @@ namespace RememBeer.Tests.Models.Factories
                                                          compositeScore,
                                                          totalReviews);
 
+            // Assert
             Assert.IsNotNull(rank);
             Assert.IsInstanceOf<BeerRank>(rank);
             Assert.AreEqual(overallScore, rank.OverallScore);

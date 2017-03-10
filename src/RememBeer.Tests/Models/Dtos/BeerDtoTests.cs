@@ -13,17 +13,20 @@ namespace RememBeer.Tests.Models.Dtos
         [Test]
         public void Setters_ShouldSetProperties()
         {
+            // Arrange
             var id = this.Fixture.Create<int>();
             var breweryId = this.Fixture.Create<int>();
             var name = this.Fixture.Create<string>();
             var breweryName = this.Fixture.Create<string>();
 
+            // Act
             var dto = new BeerDto();
             dto.Id = id;
             dto.BreweryId = breweryId;
             dto.Name = name;
             dto.BreweryName = breweryName;
 
+            // Assert
             Assert.AreEqual(id, dto.Id);
             Assert.AreEqual(breweryId, dto.BreweryId);
             Assert.AreSame(name, dto.Name);

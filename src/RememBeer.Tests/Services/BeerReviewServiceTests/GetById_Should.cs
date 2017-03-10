@@ -17,18 +17,22 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         [Test]
         public void Call_RepositoryGetByIdMethodOnceWithCorrectParams()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var repository = new Mock<IRepository<BeerReview>>();
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             reviewService.GetById(id);
 
+            // Assert
             repository.Verify(r => r.GetById(id), Times.Once);
         }
 
         [Test]
         public void ReturnResultFrom_RepositoryGetByIdMethod()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var expected = new BeerReview();
             var repository = new Mock<IRepository<BeerReview>>();
@@ -37,8 +41,10 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
 
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             var actual = reviewService.GetById(id);
 
+            // Assert
             Assert.AreSame(expected, actual);
         }
     }

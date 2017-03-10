@@ -22,7 +22,7 @@ namespace RememBeer.Models.Identity
 
         public virtual SignInStatus PasswordSignIn(string email, string password, bool isPersistent)
         {
-            return SignInManagerExtensions.PasswordSignIn(this, email, password, isPersistent, true);
+            return this.PasswordSignIn(email, password, isPersistent, true);
         }
 
         public virtual void SignIn(ApplicationUser user, bool isPersistent, bool rememberBrowser)

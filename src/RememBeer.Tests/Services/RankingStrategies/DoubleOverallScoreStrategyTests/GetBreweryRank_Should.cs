@@ -31,11 +31,13 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
         [Test]
         public void ThrowArgumentNullException_WhenBeerRanksArgumentIsNull()
         {
+            // Arrange
             var factory = new Mock<IModelFactory>();
             var name = this.Fixture.Create<string>();
 
             var strategy = new DoubleOverallScoreStrategy(factory.Object);
 
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => strategy.GetBreweryRank(null, name));
         }
 
@@ -43,17 +45,20 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
         [TestCase("")]
         public void ThrowArgumentNullException_WhenBreweryNameArgumentIsNullOrEmpty(string nullOrEmpty)
         {
+            // Arrange
             var factory = new Mock<IModelFactory>();
             var reviews = new Mock<IEnumerable<IBeerRank>>();
 
             var strategy = new DoubleOverallScoreStrategy(factory.Object);
 
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => strategy.GetBreweryRank(reviews.Object, nullOrEmpty));
         }
 
         [Test]
         public void CallFactoryCreateBreweryRankMethodWithCorrectParamsOnceAndReturnItsValue()
         {
+            // Arrange
             var expectedName = this.Fixture.Create<string>();
             var expectedBreweryRank = new Mock<IBreweryRank>();
             var totalRankCount = 5;
@@ -79,8 +84,10 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
                 .Returns(expectedBreweryRank.Object);
             var strategy = new DoubleOverallScoreStrategy(factory.Object);
 
+            // Act
             var result = strategy.GetBreweryRank(beerRanks, expectedName);
 
+            // Assert
             factory.Verify(f => f.CreateBreweryRank(expectedTotalScore, expectedTotalReviews, expectedName), Times.Once);
             Assert.AreSame(expectedBreweryRank.Object, result);
         }

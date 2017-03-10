@@ -19,6 +19,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallConfirmEmailMethodExactlyOnce()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var code = this.Fixture.Create<string>();
 
@@ -33,14 +34,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.ConfirmEmail(userId, code);
 
+            // Assert
             userManager.Verify(m => m.ConfirmEmail(userId, code), Times.Once);
         }
 
         [Test]
         public void ReturnResult()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var code = this.Fixture.Create<string>();
             var expectedResult = IdentityResult.Success;
@@ -56,8 +60,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.ConfirmEmail(userId, code);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

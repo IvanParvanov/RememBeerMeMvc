@@ -1,4 +1,4 @@
-﻿[![Build status](https://ci.appveyor.com/api/projects/status/x8qjkqquq70j0t76?svg=true)](https://ci.appveyor.com/project/J0hnyBG/remembeerme)
+﻿[![Build status](https://ci.appveyor.com/api/projects/status/d5xa1vm77r5h8iq3?svg=true)](https://ci.appveyor.com/project/J0hnyBG/remembeermemvc)
 
 ![RememBeerMe Logo](docs/img/remembeerme-logo.PNG)
 

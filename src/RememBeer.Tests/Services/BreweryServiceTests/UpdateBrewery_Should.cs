@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void CallRepositoryGetByIdMethodOnceWithCorrectParams()
         {
+            // Arrange
             var id = this.Fixture.Create<int>();
             var name = this.Fixture.Create<string>();
             var descr = this.Fixture.Create<string>();
@@ -30,14 +31,17 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             var result = service.UpdateBrewery(id, name, country, descr);
 
+            // Assert
             repository.Verify(r => r.GetById(id), Times.Once);
         }
 
         [Test]
         public void CallRepositoryUpdateMethodOnceWithCorrectParams()
         {
+            // Arrange
             var id = this.Fixture.Create<int>();
             var name = this.Fixture.Create<string>();
             var descr = this.Fixture.Create<string>();
@@ -51,8 +55,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             var result = service.UpdateBrewery(id, name, country, descr);
 
+            // Assert
             repository.Verify(r => r.Update(brewery), Times.Once);
             Assert.AreSame(name, brewery.Name);
             Assert.AreSame(descr, brewery.Description);
@@ -62,6 +68,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void ReturnResultFromSaveChanges()
         {
+            // Arrange
             var expectedResult = new Mock<IDataModifiedResult>();
             var id = this.Fixture.Create<int>();
             var name = this.Fixture.Create<string>();
@@ -78,8 +85,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             var result = service.UpdateBrewery(id, name, country, descr);
 
+            // Assert
             Assert.AreSame(expectedResult.Object, result);
         }
     }

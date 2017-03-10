@@ -24,6 +24,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [TestCase(30)]
         public void ReturnFilteredSetOfBreweries(int expectedTotalCount)
         {
+            // Arrange
             var pattern = this.Fixture.Create<string>();
             var expectedFoundCount = expectedTotalCount / 5;
             var countryCount = expectedFoundCount / 2;
@@ -64,8 +65,11 @@ namespace RememBeer.Tests.Services.UserServiceTests
             var beerRepo = new Mock<IRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
+
+            // Act
             var result = service.Search(pattern);
 
+            // Assert
             var actualBreweries = result as IBrewery[] ?? result.ToArray();
             var actualCount = actualBreweries.Count();
 

@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         [Test]
         public void Call_RepositoryUpdateMethodOnceWithCorrectParams()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var review = new BeerReview();
             var repository = new Mock<IRepository<BeerReview>>();
@@ -25,14 +26,17 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                       .Returns(review);
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             reviewService.UpdateReview(review);
 
+            // Assert
             repository.Verify(r => r.Update(review), Times.Once);
         }
 
         [Test]
         public void Call_RepositorySaveChangesMethodOnceAndReturnItsValue()
         {
+            // Arrange
             var expected = new Mock<IDataModifiedResult>();
             var review = new BeerReview();
             var repository = new Mock<IRepository<BeerReview>>();
@@ -40,8 +44,10 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                       .Returns(expected.Object);
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             var actual = reviewService.UpdateReview(review);
 
+            // Assert
             repository.Verify(r => r.SaveChanges(), Times.Once);
             Assert.AreSame(expected.Object, actual);
         }

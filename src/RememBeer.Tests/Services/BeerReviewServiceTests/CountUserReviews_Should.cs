@@ -30,6 +30,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         [TestCase(7)]
         public void ReturnTheCountOfNotDeletedReviewsByTheGivenUserId(int expectedCountForUser)
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var allReviews = new List<BeerReview>();
 
@@ -63,8 +64,10 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                             .Returns(allReviews.AsQueryable);
             var beerReviewService = new BeerReviewService(mockedRepository.Object);
 
+            // Act
             var actualCount = beerReviewService.CountUserReviews(userId);
 
+            // Assert
             Assert.AreEqual(expectedCountForUser, actualCount);
         }
     }

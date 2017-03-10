@@ -20,6 +20,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallUserManagerChangepasswordMethodOnce()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var currentPassword = this.Fixture.Create<string>();
             var newPassword = this.Fixture.Create<string>();
@@ -38,14 +39,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.ChangePassword(userId, currentPassword, newPassword);
 
+            // Assert
             userManager.Verify(m => m.ChangePassword(userId, currentPassword, newPassword), Times.Once);
         }
 
         [Test]
         public void CallFindByIdAndSignInMethodsOnce_IfResultIsSuccessfull()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var currentPassword = this.Fixture.Create<string>();
             var newPassword = this.Fixture.Create<string>();
@@ -64,8 +68,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.ChangePassword(userId, currentPassword, newPassword);
 
+            // Assert
             userManager.Verify(m => m.FindById(userId), Times.Once);
             signInManager.Verify(m => m.SignIn(mockedUser, false, false), Times.Once);
         }
@@ -73,6 +79,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallReturnResult()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var currentPassword = this.Fixture.Create<string>();
             var newPassword = this.Fixture.Create<string>();
@@ -92,8 +99,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.ChangePassword(userId, currentPassword, newPassword);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

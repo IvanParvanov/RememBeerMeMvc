@@ -29,6 +29,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                                             int expectedPageSize,
                                                             int expectedTotalCount)
         {
+            // Arrange
             var usernameComparer = Comparer<ApplicationUser>.Create((a, b) =>
                                                                         string.Compare(a.UserName,
                                                                                        b.UserName,
@@ -55,11 +56,13 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
             int actualTotal;
 
+            // Act
             var result = service.PaginatedUsers(currentPage, expectedPageSize, out actualTotal);
 
             var actualUsers = result as IApplicationUser[] ?? result.ToArray();
             var actualCount = actualUsers.Length;
 
+            // Assert
             Assert.AreEqual(expectedTotalCount, actualTotal);
             Assert.AreEqual(expectedPageSize, actualCount);
             CollectionAssert.IsOrdered(actualUsers, usernameComparer);
@@ -73,6 +76,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                                                           int expectedPageSize,
                                                                           int totalCount)
         {
+            // Arrange
             var usernameComparer = Comparer<ApplicationUser>.Create((a, b) =>
                                                                         string.Compare(a.UserName,
                                                                                        b.UserName,
@@ -110,11 +114,13 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
             int actualTotal;
 
+            // Act
             var result = service.PaginatedUsers(currentPage, expectedPageSize, out actualTotal, searchPattern);
 
             var actualUsers = result as IApplicationUser[] ?? result.ToArray();
             var actualCount = actualUsers.Length;
 
+            // Assert
             Assert.AreEqual(expectedFoundCount, actualTotal);
             Assert.GreaterOrEqual(expectedPageSize, actualCount);
             CollectionAssert.IsOrdered(actualUsers, usernameComparer);

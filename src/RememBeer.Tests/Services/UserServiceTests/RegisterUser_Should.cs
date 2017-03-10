@@ -21,6 +21,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallFactoryCreateApplicationUserMethodOnce()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
             var password = this.Fixture.Create<string>();
@@ -36,14 +37,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.RegisterUser(userName, email, password);
 
+            // Assert
             modelFactory.Verify(f => f.CreateApplicationUser(userName, email), Times.Once);
         }
 
         [Test]
         public void CallUserManagerCreateMethodOnce()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
             var password = this.Fixture.Create<string>();
@@ -60,14 +64,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.RegisterUser(userName, email, password);
 
+            // Assert
             userManager.Verify(m => m.Create(mockedUser, password), Times.Once);
         }
 
         [Test]
         public void ReturnResultFromUserManager()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
             var password = this.Fixture.Create<string>();
@@ -87,8 +94,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.RegisterUser(userName, email, password);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

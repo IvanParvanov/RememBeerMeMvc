@@ -22,20 +22,23 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void CallRepositoryGetAllMethodOnce()
         {
+            // Arrange
             var repository = new Mock<IRepository<Brewery>>();
             var beerRepo = new Mock<IRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             service.GetAll();
 
+            // Assert
             repository.Verify(r => r.GetAll(), Times.Once);
         }
 
         [Test]
         public void ReturnResultFromRepositoryGetAllMethod()
         {
-
+            // Arrange
             var expected = new List<Brewery>();
             var repository = new Mock<IRepository<Brewery>>();
             repository.Setup(r => r.GetAll())
@@ -44,7 +47,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
+            // Act
             var actual = service.GetAll();
+
+            // Assert
             Assert.AreSame(expected, actual);
         }
 
@@ -56,6 +62,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
                                                       int expectedPageSize,
                                                       int expectedTotalCount)
         {
+            // Arrange
             var breweryComparer =
                 Comparer<IBrewery>.Create(((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal)));
 
@@ -75,11 +82,14 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var beerRepo = new Mock<IRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
+
+            // Act
             var result = service.GetAll(currentPage, expectedPageSize, (a) => a.Name);
 
             var actualUsers = result as IBrewery[] ?? result.ToArray();
             var actualCount = actualUsers.Count();
 
+            // Assert
             Assert.GreaterOrEqual(expectedPageSize, actualCount);
             CollectionAssert.IsOrdered(actualUsers, breweryComparer);
         }

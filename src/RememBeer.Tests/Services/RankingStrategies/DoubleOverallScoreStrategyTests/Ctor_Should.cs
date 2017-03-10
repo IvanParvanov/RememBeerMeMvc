@@ -12,6 +12,7 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
         [Test]
         public void ThrowArgumentNullException_WhenArgumentIsNull()
         {
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new DoubleOverallScoreStrategy(null));
         }
     }

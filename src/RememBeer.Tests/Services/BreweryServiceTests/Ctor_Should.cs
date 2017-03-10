@@ -16,16 +16,20 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void ThrowArgumentNullException_WhenBreweryRepositoryIsNull()
         {
+            // Arrange
             var beerRepo = new Mock<IRepository<Beer>>();
 
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new BreweryService(null, beerRepo.Object));
         }
 
         [Test]
         public void ThrowArgumentNullException_WhenBeerRepositoryIsNull()
         {
+            // Arrange
             var breweryRepo = new Mock<IRepository<Brewery>>();
 
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new BreweryService(breweryRepo.Object, null));
         }
     }

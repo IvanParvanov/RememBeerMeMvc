@@ -22,6 +22,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallUserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectParams()
         {
+            // Arrange
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
             userManager.Setup(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MinValue))
@@ -34,14 +35,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.EnableUser(expectedId);
 
+            // Assert
             userManager.Verify(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MinValue), Times.Once);
         }
 
         [Test]
         public void ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethod()
         {
+            // Arrange
             var expectedResult = IdentityResult.Success;
             var id = this.Fixture.Create<string>();
 
@@ -56,8 +60,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.EnableUser(id);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

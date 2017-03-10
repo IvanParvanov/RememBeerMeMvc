@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         [Test]
         public void Call_RepositoryGetByIdMethodOnceWithCorrectParams()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var review = new BeerReview();
             var repository = new Mock<IRepository<BeerReview>>();
@@ -26,14 +27,17 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
 
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             reviewService.DeleteReview(id);
 
+            // Assert
             repository.Verify(r => r.GetById(id), Times.Once);
         }
 
         [Test]
         public void SetIsDeletedPropertyToTrue()
         {
+            // Arrange
             var id = this.Fixture.Create<string>();
             var review = new BeerReview
                          {
@@ -46,14 +50,17 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
 
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             reviewService.DeleteReview(id);
 
+            // Assert
             Assert.IsTrue(review.IsDeleted);
         }
 
         [Test]
         public void Call_RepositorySaveChangesMethodOnceAndReturnItsValue()
         {
+            // Arrange
             var expected = new Mock<IDataModifiedResult>();
             var id = this.Fixture.Create<string>();
             var review = new BeerReview
@@ -69,8 +76,10 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
 
             var reviewService = new BeerReviewService(repository.Object);
 
+            // Act
             var result = reviewService.DeleteReview(id);
 
+            // Assert
             Assert.AreSame(expected.Object, result);
             repository.Verify(r => r.SaveChanges(), Times.Once);
         }

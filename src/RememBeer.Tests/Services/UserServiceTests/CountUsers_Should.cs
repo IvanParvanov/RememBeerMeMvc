@@ -22,6 +22,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [TestCase(23)]
         public void ReturnCorrectRepositoryCount(int userCount)
         {
+            // Arrange
             var users = new List<MockedApplicationUser>();
             for (var i = 0; i < userCount; i++)
             {
@@ -43,8 +44,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.CountUsers();
 
+            // Assert
             Assert.AreEqual(expectedCount, result);
             userManager.VerifyGet(r => r.Users, Times.Once);
         }

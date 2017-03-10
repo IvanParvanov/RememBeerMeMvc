@@ -18,7 +18,12 @@
         else
         {
             <li class="waves-effect">
-                <a href="@Url.Action(action, controller, new { page = Model.CurrentPage - 1 })">
+                <a data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-loading="#loading"
+                   data-ajax-update="#content"
+                   href="@Url.Action(action, controller, new { page = Model.CurrentPage - 1 })">
                     <i class="material-icons">chevron_left</i>
                 </a>
             </li>
@@ -29,7 +34,14 @@
             if (i == Model.CurrentPage)
             {
                 <li class="active">
-                    @Html.ActionLink(( i + 1 ).ToString(), action, controller, new { page = i }, null)
+                    <a data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-loading="#loading"
+                       data-ajax-update="#content"
+                       href="@Url.Action(action, controller, new { page = i })">
+                        @(i + 1)
+                    </a>
                 </li>
                 continue;
             }
@@ -40,7 +52,14 @@
             }
 
             <li class="waves-effect">
-                @Html.ActionLink(( i + 1 ).ToString(), action, controller, new { page = i }, null)
+                <a data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-loading="#loading"
+                   data-ajax-update="#content"
+                   href="@Url.Action(action, controller, new { page = i })">
+                    @(i + 1)
+                </a>
             </li>
         }
 
@@ -55,7 +74,12 @@
         else
         {
             <li class="waves-effect">
-                <a href="@Url.Action(action, controller, new { page = Model.CurrentPage + 1 })">
+                <a data-ajax="true"
+                   data-ajax-method="GET"
+                   data-ajax-mode="replace"
+                   data-ajax-loading="#loading"
+                   data-ajax-update="#content"
+                   href="@Url.Action(action, controller, new { page = Model.CurrentPage + 1 })">
                     <i class="material-icons">chevron_right</i>
                 </a>
             </li>

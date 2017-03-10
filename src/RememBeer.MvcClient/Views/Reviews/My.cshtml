@@ -5,45 +5,4 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card-panel green hoverable">
-    <span class="white-text">
-        I am a very simple card. I am good at containing small bits of information.
-        I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-    </span>
-</div>
-
-<!-- Modal Trigger -->
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-</div>
-
-@if (Model.Reviews.Any())
-{
-    foreach (var review in Model.Reviews)
-    {
-        @Html.Partial("Partial/_SingleReview", review)
-    }
-}
-
-else
-{
-    <h3>You don't have any reviews yet!</h3>
-}
-
-@Html.Partial("_Pagination", Model)
-
-
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light modal-trigger" href="#modal1">
-        <i class="large material-icons">add</i>
-    </a>
-</div>
+@Html.Partial("Partial/_ReviewList", Model)

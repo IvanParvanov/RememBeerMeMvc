@@ -56,12 +56,16 @@
         </li>
     </ul>
 </nav>
+<div id="loading">
+    <span class="vh-center white-text">
+        <i class="fa fa-cog fa-spin fa-5x"></i>
+    </span>
+</div> 
 
-
-<main class="container body-content">
+<main class="container body-content" id="content">
     @RenderBody()
 </main>
-
+     
 <footer class="page-footer blue-grey darken-2">
     <div class="footer-copyright">
         <div class="container">
@@ -71,6 +75,7 @@
     </div>
 </footer>
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/bundles/materialize")
 @Scripts.Render("~/bundles/custom")
 

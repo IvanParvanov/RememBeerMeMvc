@@ -16,14 +16,17 @@ namespace RememBeer.MvcClient.Controllers
     public class ReviewsController : Controller
     {
         private readonly IBeerReviewService reviewService;
+        private readonly IBeerService beerService;
         private readonly IMapper mapper;
 
-        public ReviewsController(IBeerReviewService reviewService, IMapper mapper)
+        public ReviewsController(IMapper mapper, IBeerReviewService reviewService, IBeerService beerService)
         {
             Guard.WhenArgument(reviewService, nameof(reviewService)).IsNull().Throw();
             Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
+            Guard.WhenArgument(beerService, nameof(beerService)).IsNull().Throw();
 
             this.reviewService = reviewService;
+            this.beerService = beerService;
             this.mapper = mapper;
         }
 
@@ -45,10 +48,16 @@ namespace RememBeer.MvcClient.Controllers
                                                                                                                                                              }
                                                                                                                                                          }));
             var viewModel = new PaginatedReviewsViewModel() { Page = page, Reviews = mappedReviews, TotalCount = totalCount, CurrentPage = page, PageSize = pageSize };
+
+            if (this.Request.IsAjaxRequest())
+            {
+                return this.PartialView("Partial/_ReviewList", viewModel);
+            }
+
             return this.View(viewModel);
         }
 
-        // GET: Reviews/{id}
+        // GET: Reviews/Details/{id}
         public ViewResult Details(int id)
         {
             var review = this.reviewService.GetById(id);

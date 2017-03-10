@@ -23,6 +23,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void Call_UserManagerAddToRoleAsyncMethodOnceWithCorrectParams()
         {
+            // Arrange
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
             userManager.Setup(m => m.AddToRoleAsync(expectedId, Constants.AdminRole))
@@ -35,14 +36,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.MakeAdmin(expectedId);
 
+            // Assert
             userManager.Verify(m => m.AddToRoleAsync(expectedId, Constants.AdminRole), Times.Once);
         }
 
         [Test]
         public void ReturnResultFrom_UserManagerAddToRoleAsyncMethod()
         {
+            // Arrange
             var expectedResult = IdentityResult.Failed();
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
@@ -56,8 +60,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.MakeAdmin(expectedId);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

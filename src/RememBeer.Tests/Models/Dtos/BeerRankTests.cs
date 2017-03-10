@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Models.Dtos
         [Test]
         public void Ctor_ShouldSetPropertiesCorrectly()
         {
+            // Arrange
             var overallScore = this.Fixture.Create<decimal>();
             var tasteScore = this.Fixture.Create<decimal>();
             var looksScore = this.Fixture.Create<decimal>();
@@ -26,6 +27,7 @@ namespace RememBeer.Tests.Models.Dtos
             var compositeScore = this.Fixture.Create<decimal>();
             var beer = new Mock<IBeer>();
 
+            // Act
             var rank = new BeerRank(overallScore,
                                     tasteScore,
                                     looksScore,
@@ -34,6 +36,7 @@ namespace RememBeer.Tests.Models.Dtos
                                     compositeScore,
                                     totalReviews);
 
+            // Assert
             Assert.AreEqual(overallScore, rank.OverallScore);
             Assert.AreEqual(tasteScore, rank.TasteScore);
             Assert.AreEqual(looksScore, rank.LookScore);
@@ -46,6 +49,7 @@ namespace RememBeer.Tests.Models.Dtos
         [Test]
         public void Ctor_ShouldThrowArgumenNullException_WhenBeerIsNull()
         {
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new BeerRank(0, 0, 0, 0, null, 0, 0));
         }
     }

@@ -16,9 +16,11 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void ThrowArgumentNullException_WhenIApplicationUserManagerArgumentIsNull()
         {
+            // Arrange
             var signInManager = new Mock<IApplicationSignInManager>().Object;
             var modelFactory = new Mock<IModelFactory>().Object;
 
+            //Act & Assert
             var ex =
                 Assert.Throws<ArgumentNullException>(
                                                      () =>
@@ -30,18 +32,22 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void ThrowArgumentNullException_WhenIApplicationSignInManagerArgumentIsNull()
         {
+            // Arrange
             var userManager = new Mock<IApplicationUserManager>().Object;
             var modelFactory = new Mock<IModelFactory>().Object;
 
+            //Act & Assert
             Assert.Throws<ArgumentNullException>(() => new UserService(userManager, null, modelFactory));
         }
 
         [Test]
         public void ThrowArgumentNullException_WhenIModelFactoryArgumentIsNull()
         {
+            // Arrange
             var userManager = new Mock<IApplicationUserManager>().Object;
             var signInManager = new Mock<IApplicationSignInManager>().Object;
 
+            //Act & Assert
             Assert.Throws<ArgumentNullException>(
                                                  () =>
                                                      new UserService(userManager,

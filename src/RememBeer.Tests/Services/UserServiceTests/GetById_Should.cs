@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallAndReturnValueFromFindByIdMethodOnceWithCorrectParams()
         {
+            // Arrange
             var expectedUser = new MockedApplicationUser();
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
@@ -31,8 +32,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.GetById(expectedId);
 
+            // Assert
             Assert.AreSame(expectedUser, result);
             userManager.Verify(u => u.FindById(expectedId), Times.Once);
         }

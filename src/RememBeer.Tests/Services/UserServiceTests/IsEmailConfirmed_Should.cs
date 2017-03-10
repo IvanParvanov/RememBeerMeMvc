@@ -17,6 +17,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallFindByNameMethodOnce()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var expectedResult = this.Fixture.Create<bool>();
 
@@ -31,14 +32,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.IsEmailConfirmed(userId);
 
+            // Assert
             userManager.Verify(m => m.IsEmailConfirmed(userId), Times.Once);
         }
 
         [Test]
         public void ReturnValueFromUserManager_WhenUserIsFound()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var expectedResult = this.Fixture.Create<bool>();
 
@@ -53,8 +57,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.IsEmailConfirmed(userId);
 
+            // Assert
             Assert.AreEqual(expectedResult, result);
         }
     }

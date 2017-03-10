@@ -15,12 +15,15 @@ namespace RememBeer.Tests.Models
         [Test]
         public void Setters_ShouldSetPropertiesCorrectly()
         {
+            // Arrange
             var expectedId = this.Fixture.Create<int>();
             var expectedBreweryId = this.Fixture.Create<int>();
             var expectedBeerTypeId = this.Fixture.Create<int>();
             var expectedName = this.Fixture.Create<string>();
+
+            // Act
             var beer = new Beer()
-                       {
+            {
                            Id = expectedId,
                            Brewery = null,
                            BeerType = null,
@@ -29,6 +32,7 @@ namespace RememBeer.Tests.Models
                            Name = expectedName
                        };
 
+            // Assert
             Assert.AreEqual(expectedId, beer.Id);
             Assert.AreEqual(expectedBeerTypeId, beer.BeerTypeId);
             Assert.AreEqual(expectedBreweryId, beer.BreweryId);

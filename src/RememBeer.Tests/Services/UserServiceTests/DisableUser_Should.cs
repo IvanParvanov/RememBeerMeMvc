@@ -21,6 +21,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallUserManagerUpdateSecurityStampAsyncMethodOnceWithCorrectParams()
         {
+            // Arrange
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
             userManager.Setup(m => m.UpdateSecurityStampAsync(expectedId))
@@ -33,14 +34,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.DisableUser(expectedId);
 
+            // Assert
             userManager.Verify(m => m.UpdateSecurityStampAsync(expectedId), Times.Once);
         }
 
         [Test]
         public void ReturnResultFrom_UserManagerUpdateSecurityStampAsyncMethod_WhenItReturnsFail()
         {
+            // Arrange
             var expectedResult = IdentityResult.Failed();
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
@@ -54,14 +58,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.DisableUser(expectedId);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
 
         [Test]
         public void Call_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull()
         {
+            // Arrange
             var expectedResult = IdentityResult.Success;
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
@@ -75,6 +82,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.DisableUser(expectedId);
 
             userManager.Verify(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MaxValue), Times.Once);
@@ -82,9 +90,9 @@ namespace RememBeer.Tests.Services.UserServiceTests
 
         [Test]
         public void
-            ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull
-            ()
+            ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull()
         {
+            // Arrange
             var expectedResult = IdentityResult.Success;
             var expectedId = this.Fixture.Create<string>();
             var userManager = new Mock<IApplicationUserManager>();
@@ -100,8 +108,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.DisableUser(expectedId);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

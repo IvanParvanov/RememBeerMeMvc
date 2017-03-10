@@ -18,6 +18,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void CallBeerRepositoryAddMethodWithCorrectParametersOnce()
         {
+            // Arrange
             var expectedBreweryId = this.Fixture.Create<int>();
             var expectedTypeId = this.Fixture.Create<int>();
             var expectedName = this.Fixture.Create<string>();
@@ -25,8 +26,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var breweryRepository = new Mock<IRepository<Brewery>>();
             var service = new BreweryService(breweryRepository.Object, beerRepository.Object);
 
+            // Act
             service.AddNewBeer(expectedBreweryId, expectedTypeId, expectedName);
 
+            // Assert
             beerRepository
                 .Verify(x => x.Add(
                                    It.Is<Beer>(a => a.BreweryId == expectedBreweryId
@@ -38,6 +41,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [Test]
         public void CallAndReturnValueFromBeerRepositorySaveChangesMethodOnce()
         {
+            // Arrange
             var expectedBreweryId = this.Fixture.Create<int>();
             var expectedTypeId = this.Fixture.Create<int>();
             var expectedName = this.Fixture.Create<string>();
@@ -48,8 +52,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var breweryRepository = new Mock<IRepository<Brewery>>();
             var service = new BreweryService(breweryRepository.Object, beerRepository.Object);
 
+            // Act
             var result = service.AddNewBeer(expectedBreweryId, expectedTypeId, expectedName);
 
+            // Assert
             beerRepository.Verify(r => r.SaveChanges(), Times.Once);
             Assert.AreSame(expectedResult.Object, result);
         }

@@ -12,6 +12,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         [Test]
         public void ThrowArgumentNullException_WhenRepositoryIsNull()
         {
+            // Act & assert
             Assert.Throws<ArgumentNullException>(() => new BeerReviewService(null));
         }
     }

@@ -19,10 +19,9 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallFindByNameMethodOnce()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
-
             var mockedUser = new MockedApplicationUser();
-
             var userManager = new Mock<IApplicationUserManager>();
             userManager.Setup(m => m.FindByName(userName))
                        .Returns(mockedUser);
@@ -34,14 +33,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.FindByName(userName);
 
+            // Assert
             userManager.Verify(m => m.FindByName(userName), Times.Once);
         }
 
         [Test]
         public void ReturnValueFromUserManager_WhenUserIsFound()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
 
             var mockedUser = new MockedApplicationUser();
@@ -57,14 +59,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.FindByName(userName);
 
+            // Assert
             Assert.AreSame(mockedUser, result);
         }
 
         [Test]
         public void ReturnValueFromUserManager_WhenUserIsNotFound()
         {
+            // Arrange
             var userName = this.Fixture.Create<string>();
             var expectedResult = (ApplicationUser)null;
             var userManager = new Mock<IApplicationUserManager>();
@@ -78,8 +83,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.FindByName(userName);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
         }
     }

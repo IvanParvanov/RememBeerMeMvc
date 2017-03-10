@@ -30,6 +30,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
         [Test]
         public void CallGetRankForEachReviewGroupWithSameBeer()
         {
+            // Arrange
             var totalReviews = 15;
             var reviews = new List<BeerReview>();
             var strategy = new Mock<IRankCalculationStrategy>();
@@ -56,9 +57,11 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
 
             var topBeersService = new TopBeersService(repository.Object, strategy.Object);
 
+            // Act
             topBeersService.GetTopBeers(10);
 
-            foreach (var expectedGroup in enumeratedGroups)
+            // Assert
+            foreach (var expectedGroup in enumeratedGroups )
             {
                 strategy.Verify(s => s.GetBeerRank(expectedGroup, expectedGroup.Key), Times.Once);
             }
@@ -69,6 +72,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
         [TestCase(8, 10)]
         public void ReturnCorrectNumberOfRanks(int totalReviews, int expectedCount)
         {
+            // Arrange
             var reviews = new List<BeerReview>();
             var strategy = new Mock<IRankCalculationStrategy>();
             for (var i = 0; i < totalReviews; i++)
@@ -94,8 +98,10 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
 
             var topBeersService = new TopBeersService(repository.Object, strategy.Object);
 
+            // Act
             var result = topBeersService.GetTopBeers(expectedCount);
 
+            // Assert
             Assert.GreaterOrEqual(expectedCount, result.Count());
         }
 
@@ -104,6 +110,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
         [TestCase(8, 10)]
         public void ReturnRanksOrderedByDescendingCompositeScore(int totalReviews, int expectedCount)
         {
+            // Arrange
             var reviews = new List<BeerReview>();
             var strategy = new Mock<IRankCalculationStrategy>();
             for (var i = 0; i < totalReviews; i++)
@@ -129,8 +136,10 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
 
             var topBeersService = new TopBeersService(repository.Object, strategy.Object);
 
+            // Act
             var result = topBeersService.GetTopBeers(expectedCount);
 
+            // Assert
             var comparer = Comparer<IBeerRank>.Create((a, b) => b.CompositeScore.CompareTo(a.CompositeScore));
             CollectionAssert.IsOrdered(result, comparer);
         }

@@ -19,6 +19,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void CallSignInManagerPasswordSignInMethodOnce()
         {
+            // Arrange
             var email = this.Fixture.Create<string>();
             var password = this.Fixture.Create<string>();
             var isPersistent = this.Fixture.Create<bool>();
@@ -31,8 +32,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.PasswordSignIn(email, password, isPersistent);
 
+            // Assert
             signInManager.Verify(m => m.PasswordSignIn(email, password, isPersistent), Times.Once);
         }
 
@@ -42,6 +45,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [TestCase(SignInStatus.RequiresVerification)]
         public void ReturnResultFromSignInManagerPasswordSignIn(SignInStatus expectedStatus)
         {
+            // Arrange
             var email = this.Fixture.Create<string>();
             var password = this.Fixture.Create<string>();
             var isPersistent = this.Fixture.Create<bool>();
@@ -56,8 +60,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.PasswordSignIn(email, password, isPersistent);
 
+            // Assert
             Assert.AreEqual(expectedStatus, result);
         }
     }

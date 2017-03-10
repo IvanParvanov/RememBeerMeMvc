@@ -22,6 +22,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void Call_UserManagerFindByIdMethodOnceWithCorrectParams()
         {
+            // Arrange
             var userId = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
             var username = this.Fixture.Create<string>();
@@ -39,14 +40,17 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             service.UpdateUser(userId, email, username, isConfirmed);
 
+            // Assert
             userManager.Verify(m => m.FindById(userId), Times.Once);
         }
 
         [Test]
         public void CallAndReturnResultFromUserManagerUpdateAsyncMethod()
         {
+            // Arrange
             var expectedResult = IdentityResult.Failed();
             var userId = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
@@ -67,8 +71,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             var result = service.UpdateUser(userId, email, username, isConfirmed);
 
+            // Assert
             Assert.AreSame(expectedResult, result);
             userManager.Verify(m => m.UpdateAsync(mockedUser), Times.Once);
         }
@@ -76,6 +82,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
         [Test]
         public void SetUserPropertiesCorrectly()
         {
+            // Arrange
             var expectedResult = IdentityResult.Failed();
             var userId = this.Fixture.Create<string>();
             var email = this.Fixture.Create<string>();
@@ -99,8 +106,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           signInManager.Object,
                                           modelFactory.Object);
 
+            // Act
             service.UpdateUser(userId, email, username, isConfirmed);
 
+            // Assert
             Assert.AreSame(email, mockedUser.Email);
             Assert.AreSame(username, mockedUser.UserName);
             Assert.AreEqual(isConfirmed, mockedUser.EmailConfirmed);
