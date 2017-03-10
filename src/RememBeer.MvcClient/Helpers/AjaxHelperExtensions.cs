@@ -16,7 +16,7 @@ namespace RememBeer.MvcClient.Helpers
                                        LoadingElementId = "loading",
                                        UpdateTargetId = "content",
                                        OnSuccess = "initMaterialize()",
-                                       OnFailure = "Materialize.toast('There was a problem with your request. Please try again.', 5000, 'red')"
+                                       OnFailure = "handleAjaxError"
                                    },
                                    new { @class = className });
         }

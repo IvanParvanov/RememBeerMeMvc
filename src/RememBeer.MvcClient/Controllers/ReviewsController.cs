@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 
 using AutoMapper;
@@ -79,26 +81,29 @@ namespace RememBeer.MvcClient.Controllers
             var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
 
             return this.PartialView("Partial/_Edit", mapped);
-
         }
 
         // PUT: Reviews
         [HttpPut]
+        [HandleError]
         public ActionResult Index(EditReviewBindingModel m)
         {
-            var review = this.reviewService.GetById(m.Id);
-            this.mapper.Map(m, review);
-
-            var result = this.reviewService.UpdateReview(review);
-            if (result.Successful)
+            if (ModelState.IsValid)
             {
-                var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
-                mapped.IsEdit = true;
+                var review = this.reviewService.GetById(m.Id);
+                this.mapper.Map(m, review);
 
-                return this.PartialView("Partial/_SingleReview", mapped);
+                var result = this.reviewService.UpdateReview(review);
+                if (result.Successful)
+                {
+                    var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
+                    mapped.IsEdit = true;
+
+                    return this.PartialView("Partial/_SingleReview", mapped);
+                }
             }
 
-            return this.View("NotFound");
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Review validation failed");
         }
     }
 }

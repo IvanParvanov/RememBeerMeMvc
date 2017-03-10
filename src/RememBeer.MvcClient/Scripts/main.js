@@ -20,3 +20,13 @@ function initMaterialize() {
     $('select').material_select();
 }
 
+function handleAjaxError(response) {
+    var message;
+    if (!response || !response.statusText || response.statusText.toLowerCase() == "error") {
+        message = 'There was a problem with your request. Please try again.'
+    } else {
+        message = response.statusText;
+    }
+    
+    Materialize.toast(message, 5000, 'red');
+}

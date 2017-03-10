@@ -8,6 +8,7 @@
                                                    HttpMethod = "PUT",
                                                    UpdateTargetId = "review-" + Model.Id,
                                                    LoadingElementId = "loading",
+                                                   OnFailure = "handleAjaxError",
                                                    InsertionMode = InsertionMode.ReplaceWith
                                                }))
     {
@@ -44,7 +45,7 @@
                     <ul class="list-inline flow-text">
                         <li>
                             <strong>
-                                <div class="input-field inline col s3">
+                                <div class="input-field col s3">
                                     @Html.DropDownListFor(m => m.Overall, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
                                     @Html.LabelFor(m => m.Overall)
                                 </div>
@@ -52,7 +53,7 @@
                         </li>
                         <li>
                             <strong>
-                                <div class="input-field inline col s3">
+                                <div class="input-field col s3">
                                     @Html.DropDownListFor(m => m.Taste, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
                                     @Html.LabelFor(m => m.Taste)
                                 </div>
@@ -60,7 +61,7 @@
                         </li>
                         <li>
                             <strong>
-                                <div class="input-field inline col s3">
+                                <div class="input-field col s3">
                                     @Html.DropDownListFor(m => m.Look, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
                                     @Html.LabelFor(m => m.Look)
                                 </div>
@@ -68,7 +69,7 @@
                         </li>
                         <li>
                             <strong>
-                                <div class="input-field inline col s3">
+                                <div class="input-field col s3">
                                     @Html.DropDownListFor(m => m.Smell, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
                                     @Html.LabelFor(m => m.Smell)
                                 </div>
