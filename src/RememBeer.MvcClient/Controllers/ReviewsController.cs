@@ -117,7 +117,7 @@ namespace RememBeer.MvcClient.Controllers
             var result = this.reviewService.UpdateReview(review);
             if (!result.Successful)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Review validation failed");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Join(", ", result.Errors));
             }
 
             var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);

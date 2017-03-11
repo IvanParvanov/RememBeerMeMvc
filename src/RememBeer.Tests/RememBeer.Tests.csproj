@@ -165,6 +165,7 @@
     <Compile Include="Controllers\Ninject\ReviewsControllerTestBase.cs" />
     <Compile Include="Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="Controllers\ReviewsControllerTests\Details_Should.cs" />
+    <Compile Include="Controllers\ReviewsControllerTests\Edit_Should.cs" />
     <Compile Include="Controllers\ReviewsControllerTests\My_Should.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
