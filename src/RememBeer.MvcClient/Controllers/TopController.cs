@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 using Bytes2you.Validation;
 
+using RememBeer.Common.Constants;
 using RememBeer.Services.Contracts;
 
 namespace RememBeer.MvcClient.Controllers
@@ -21,14 +22,14 @@ namespace RememBeer.MvcClient.Controllers
         // GET: Top/TopBeers
         public ActionResult TopBeers()
         {
-            var topBeers = this.topService.GetTopBeers(10).ToList();
+            var topBeers = this.topService.GetTopBeers(Constants.TopBeersCount).ToList();
             return this.View(topBeers);
         }
 
         // GET: Top/TopBeers
         public ActionResult TopBreweries()
         {
-            var topBreweries = this.topService.GetTopBreweries(10).ToList();
+            var topBreweries = this.topService.GetTopBreweries(Constants.TopBeersCount).ToList();
             return this.View(topBreweries);
         }
     }

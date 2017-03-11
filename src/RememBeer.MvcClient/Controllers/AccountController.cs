@@ -18,12 +18,8 @@ namespace RememBeer.MvcClient.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private IApplicationSignInManager _signInManager;
-        private IApplicationUserManager _userManager;
-
-        //public AccountController()
-        //{
-        //}
+        private IApplicationSignInManager signInManager;
+        private IApplicationUserManager userManager;
 
         public AccountController(IApplicationUserManager userManager, IApplicationSignInManager signInManager)
         {
@@ -38,11 +34,11 @@ namespace RememBeer.MvcClient.Controllers
         {
             get
             {
-                return this._signInManager; // ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this.signInManager;
             }
             private set
             {
-                this._signInManager = value;
+                this.signInManager = value;
             }
         }
 
@@ -50,11 +46,11 @@ namespace RememBeer.MvcClient.Controllers
         {
             get
             {
-                return this._userManager; // ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this.userManager;
             }
             private set
             {
-                this._userManager = value;
+                this.userManager = value;
             }
         }
 
@@ -423,16 +419,16 @@ namespace RememBeer.MvcClient.Controllers
         {
             if (disposing)
             {
-                if (this._userManager != null)
+                if (this.userManager != null)
                 {
-                    this._userManager.Dispose();
-                    this._userManager = null;
+                    this.userManager.Dispose();
+                    this.userManager = null;
                 }
 
-                if (this._signInManager != null)
+                if (this.signInManager != null)
                 {
-                    this._signInManager.Dispose();
-                    this._signInManager = null;
+                    this.signInManager.Dispose();
+                    this.signInManager = null;
                 }
             }
 

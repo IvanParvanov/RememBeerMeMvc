@@ -16,41 +16,21 @@ namespace RememBeer.MvcClient.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private IApplicationSignInManager _signInManager;
-        private IApplicationUserManager _userManager;
+        private IApplicationUserManager userManager;
+        private readonly IApplicationSignInManager signInManager;
 
         public ManageController(IApplicationUserManager userManager, IApplicationSignInManager signInManager)
         {
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
             Guard.WhenArgument(signInManager, nameof(signInManager)).IsNull().Throw();
 
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        public IApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this._signInManager;
-            }
-            private set 
-            {
-                this._signInManager = value; 
-            }
-        }
+        public IApplicationSignInManager SignInManager => this.signInManager;
 
-        public IApplicationUserManager UserManager
-        {
-            get
-            {
-                return this._userManager;
-            }
-            private set
-            {
-                this._userManager = value;
-            }
-        }
+        public IApplicationUserManager UserManager => this.userManager;
 
         //
         // GET: /Manage/Index
@@ -214,10 +194,10 @@ namespace RememBeer.MvcClient.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && this._userManager != null)
+            if (disposing && this.userManager != null)
             {
-                this._userManager.Dispose();
-                this._userManager = null;
+                this.userManager.Dispose();
+                this.userManager = null;
             }
 
             base.Dispose(disposing);
