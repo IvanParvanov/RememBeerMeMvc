@@ -86,6 +86,9 @@ input:not([type]).input-validation-error, input:not([type]):focus.input-validati
 
 #mobile-menu-trigger {
     color: #00897b;
-    top: 20px;
-    left: 20px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 100;
+    background-color: #fff;
 }

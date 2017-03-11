@@ -16,6 +16,9 @@
 
     @if (!Request.IsAuthenticated)
     {
+        <li class="active teal darken-1 z-depth-2">
+            <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
+        </li>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     }
@@ -45,7 +48,7 @@
             <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
         </li>
 
-        using ( Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }) )
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
             @Html.AntiForgeryToken()
             <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
@@ -59,7 +62,7 @@
         <div class="divider"></div>
     </li>
     <li class="active teal darken-1 z-depth-2">
-        <a class="subheader white-text"><i class="fa fa-trophy left white-text">&#xE7FD;</i> Top</a>
+        <a class="subheader white-text"><i class="fa fa-trophy left white-text"></i> Top</a>
     </li>
     <li>
         <a href="@Url.Action("TopBeers", "Top")">Beers</a>
@@ -68,7 +71,8 @@
         <a href="@Url.Action("TopBreweries", "Top")">Breweries</a>
     </li>
 </ul>
-<a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only" id="mobile-menu-trigger">
+
+<a href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large teal darken-1 hide-on-large-only waves-effect waves-light" id="mobile-menu-trigger">
     <i class="material-icons large">menu</i>
 </a>
 
