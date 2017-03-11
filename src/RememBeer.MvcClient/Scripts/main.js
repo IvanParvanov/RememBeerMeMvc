@@ -19,6 +19,7 @@ function initMaterialize() {
     $('select').material_select();
     $.validator.unobtrusive.parse($("form"));
     $('.modal').modal();
+    $('.materialboxed').materialbox();
 }
 
 function handleAjaxError(response) {

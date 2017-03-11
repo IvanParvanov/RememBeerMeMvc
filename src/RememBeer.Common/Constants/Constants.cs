@@ -4,7 +4,7 @@
     {
         public const int TopBeersCount = 10;
 
-        public const int DefaultThumbnailSizePx = 300;
+        public const int DefaultThumbnailSizePx = 1920;
 
         public const double DefaultCacheDurationInMinutes = 10;
 

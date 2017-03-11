@@ -24,13 +24,13 @@
             var parent = $this.parent();
             parent.empty();
 
-            var imgEl = $("<img>").attr("src", response.url);
+            var imgEl = $("<img>").addClass("materialboxed responsive-img").attr("src", response.url);
             parent.prepend(imgEl);
 
-            showSuccess('Image has been successfully updated!')
+            showSuccess('Image has been successfully updated!');
         },
         error: function (error) {
-            alert("errror");
+            handleAjaxError(error);
         }
     });
 });

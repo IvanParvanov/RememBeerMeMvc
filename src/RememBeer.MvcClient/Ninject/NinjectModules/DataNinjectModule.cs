@@ -15,12 +15,12 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
     {
         public override void Load()
         {
-            this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InRequestScope<RememBeerMeDbContext>();
+            this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InRequestScope();
 
             this.Rebind<IModelFactory>().To<ModelFactory>().InSingletonScope();
             this.Bind<IRankFactory>().To<ModelFactory>().InSingletonScope();
 
-            this.Bind<IDataModifiedResultFactory>().ToFactory<IDataModifiedResultFactory>().InSingletonScope();
+            this.Bind<IDataModifiedResultFactory>().ToFactory().InSingletonScope();
 
             this.Rebind<ICacheManager>()
                 .ToMethod(context => new CacheManager(Constants.DefaultCacheDurationInMinutes))

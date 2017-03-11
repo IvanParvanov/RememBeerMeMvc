@@ -1,10 +1,10 @@
 ﻿@model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
 
-<div id="review-@Model.Id"  class="card horizontal">
+<div id="review-@Model.Id" class="card horizontal">
     <div class="row full-width">
         <div class="col s12 l4 center-align">
             <div class="">
-                <img class="responsive-img thumbnail" src="@Model.ImgUrl" alt="Review image">
+                <img class="materialboxed responsive-img" data-caption="@Model.BeerName @@ @Model.Place"src="@Model.ImgUrl" alt="Review image">
             </div>
         </div>
         <div class="col s12 l8">
@@ -51,13 +51,11 @@
                         </strong>
                     </li>
                 </ul>
-
             </div>
         </div>
-        <div class="card-action clearfix">
-
-            @if (Model.IsEdit)
-            {
+        @if (Model.IsEdit)
+        {
+            <div class="card-action clearfix">
                 @Ajax.ActionLink("Edit", "Edit",
                                  new { id = Model.Id },
                                  new AjaxOptions()
@@ -74,7 +72,7 @@
 
                 <a class="right" href="@Url.Action("Details", "Reviews", new { id = Model.Id })">Share Link</a>
                 <div class="clearfix"></div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </div>

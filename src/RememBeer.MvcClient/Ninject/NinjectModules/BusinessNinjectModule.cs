@@ -25,15 +25,21 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
             this.Rebind<IIdentityHelper>().To<IdentityHelper>().InSingletonScope();
             this.Rebind<IConfigurationProvider>().To<ConfigurationProvider>().InSingletonScope();
 
-            this.Bind<IRankCalculationStrategy>().To<DoubleOverallScoreStrategy>().InRequestScope<DoubleOverallScoreStrategy>();
+            this.Bind<IRankCalculationStrategy>().To<DoubleOverallScoreStrategy>().InRequestScope();
 
-            this.Bind<IImageUploadService>().To<CloudinaryImageUpload>();
-            this.Rebind<IUserService>().To<UserService>().InRequestScope<UserService>();
-            this.Rebind<ITopBeersService>().To<TopBeersService>().InRequestScope<TopBeersService>();
-            this.Rebind<IBeerReviewService>().To<BeerReviewService>().InRequestScope<BeerReviewService>();
-            this.Rebind<IBreweryService>().To<BreweryService>().InRequestScope<BreweryService>();
+            this.Rebind<IUserService>().To<UserService>().InRequestScope();
+            this.Rebind<ITopBeersService>().To<TopBeersService>().InRequestScope();
+            this.Rebind<IBeerReviewService>().To<BeerReviewService>().InRequestScope();
+            this.Rebind<IBreweryService>().To<BreweryService>().InRequestScope();
 
             this.Bind<IMapper>().ToMethod(m => Mapper.Instance);
+
+            this.Bind<IImageUploadService>().To<CloudinaryImageUpload>();
+
+#if DEBUG
+            // Don't waste cloudinary space if in debug.
+            this.Rebind<IImageUploadService>().To<DebugImageService>();
+#endif
         }
     }
 }

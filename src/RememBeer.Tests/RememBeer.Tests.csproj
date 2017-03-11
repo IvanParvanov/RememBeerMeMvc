@@ -161,12 +161,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\Ninject\Base\NinjectTestBase.cs" />
-    <Compile Include="Controllers\Ninject\ReviewsControllerTestBase.cs" />
-    <Compile Include="Controllers\ReviewsControllerTests\Ctor_Should.cs" />
-    <Compile Include="Controllers\ReviewsControllerTests\Details_Should.cs" />
-    <Compile Include="Controllers\ReviewsControllerTests\Edit_Should.cs" />
-    <Compile Include="Controllers\ReviewsControllerTests\My_Should.cs" />
+    <Compile Include="Mvc\Controllers\Ninject\Base\NinjectTestBase.cs" />
+    <Compile Include="Mvc\Controllers\Ninject\ReviewsControllerTestBase.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Details_Should.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Edit_Should.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\My_Should.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
     <Compile Include="Utils\MockedClasses\IDisposablePresenter.cs" />
