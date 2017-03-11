@@ -76,13 +76,13 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
         {
             // Arrange
             var sut = this.Kernel.Get<ReviewsController>();
-            var expectedBeerReview = new Mock<IBeerReview>();
+            var beerReview = new Mock<IBeerReview>();
             var expectedViewModel = new SingleReviewViewModel();
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.GetById(It.IsAny<int>()))
-                         .Returns(expectedBeerReview.Object);
+                         .Returns(beerReview.Object);
             var mapper = this.Kernel.GetMock<IMapper>();
-            mapper.Setup(m => m.Map<IBeerReview, SingleReviewViewModel>(expectedBeerReview.Object))
+            mapper.Setup(m => m.Map<IBeerReview, SingleReviewViewModel>(beerReview.Object))
                   .Returns(expectedViewModel);
 
             // Act
