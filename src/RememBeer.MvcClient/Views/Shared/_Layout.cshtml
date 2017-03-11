@@ -1,4 +1,5 @@
-﻿@using Constants = RememBeer.Common.Constants.Constants
+﻿@using Microsoft.AspNet.Identity
+@using Constants = RememBeer.Common.Constants.Constants
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,12 @@
 <body>
 <ul id="slide-out" class="side-nav">
 
-    @if (Request.IsAuthenticated)
+    @if (!Request.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    }
+    else
     {
         <li>
             <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
@@ -24,8 +30,8 @@
             <li>
                 <div class="divider"></div>
             </li>
-            <li>
-                <a class="subheader"><i class="fa fa-address-card"></i> Admin</a>
+            <li class="active teal darken-1 z-depth-2">
+                <a class="subheader white-text"><i class="material-icons left white-text">&#xE8EF;</i> Admin </a>
             </li>
             <li>
                 <a href="@Url.Action("My", "Reviews")">Breweries</a>
@@ -34,12 +40,26 @@
                 <a href="@Url.Action("My", "Reviews")">Users</a>
             </li>
         }
+
+        <li class="active teal darken-1 z-depth-2">
+            <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
+        </li>
+
+        using ( Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }) )
+        {
+            @Html.AntiForgeryToken()
+            <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            </li>
+        }
     }
+
     <li>
         <div class="divider"></div>
     </li>
-    <li>
-        <a class="subheader"><i class="fa fa-trophy"></i> Top</a>
+    <li class="active teal darken-1 z-depth-2">
+        <a class="subheader white-text"><i class="fa fa-trophy left white-text">&#xE7FD;</i> Top</a>
     </li>
     <li>
         <a href="@Url.Action("TopBeers", "Top")">Beers</a>
@@ -73,7 +93,26 @@
                 </li>
             }
         </ul>
-        @Html.Partial("_LoginPartial")
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                <ul id="nav-mobile-right" class="right">
+                    <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </li>
+                </ul>
+            }
+        }
+        else
+        {
+            <ul id="nav-mobile-right" class="right">
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>
+        }
     </div>
     @if (this.User.IsInRole(Constants.AdminRole))
     {

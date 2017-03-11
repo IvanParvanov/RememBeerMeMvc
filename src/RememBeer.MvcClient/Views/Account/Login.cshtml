@@ -5,14 +5,14 @@
 }
 
 <div class="row">
-    <div class="card col s12 m4 offset-m4">
+    <div class="card col s12 m8 offset-m2 l6 offset-l3">
         <div class="card-content">
             <section id="loginForm">
-                @using ( Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }) )
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     <h4>Log in</h4>
-                    <hr />
+                    <hr/>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-default" />
+                            <input type="submit" value="Log in" class="btn btn-default"/>
                         </div>
                     </div>
                     <p>
@@ -56,9 +56,9 @@
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </section>
         </div>*@
-        </div>
     </div>
+</div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

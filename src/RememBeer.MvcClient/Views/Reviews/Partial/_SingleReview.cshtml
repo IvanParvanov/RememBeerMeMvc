@@ -3,9 +3,7 @@
 <div id="review-@Model.Id" class="card horizontal">
     <div class="row full-width">
         <div class="col s12 l4 center-align">
-            <div class="">
-                <img class="materialboxed responsive-img" data-caption="@Model.BeerName @@ @Model.Place"src="@Model.ImgUrl" alt="Review image">
-            </div>
+            <img class="materialboxed responsive-img" data-caption="@Model.BeerName @@ @Model.Place" src="@Model.ImgUrl" alt="Review image">
         </div>
         <div class="col s12 l8">
             <div class="card-content review-body">
@@ -26,28 +24,28 @@
                     <li>
                         <strong>
                             Overall:
-                            <span class="">@Html.DisplayFor(x => x.Overall)</span>
+                            <span>@Html.DisplayFor(x => x.Overall)</span>
                         </strong>
                     </li>
                     <li>|</li>
                     <li>
                         <strong>
                             Taste:
-                            <span class="">@Html.DisplayFor(x => x.Taste)</span>
+                            <span>@Html.DisplayFor(x => x.Taste)</span>
                         </strong>
                     </li>
                     <li>|</li>
                     <li>
                         <strong>
                             Looks:
-                            <span class="">@Html.DisplayFor(x => x.Look)</span>
+                            <span>@Html.DisplayFor(x => x.Look)</span>
                         </strong>
                     </li>
                     <li>|</li>
                     <li>
                         <strong>
                             Aroma:
-                            <span class="">@Html.DisplayFor(x => x.Smell)</span>
+                            <span>@Html.DisplayFor(x => x.Smell)</span>
                         </strong>
                     </li>
                 </ul>
