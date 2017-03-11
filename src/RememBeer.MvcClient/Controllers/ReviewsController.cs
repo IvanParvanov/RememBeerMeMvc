@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 using RememBeer.Common.Services.Contracts;
 using RememBeer.Models.Contracts;
+using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 
@@ -87,6 +88,7 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         // GET: Reviews/Edit/{id}
+        [AjaxOnly]
         public ActionResult Edit(int id)
         {
             var review = this.reviewService.GetById(id);
@@ -97,6 +99,7 @@ namespace RememBeer.MvcClient.Controllers
 
         // PUT: Reviews
         [ValidateAntiForgeryToken]
+        [AjaxOnly]
         [HttpPut]
         public ActionResult Index(EditReviewBindingModel m)
         {
@@ -128,6 +131,7 @@ namespace RememBeer.MvcClient.Controllers
 
         // POST: Reviews/ChangeImage
         [HttpPost]
+        [AjaxOnly]
         [ValidateAntiForgeryToken]
         public ActionResult ChangeImage(ChangeImageBindingModel model)
         {

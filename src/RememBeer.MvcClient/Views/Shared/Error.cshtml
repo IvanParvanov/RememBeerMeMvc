@@ -4,6 +4,24 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
+<div class="row">
+    <div class="card col s12 m6 offset-m3">
+        <div class="card-content">
+            <h3 class="text-danger">Error.</h3>
+            @if (ViewData["ErrorMessage"] != null)
+            {
+                <h5 class="text-danger">
+                    @ViewData["ErrorMessage"]
+                </h5>
+            }
+            else
+            {
+                <h5>An error occurred while processing your request.</h5>
+            }
+        </div>
+        <div class="card-action clearfix">
+            <a href="/" class="btn btn-flat green white-text">Take me back<i class="material-icons left">&#xE88A;</i></a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

@@ -8,5 +8,10 @@ namespace RememBeer.MvcClient.Controllers
         {
             return this.View();
         }
+
+        public ActionResult Error()
+        {
+            return this.View("Error");
+        }
     }
 }
