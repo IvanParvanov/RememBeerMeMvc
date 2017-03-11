@@ -160,12 +160,12 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel(), new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
-            mapper.Setup(m => m.Map(It.IsAny<object>(), It.IsAny<object>()))
+            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
-
+            
             // Act
             var result = sut.My(expectedPage, expectedPageSize) as PartialViewResult;
 
