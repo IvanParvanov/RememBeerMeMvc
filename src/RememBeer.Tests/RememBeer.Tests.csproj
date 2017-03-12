@@ -171,6 +171,15 @@
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Edit_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\My_Should.cs" />
+    <Compile Include="Mvc\Models\Account\ExternalLoginConfirmationViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\ExternalLoginListViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\ForgotPasswordViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\ForgotViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\LoginViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\RegisterViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\ResetPasswordViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\SendCodeViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Account\VerifyCodeViewModelTests.cs" />
     <Compile Include="Utils\AttributeTester.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
