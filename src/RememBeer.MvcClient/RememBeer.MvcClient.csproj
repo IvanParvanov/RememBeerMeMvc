@@ -286,6 +286,7 @@
     <Compile Include="Models\Reviews\PaginatedReviewsViewModel.cs" />
     <Compile Include="Models\Reviews\SingleReviewViewModel.cs" />
     <Compile Include="Models\Shared\PaginatedViewModel.cs" />
+    <Compile Include="Models\Shared\UrlOnlyDto.cs" />
     <Compile Include="Ninject\Compositions\Base\ModuleCompositionBase.cs" />
     <Compile Include="Ninject\Compositions\Contracts\IModuleComposition.cs" />
     <Compile Include="Ninject\NinjectModules\AuthNinjectModule.cs" />

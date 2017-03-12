@@ -13,6 +13,7 @@ using RememBeer.Common.Services.Contracts;
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
+using RememBeer.MvcClient.Models.Shared;
 using RememBeer.Services.Contracts;
 
 using Constants = RememBeer.Common.Constants.Constants;
@@ -156,7 +157,7 @@ namespace RememBeer.MvcClient.Controllers
             var result = this.reviewService.UpdateReview(review);
             if (result.Successful)
             {
-                return this.Json(new { url });
+                return this.Json(new UrlOnlyDto { url = url });
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
