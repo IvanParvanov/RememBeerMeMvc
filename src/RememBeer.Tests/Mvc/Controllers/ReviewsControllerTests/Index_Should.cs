@@ -36,7 +36,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         public void HaveValidateAntiForgeryTokenAttribute()
         {
             // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(ValidateAntiForgeryTokenAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(EditReviewBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -44,8 +45,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAjaxOnlyAttribute()
         {
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(AjaxOnlyAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(EditReviewBindingModel)), typeof(AjaxOnlyAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -53,8 +54,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveHttpPutAttribute()
         {
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(HttpPutAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(EditReviewBindingModel)), typeof(HttpPutAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }

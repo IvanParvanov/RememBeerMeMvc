@@ -1,20 +1,7 @@
-﻿@model RememBeer.MvcClient.Models.Reviews.PaginatedReviewsViewModel
+﻿@using RememBeer.MvcClient.Models.Reviews
+@model RememBeer.MvcClient.Models.Reviews.PaginatedReviewsViewModel
 
-<!-- Modal Trigger -->
-<div class="center-align hide-on-med-and-down">
-    <a class="waves-effect waves-light btn btn-large modal-trigger green " href="#createModal">Create a new review</a>
-</div>
-
-<!-- Modal Structure -->
-<div id="createModal" class="modal">
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-</div>
+@Html.Partial("Partial/_Create", new CreateReviewBindingModel());
 
 @if (Model.Reviews.Any())
 {
@@ -23,17 +10,9 @@
         @Html.Partial("Partial/_SingleReview", review)
     }
 }
-
 else
 {
     <h5>You don't have any reviews yet!</h5>
 }
 
 @Html.Partial("_Pagination", Model)
-
-
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light modal-trigger green" href="#createModal">
-        <i class="large material-icons">add</i>
-    </a>
-</div>

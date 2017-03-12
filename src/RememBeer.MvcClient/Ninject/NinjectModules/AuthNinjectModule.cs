@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Web;
 
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 using Ninject.Modules;
 
@@ -33,6 +34,16 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
                               ThrowIfNull(owinCtx);
 
                               return owinCtx.Get<IApplicationUserManager>();
+                          });
+
+            this.Rebind<IAuthenticationManager>()
+                .ToMethod(context =>
+                          {
+                              var cbase = new HttpContextWrapper(HttpContext.Current);
+                              var owinCtx = cbase.GetOwinContext();
+                              ThrowIfNull(owinCtx);
+
+                              return owinCtx.Authentication;
                           });
         }
 

@@ -37,8 +37,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveValidateAntiForgeryTokenAttribute()
         {
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.ChangeImage), typeof(ValidateAntiForgeryTokenAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -46,8 +46,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAjaxOnlyAttribute()
         {
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.ChangeImage), typeof(AjaxOnlyAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(AjaxOnlyAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -55,8 +55,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveHttpPostAttribute()
         {
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.ChangeImage), typeof(HttpPostAttribute));
+            var sut = this.Kernel.Get<ReviewsController>();
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(HttpPostAttribute));
             // Assert
             Assert.IsTrue(hasAttribute);
         }

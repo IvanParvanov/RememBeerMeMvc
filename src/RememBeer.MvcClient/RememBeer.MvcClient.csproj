@@ -254,6 +254,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Models\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Models\Manage\SetPasswordViewModel.cs" />
     <Compile Include="Models\Reviews\ChangeImageBindingModel.cs" />
+    <Compile Include="Models\Reviews\CreateReviewBindingModel.cs" />
     <Compile Include="Models\Reviews\EditReviewBindingModel.cs" />
     <Compile Include="Models\Reviews\PaginatedReviewsViewModel.cs" />
     <Compile Include="Models\Reviews\SingleReviewViewModel.cs" />
@@ -329,6 +331,8 @@
     <Content Include="Content\materialize-v0.97.5\fonts\roboto\Roboto-Thin.woff2" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\beer-autocomplete.js" />
+    <Content Include="Scripts\devbridge-autocomplete.min.js" />
     <Content Include="Scripts\img-upload.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -413,9 +417,7 @@
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Reviews\My.cshtml" />
@@ -427,12 +429,14 @@
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Reviews\Partial\_ReviewList.cshtml" />
     <Content Include="Views\Reviews\Partial\_Edit.cshtml" />
+    <Content Include="Views\Reviews\Partial\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Views\Beers\" />
     <Folder Include="Views\Top\Partial\" />
   </ItemGroup>
   <ItemGroup>

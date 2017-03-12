@@ -10,6 +10,7 @@ using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 
 using RememBeer.Common.Services.Contracts;
+using RememBeer.Models;
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
@@ -105,14 +106,14 @@ namespace RememBeer.MvcClient.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Review validation failed");
+                return this.ReviewValidationFailure();
             }
 
             var review = this.reviewService.GetById(m.Id);
             var userId = this.User?.Identity?.GetUserId();
             if (userId != review.ApplicationUserId && !this.User.IsInRole(Constants.AdminRole))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
+                return this.Unauthorized();
             }
 
             this.mapper.Map(m, review);
@@ -143,13 +144,13 @@ namespace RememBeer.MvcClient.Controllers
             var userId = this.User?.Identity.GetUserId();
             if (userId != review.ApplicationUserId && !this.User.IsInRole(Constants.AdminRole))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
+                return this.Unauthorized();
             }
 
             var url = this.imageUpload.UploadImage(imgArray, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
             if (url == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
+                return this.ImageUploadFailure();
             }
 
             review.ImgUrl = url;
@@ -160,6 +161,58 @@ namespace RememBeer.MvcClient.Controllers
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
+        }
+
+        // POST: Reviews/Index
+        [HttpPost]
+        [AjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(CreateReviewBindingModel m)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.ReviewValidationFailure();
+            }
+
+            string imgUrl = null;
+            if (m.Image != null)
+            {
+                var stream = m.Image.InputStream;
+                var image = this.StreamToArray(stream);
+                imgUrl = this.imageUpload.UploadImage(image, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+                if (imgUrl == null)
+                {
+                    return this.ImageUploadFailure();
+                }
+            }
+
+            var review = new BeerReview();
+            this.mapper.Map(m, review);
+            review.ApplicationUserId = this.User.Identity.GetUserId();
+            review.ImgUrl = imgUrl ?? review.ImgUrl; 
+
+            var result = this.reviewService.CreateReview(review);
+            if (result.Successful)
+            {
+                return this.RedirectToAction("My");
+            }
+
+            return this.ReviewValidationFailure();
+        }
+
+        private HttpStatusCodeResult ImageUploadFailure()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
+        }
+
+        private HttpStatusCodeResult ReviewValidationFailure()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Review validation failed");
+        }
+
+        private HttpStatusCodeResult Unauthorized()
+        {
+            return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
         }
 
         private byte[] StreamToArray(Stream stream)

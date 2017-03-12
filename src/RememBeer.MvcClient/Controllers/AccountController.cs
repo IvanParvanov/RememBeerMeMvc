@@ -18,16 +18,22 @@ namespace RememBeer.MvcClient.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
         private IApplicationSignInManager signInManager;
         private IApplicationUserManager userManager;
+        private readonly IAuthenticationManager authenticationManager;
 
-        public AccountController(IApplicationUserManager userManager, IApplicationSignInManager signInManager)
+        public AccountController(IApplicationUserManager userManager, IApplicationSignInManager signInManager, IAuthenticationManager authenticationManager)
         {
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
             Guard.WhenArgument(signInManager, nameof(signInManager)).IsNull().Throw();
+            Guard.WhenArgument(authenticationManager, nameof(authenticationManager)).IsNull().Throw();
 
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.authenticationManager = authenticationManager;
         }
 
         //
@@ -61,7 +67,7 @@ namespace RememBeer.MvcClient.Controllers
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                //return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError("", "Invalid login attempt.");
@@ -257,14 +263,14 @@ namespace RememBeer.MvcClient.Controllers
 
         //
         // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-        }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ExternalLogin(string provider, string returnUrl)
+        //{
+        //    // Request a redirect to the external login provider
+        //    return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        //}
 
         //
         // GET: /Account/SendCode
@@ -303,75 +309,75 @@ namespace RememBeer.MvcClient.Controllers
             return this.RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return this.RedirectToAction("Login");
-            }
+        ////
+        //// GET: /Account/ExternalLoginCallback
+        //[AllowAnonymous]
+        //public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        //{
+        //    var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+        //    if (loginInfo == null)
+        //    {
+        //        return this.RedirectToAction("Login");
+        //    }
 
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await this.signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return this.View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    this.ViewBag.ReturnUrl = returnUrl;
-                    this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
-        }
+        //    // Sign in the user with this external login provider if the user already has a login
+        //    var result = await this.signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return this.RedirectToLocal(returnUrl);
+        //        case SignInStatus.LockedOut:
+        //            return this.View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+        //        case SignInStatus.Failure:
+        //        default:
+        //            // If the user does not have an account, then prompt the user to create an account
+        //            this.ViewBag.ReturnUrl = returnUrl;
+        //            this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+        //            return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+        //    }
+        //}
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (this.User.Identity.IsAuthenticated)
-            {
-                return this.RedirectToAction("Index", "Manage");
-            }
+        ////
+        //// POST: /Account/ExternalLoginConfirmation
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        //{
+        //    if (this.User.Identity.IsAuthenticated)
+        //    {
+        //        return this.RedirectToAction("Index", "Manage");
+        //    }
 
-            if (this.ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return this.View("ExternalLoginFailure");
-                }
+        //    if (this.ModelState.IsValid)
+        //    {
+        //        // Get the information about the user from the external login provider
+        //        var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
+        //        if (info == null)
+        //        {
+        //            return this.View("ExternalLoginFailure");
+        //        }
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await this.userManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await this.userManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return this.RedirectToLocal(returnUrl);
-                    }
-                }
+        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        //        var result = await this.userManager.CreateAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            result = await this.userManager.AddLoginAsync(user.Id, info.Login);
+        //            if (result.Succeeded)
+        //            {
+        //                await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //                return this.RedirectToLocal(returnUrl);
+        //            }
+        //        }
 
-                this.AddErrors(result);
-            }
+        //        this.AddErrors(result);
+        //    }
 
-            this.ViewBag.ReturnUrl = returnUrl;
-            return this.View(model);
-        }
+        //    this.ViewBag.ReturnUrl = returnUrl;
+        //    return this.View(model);
+        //}
 
         //
         // POST: /Account/LogOff
@@ -379,17 +385,17 @@ namespace RememBeer.MvcClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
-        {
-            return this.View();
-        }
+        ////
+        //// GET: /Account/ExternalLoginFailure
+        //[AllowAnonymous]
+        //public ActionResult ExternalLoginFailure()
+        //{
+        //    return this.View();
+        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -412,17 +418,6 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         #region Helpers
-
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return this.HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {

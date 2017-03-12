@@ -13,6 +13,13 @@
     <meta name="description" content="The description of my page" />
 </head>
 <body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/materialize")
+@Scripts.Render("~/bundles/custom")
+
+@RenderSection("scripts", required: false)
+
 <ul id="slide-out" class="side-nav">
 
     @if (!Request.IsAuthenticated)
@@ -158,11 +165,5 @@
         </div>
     </div>
 </footer>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/materialize")
-@Scripts.Render("~/bundles/custom")
-
-@RenderSection("scripts", required: false)
 </body>
 </html>

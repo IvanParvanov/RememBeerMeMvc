@@ -1,0 +1,116 @@
+﻿@using RememBeer.MvcClient.Helpers
+@using RememBeer.MvcClient.Models.Reviews
+@model RememBeer.MvcClient.Models.Reviews.CreateReviewBindingModel
+
+<!-- Modal Trigger -->
+<div class="center-align hide-on-med-and-down">
+    <a class="waves-effect waves-light btn btn-large modal-trigger green " href="#createModal">Create a new review</a>
+</div>
+
+<!-- Modal Structure -->
+<div id="createModal" class="modal">
+    @using (Ajax.BeginForm("Index", "Reviews", null,
+                                       new AjaxOptions()
+                                       {
+                                           HttpMethod = "POST",
+                                           UpdateTargetId = "content",
+                                           LoadingElementId = "loading",
+                                           OnFailure = "handleAjaxError",
+                                           OnSuccess = "showSuccess('Review has been successfully created!')",
+                                           InsertionMode = InsertionMode.ReplaceWith
+                                       },
+                                       new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content" }) )
+    {
+        @Html.HiddenFor(x => x.BeerId, new {id="hiddenBeerId"})
+        <div class="row">
+            <h4>Create a new review</h4>
+            <div class="col s12 l4 center-align">
+                <div class="">
+                    <p>
+                        Upload a new image:
+                        <input type="file" accept="image/*" id="imgUpload" />
+
+                    </p>
+                </div>
+            </div>
+            <div class="col s12 l8">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                <div class="card-content review-body">
+                    <div class="card-title">
+                        <div class="input-field">
+                            <label for="beerName">Beer name</label>
+                            <input type="text" required name="beerName" id="beerName"/>
+                        </div>
+                        @*<h5>
+                                @Html.DisplayFor(x => x.BeerName)
+                            </h5>*@
+                    </div>
+                    <p>
+                        <div class="input-field">
+                            <i class="prefix material-icons">&#xE0C8;</i>
+                            @Html.LabelFor(x => x.Place)
+                            @Html.TextBoxFor(m => m.Place)
+                            @Html.ValidationMessageFor(m => m.Place)
+                        </div>
+                        <div class="input-field">
+                            @Html.LabelFor(x => x.Description)
+                            @Html.TextAreaFor(m => m.Description, new { @class = "materialize-textarea" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </p>
+                    <ul class="list-inline flow-text">
+                        <li>
+                            <strong>
+                                <div class="input-field col s3">
+                                    @Html.DropDownListFor(m => m.Overall, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                    @Html.LabelFor(m => m.Overall)
+                                </div>
+                            </strong>
+                        </li>
+                        <li>
+                            <strong>
+                                <div class="input-field col s3">
+                                    @Html.DropDownListFor(m => m.Taste, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                    @Html.LabelFor(m => m.Taste)
+                                </div>
+                            </strong>
+                        </li>
+                        <li>
+                            <strong>
+                                <div class="input-field col s3">
+                                    @Html.DropDownListFor(m => m.Look, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                    @Html.LabelFor(m => m.Look)
+                                </div>
+                            </strong>
+                        </li>
+                        <li>
+                            <strong>
+                                <div class="input-field col s3">
+                                    @Html.DropDownListFor(m => m.Smell, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                    @Html.LabelFor(m => m.Smell)
+                                </div>
+                            </strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action clearfix">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-flat green darken-1 white-text" />
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+        </div>
+    }
+
+    <script src="~/Scripts/devbridge-autocomplete.min.js"></script>
+    <script src="~/Scripts/beer-autocomplete.js"></script>
+</div>
+
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light modal-trigger green" href="#createModal">
+        <i class="large material-icons">add</i>
+    </a>
+</div>
