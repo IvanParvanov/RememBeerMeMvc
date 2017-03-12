@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web;
@@ -18,9 +17,9 @@ using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
-using RememBeer.Tests.Controllers.Ninject;
+using RememBeer.Tests.Mvc.Controllers.Ninject;
 
-namespace RememBeer.Tests.Controllers.ReviewsControllerTests
+namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     [TestFixture]
     public class My_Should : ReviewsControllerTestBase
@@ -101,7 +100,7 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
-            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>,IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
+            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
@@ -131,7 +130,7 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
-            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>,IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
+            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
@@ -166,7 +165,7 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
-            
+
             // Act
             var result = sut.My(expectedPage, expectedPageSize) as PartialViewResult;
 
@@ -192,7 +191,7 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel(), new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
-            mapper.Setup(m => m.Map(It.IsAny<object>(), It.IsAny<object>()))
+            mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))

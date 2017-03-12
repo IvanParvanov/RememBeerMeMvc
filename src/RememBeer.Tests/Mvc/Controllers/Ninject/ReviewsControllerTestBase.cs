@@ -10,9 +10,9 @@ using Ninject.MockingKernel;
 using RememBeer.Common.Services.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.Services.Contracts;
-using RememBeer.Tests.Controllers.Ninject.Base;
+using RememBeer.Tests.Mvc.Controllers.Ninject.Base;
 
-namespace RememBeer.Tests.Controllers.Ninject
+namespace RememBeer.Tests.Mvc.Controllers.Ninject
 {
     public class ReviewsControllerTestBase : NinjectTestBase
     {

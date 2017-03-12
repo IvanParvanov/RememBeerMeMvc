@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-namespace RememBeer.Tests.Controllers.Ninject.Base
+namespace RememBeer.Tests.Mvc.Controllers.Ninject.Base
 {
     public abstract class NinjectTestBase
     {

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 
 using AutoMapper;
 
@@ -12,16 +13,28 @@ using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
-using RememBeer.Tests.Controllers.Ninject;
+using RememBeer.Tests.Mvc.Controllers.Ninject;
 
-namespace RememBeer.Tests.Controllers.ReviewsControllerTests
+namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     [TestFixture]
     public class Details_Should : ReviewsControllerTestBase
     {
+        [Test]
+        public void HaveAllowAnonymousAttribute()
+        {
+            // Arrange
+            var method = typeof(ReviewsController).GetMethods()
+                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Details));
+            // Act
+            var attribute = method?.GetCustomAttributes(typeof(AllowAnonymousAttribute), true)
+                                  .SingleOrDefault() as AllowAnonymousAttribute;
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
         [TestCase(1)]
         [TestCase(49979687)]
-        [TestCase(314606869)]
         public void Call_ReviewServiceGetByIdMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
@@ -37,7 +50,6 @@ namespace RememBeer.Tests.Controllers.ReviewsControllerTests
 
         [TestCase(1)]
         [TestCase(49979687)]
-        [TestCase(314606869)]
         public void ReturnNotFoundView_WhenReviewIsNotFound(int expectedId)
         {
             // Arrange

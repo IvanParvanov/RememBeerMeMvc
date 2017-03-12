@@ -109,7 +109,7 @@ namespace RememBeer.MvcClient.Controllers
             }
 
             var review = this.reviewService.GetById(m.Id);
-            var userId = this.User.Identity.GetUserId();
+            var userId = this.User?.Identity?.GetUserId();
             if (userId != review.ApplicationUserId && !this.User.IsInRole(Constants.AdminRole))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
@@ -139,17 +139,17 @@ namespace RememBeer.MvcClient.Controllers
             var id = model.Id;
             var imgArray = this.StreamToArray(img.InputStream);
 
-            var url = this.imageUpload.UploadImage(imgArray, Constants.DefaultThumbnailSizePx, Constants.DefaultThumbnailSizePx);
-            if (url == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
-            }
-
             var review = this.reviewService.GetById(id);
-            var userId = this.User.Identity.GetUserId();
+            var userId = this.User?.Identity.GetUserId();
             if (userId != review.ApplicationUserId && !this.User.IsInRole(Constants.AdminRole))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
+            }
+
+            var url = this.imageUpload.UploadImage(imgArray, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+            if (url == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
             }
 
             review.ImgUrl = url;

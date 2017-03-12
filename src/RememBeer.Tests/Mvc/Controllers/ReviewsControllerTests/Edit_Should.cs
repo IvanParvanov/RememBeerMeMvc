@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 
 using AutoMapper;
 
@@ -10,14 +11,28 @@ using NUnit.Framework;
 
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Controllers;
+using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
-using RememBeer.Tests.Controllers.Ninject;
+using RememBeer.Tests.Mvc.Controllers.Ninject;
 
-namespace RememBeer.Tests.Controllers.ReviewsControllerTests
+namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     public class Edit_Should : ReviewsControllerTestBase
     {
+        [Test]
+        public void HaveAjaxOnlyAttribute()
+        {
+            // Arrange
+            var method = typeof(ReviewsController).GetMethods()
+                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Edit));
+            // Act
+            var attribute = method?.GetCustomAttributes(typeof(AjaxOnlyAttribute), true)
+                                  .SingleOrDefault() as AjaxOnlyAttribute;
+            // Assert
+            Assert.IsNotNull(attribute);
+        }
+
         [TestCase(1)]
         [TestCase(49979687)]
         [TestCase(314606869)]

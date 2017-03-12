@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
@@ -10,6 +11,7 @@ using RememBeer.MvcClient.Ninject.Compositions.Contracts;
 
 namespace RememBeer.MvcClient.Ninject.Compositions.Base
 {
+    [ExcludeFromCodeCoverage]
     public abstract class ModuleCompositionBase : IModuleComposition
     {
         public void RegisterServices(IKernel kernel)

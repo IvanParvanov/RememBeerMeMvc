@@ -10,7 +10,7 @@ using RememBeer.Common.Services.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.Services.Contracts;
 
-namespace RememBeer.Tests.Controllers.ReviewsControllerTests
+namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     [TestFixture]
     public class Ctor_Should
