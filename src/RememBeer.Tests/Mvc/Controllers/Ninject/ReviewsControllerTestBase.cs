@@ -1,9 +1,4 @@
-﻿using System.Security.Principal;
-using System.Web;
-
-using AutoMapper;
-
-using Moq;
+﻿using AutoMapper;
 
 using Ninject.MockingKernel;
 
@@ -24,19 +19,6 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
             this.Kernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
             this.Kernel.Bind<IBeerService>().ToMock().InSingletonScope();
             this.Kernel.Bind<IImageUploadService>().ToMock().InSingletonScope();
-
-            this.Kernel.Bind<HttpContextBase>()
-                .ToMethod(ctx =>
-                {
-                    var request = new Mock<HttpRequestBase>();
-                    var context = new Mock<HttpContextBase>();
-                    context.SetupGet(x => x.Request).Returns(request.Object);
-                    context.SetupGet(x => x.User.Identity).Returns((IIdentity)null);
-
-                    return context.Object;
-                })
-                .InSingletonScope()
-                .Named(UnauthContextName);
         }
     }
 }

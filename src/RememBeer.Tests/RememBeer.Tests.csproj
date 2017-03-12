@@ -185,6 +185,10 @@
     <Compile Include="Mvc\Models\Manage\IndexViewModelTests.cs" />
     <Compile Include="Mvc\Models\Manage\ManageLoginsViewModelTests.cs" />
     <Compile Include="Mvc\Models\Manage\SetPasswordViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Reviews\ChangeImageBindingModelTests.cs" />
+    <Compile Include="Mvc\Models\Reviews\EditReviewBindingModelTests.cs" />
+    <Compile Include="Mvc\Models\Reviews\PaginatedReviewsViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Reviews\SingleReviewViewModelTests.cs" />
     <Compile Include="Services\BeerServiceTests\Ctor_Should.cs" />
     <Compile Include="Services\BeerServiceTests\Get_Should.cs" />
     <Compile Include="Utils\AttributeTester.cs" />

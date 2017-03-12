@@ -26,32 +26,8 @@ namespace RememBeer.MvcClient.Controllers
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
             Guard.WhenArgument(signInManager, nameof(signInManager)).IsNull().Throw();
 
-            this.UserManager = userManager;
-            this.SignInManager = signInManager;
-        }
-
-        public IApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager;
-            }
-            private set
-            {
-                this.signInManager = value;
-            }
-        }
-
-        public IApplicationUserManager UserManager
-        {
-            get
-            {
-                return this.userManager;
-            }
-            private set
-            {
-                this.userManager = value;
-            }
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         //
@@ -77,7 +53,7 @@ namespace RememBeer.MvcClient.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -99,7 +75,7 @@ namespace RememBeer.MvcClient.Controllers
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await this.SignInManager.HasBeenVerifiedAsync())
+            if (!await this.signInManager.HasBeenVerifiedAsync())
             {
                 return this.View("Error");
             }
@@ -123,7 +99,7 @@ namespace RememBeer.MvcClient.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await this.signInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,10 +131,10 @@ namespace RememBeer.MvcClient.Controllers
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user, model.Password);
+                var result = await this.userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -186,7 +162,7 @@ namespace RememBeer.MvcClient.Controllers
                 return this.View("Error");
             }
 
-            var result = await this.UserManager.ConfirmEmailAsync(userId, code);
+            var result = await this.userManager.ConfirmEmailAsync(userId, code);
             return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -207,8 +183,8 @@ namespace RememBeer.MvcClient.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this.UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await this.UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await this.userManager.FindByNameAsync(model.Email);
+                if (user == null || !(await this.userManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return this.View("ForgotPasswordConfirmation");
@@ -254,14 +230,14 @@ namespace RememBeer.MvcClient.Controllers
                 return this.View(model);
             }
 
-            var user = await this.UserManager.FindByNameAsync(model.Email);
+            var user = await this.userManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
             }
 
-            var result = await this.UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await this.userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return this.RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -295,13 +271,13 @@ namespace RememBeer.MvcClient.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await this.SignInManager.GetVerifiedUserIdAsync();
+            var userId = await this.signInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
                 return this.View("Error");
             }
 
-            var userFactors = await this.UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var userFactors = await this.userManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return this.View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -319,7 +295,7 @@ namespace RememBeer.MvcClient.Controllers
             }
 
             // Generate the token and send it
-            if (!await this.SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await this.signInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
                 return this.View("Error");
             }
@@ -339,7 +315,7 @@ namespace RememBeer.MvcClient.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await this.SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await this.signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -379,13 +355,13 @@ namespace RememBeer.MvcClient.Controllers
                 }
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await this.UserManager.CreateAsync(user);
+                var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await this.UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await this.userManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await this.signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return this.RedirectToLocal(returnUrl);
                     }
                 }

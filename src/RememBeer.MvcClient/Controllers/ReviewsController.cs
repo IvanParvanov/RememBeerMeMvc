@@ -58,7 +58,6 @@ namespace RememBeer.MvcClient.Controllers
 
             var viewModel = new PaginatedReviewsViewModel()
                             {
-                                Page = page,
                                 Reviews = mappedReviews,
                                 TotalCount = totalCount,
                                 CurrentPage = page,
