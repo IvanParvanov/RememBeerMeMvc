@@ -15,6 +15,7 @@ using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.Mvc.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
@@ -23,14 +24,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAjaxOnlyAttribute()
         {
-            // Arrange
-            var method = typeof(ReviewsController).GetMethods()
-                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Edit));
             // Act
-            var attribute = method?.GetCustomAttributes(typeof(AjaxOnlyAttribute), true)
-                                  .SingleOrDefault() as AjaxOnlyAttribute;
+            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Edit), typeof(AjaxOnlyAttribute));
             // Assert
-            Assert.IsNotNull(attribute);
+            Assert.IsTrue(hasAttribute);
         }
 
         [TestCase(1)]

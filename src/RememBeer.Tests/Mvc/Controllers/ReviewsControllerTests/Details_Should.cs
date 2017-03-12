@@ -14,6 +14,7 @@ using RememBeer.MvcClient.Controllers;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.Mvc.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
@@ -23,14 +24,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAllowAnonymousAttribute()
         {
-            // Arrange
-            var method = typeof(ReviewsController).GetMethods()
-                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Details));
             // Act
-            var attribute = method?.GetCustomAttributes(typeof(AllowAnonymousAttribute), true)
-                                  .SingleOrDefault() as AllowAnonymousAttribute;
+            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Details), typeof(AllowAnonymousAttribute));
             // Assert
-            Assert.IsNotNull(attribute);
+            Assert.IsTrue(hasAttribute);
         }
 
         [TestCase(1)]

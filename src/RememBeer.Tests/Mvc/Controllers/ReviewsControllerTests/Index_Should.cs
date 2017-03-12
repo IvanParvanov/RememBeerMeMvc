@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -25,10 +23,8 @@ using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.Mvc.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 using RememBeer.Tests.Utils.TestExtensions;
-
-using ValidationContext = System.Activities.Validation.ValidationContext;
-using Validator = System.Web.WebPages.Validator;
 
 namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
@@ -40,40 +36,28 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveValidateAntiForgeryTokenAttribute()
         {
-            // Arrange
-            var method = typeof(ReviewsController).GetMethods()
-                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Index));
             // Act
-            var attribute = method?.GetCustomAttributes(typeof(ValidateAntiForgeryTokenAttribute), true)
-                                  .SingleOrDefault() as ValidateAntiForgeryTokenAttribute;
+            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(ValidateAntiForgeryTokenAttribute));
             // Assert
-            Assert.IsNotNull(attribute);
+            Assert.IsTrue(hasAttribute);
         }
 
         [Test]
         public void HaveAjaxOnlyAttribute()
         {
-            // Arrange
-            var method = typeof(ReviewsController).GetMethods()
-                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Index));
             // Act
-            var attribute = method?.GetCustomAttributes(typeof(AjaxOnlyAttribute), true)
-                                  .SingleOrDefault() as AjaxOnlyAttribute;
+            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(AjaxOnlyAttribute));
             // Assert
-            Assert.IsNotNull(attribute);
+            Assert.IsTrue(hasAttribute);
         }
 
         [Test]
         public void HaveHttpPutAttribute()
         {
-            // Arrange
-            var method = typeof(ReviewsController).GetMethods()
-                                                  .SingleOrDefault(x => x.Name == nameof(ReviewsController.Index));
             // Act
-            var attribute = method?.GetCustomAttributes(typeof(HttpPutAttribute), true)
-                                  .SingleOrDefault() as HttpPutAttribute;
+            var hasAttribute = AttributeTester.MethodHasAttribute(typeof(ReviewsController), nameof(ReviewsController.Index), typeof(HttpPutAttribute));
             // Assert
-            Assert.IsNotNull(attribute);
+            Assert.IsTrue(hasAttribute);
         }
 
         [Test]
