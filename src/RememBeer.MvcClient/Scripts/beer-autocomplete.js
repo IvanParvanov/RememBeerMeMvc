@@ -1,4 +1,5 @@
-﻿$("#beerName")
+﻿(function () {
+    $("#beerName")
     .autocomplete({
         serviceUrl: "/Beers",
         paramName: "name",
@@ -21,5 +22,6 @@
         }
     });
 
-$('#createNew').modal('close');
-$('.modal-overlay').remove();
+    $('#createNew').modal('close');
+    $('.modal-overlay').remove();
+})();
