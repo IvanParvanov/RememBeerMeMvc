@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -10,6 +11,7 @@ namespace RememBeer.MvcClient
 {
     public class MvcApplication : HttpApplication
     {
+        [ExcludeFromCodeCoverage]
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

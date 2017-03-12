@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -13,7 +14,8 @@ using RememBeer.MvcClient.Ninject.Compositions;
 
 namespace RememBeer.MvcClient.App_Start
 {
-    public static class NinjectWebCommon 
+    [ExcludeFromCodeCoverage]
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 

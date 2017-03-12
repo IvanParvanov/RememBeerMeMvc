@@ -1,7 +1,9 @@
-﻿using System.Web.Optimization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Web.Optimization;
 
 namespace RememBeer.MvcClient
 {
+    [ExcludeFromCodeCoverage]
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862

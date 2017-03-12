@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using AutoMapper;
 
 using Ninject.Modules;
 using Ninject.Web.Common;
@@ -17,6 +19,7 @@ using IConfigurationProvider = RememBeer.Common.Configuration.IConfigurationProv
 
 namespace RememBeer.MvcClient.Ninject.NinjectModules
 {
+    [ExcludeFromCodeCoverage]
     public class BusinessNinjectModule : NinjectModule
     {
         /// <summary>Loads the module into the kernel.</summary>

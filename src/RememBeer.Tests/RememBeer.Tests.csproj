@@ -180,6 +180,13 @@
     <Compile Include="Mvc\Models\Account\ResetPasswordViewModelTests.cs" />
     <Compile Include="Mvc\Models\Account\SendCodeViewModelTests.cs" />
     <Compile Include="Mvc\Models\Account\VerifyCodeViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Manage\ChangePasswordViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Manage\ConfigureTwoFactorViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Manage\IndexViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Manage\ManageLoginsViewModelTests.cs" />
+    <Compile Include="Mvc\Models\Manage\SetPasswordViewModelTests.cs" />
+    <Compile Include="Services\BeerServiceTests\Ctor_Should.cs" />
+    <Compile Include="Services\BeerServiceTests\Get_Should.cs" />
     <Compile Include="Utils\AttributeTester.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />

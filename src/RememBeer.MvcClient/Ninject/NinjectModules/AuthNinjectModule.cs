@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 
 using Microsoft.AspNet.Identity.Owin;
@@ -9,6 +10,7 @@ using RememBeer.Models.Identity.Contracts;
 
 namespace RememBeer.MvcClient.Ninject.NinjectModules
 {
+    [ExcludeFromCodeCoverage]
     public class AuthNinjectModule : NinjectModule
     {
         public override void Load()

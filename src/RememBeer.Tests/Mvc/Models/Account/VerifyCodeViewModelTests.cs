@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 using Ploeh.AutoFixture;
 

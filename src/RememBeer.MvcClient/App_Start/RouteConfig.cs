@@ -1,10 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace RememBeer.MvcClient
 {
     public class RouteConfig
     {
+    [ExcludeFromCodeCoverage]
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.LowercaseUrls = true;

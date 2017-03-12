@@ -1,4 +1,6 @@
-﻿using Ninject.Extensions.Factory;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
@@ -11,6 +13,7 @@ using RememBeer.Models.Factories;
 
 namespace RememBeer.MvcClient.Ninject.NinjectModules
 {
+    [ExcludeFromCodeCoverage]
     public class DataNinjectModule : NinjectModule
     {
         public override void Load()
