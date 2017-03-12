@@ -21,6 +21,5 @@
         }
     });
 
-$('#createNew').modal('hide');
-$('body').removeClass('modal-open');
-$('.modal-backdrop').remove();
+$('#createNew').modal('close');
+$('.modal-overlay').remove();

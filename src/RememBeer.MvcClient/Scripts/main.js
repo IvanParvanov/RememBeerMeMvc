@@ -20,17 +20,6 @@ function initMaterialize() {
     $.validator.unobtrusive.parse($("form"));
     $('.modal').modal();
     $('.materialboxed').materialbox();
-
-    //$('ul.pagination').on(
-    //    "click",
-    //    function(ev) {
-    //        var $target = $(ev.target);
-
-    //        if (history.pushState && $target.is("a")) {
-    //            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + $target.attr("href");
-    //            window.history.pushState({ path: newurl }, '', newurl);
-    //        }
-    //    });
 }
 
 function handleAjaxError(response) {
@@ -45,5 +34,6 @@ function handleAjaxError(response) {
 }
 
 function showSuccess(message) {
+    initMaterialize();
     Materialize.toast(message, 5000, 'green');
 }

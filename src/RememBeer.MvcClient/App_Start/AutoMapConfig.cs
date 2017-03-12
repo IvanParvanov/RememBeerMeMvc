@@ -2,7 +2,9 @@
 
 using AutoMapper;
 
+using RememBeer.Models;
 using RememBeer.Models.Contracts;
+using RememBeer.Models.Dtos;
 using RememBeer.MvcClient.Models.Reviews;
 
 namespace RememBeer.MvcClient
@@ -17,6 +19,9 @@ namespace RememBeer.MvcClient
                                   cfg.CreateMap<IBeerReview, SingleReviewViewModel>();
                                   cfg.CreateMap<SingleReviewViewModel, IBeerReview>();
                                   cfg.CreateMap<EditReviewBindingModel, IBeerReview>();
+                                  cfg.CreateMap<CreateReviewBindingModel, IBeerReview>();
+                                  cfg.CreateMap<BeerReview, CreateReviewBindingModel>();
+                                  cfg.CreateMap<IBeer, BeerDto>();
                               });
         }
     }

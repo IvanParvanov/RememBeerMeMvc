@@ -15,10 +15,13 @@
 <body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+    $.validator.setDefaults({
+        ignore: ""
+    });
+    </script>
 @Scripts.Render("~/bundles/materialize")
 @Scripts.Render("~/bundles/custom")
-
-@RenderSection("scripts", required: false)
 
 <ul id="slide-out" class="side-nav">
 
@@ -165,5 +168,6 @@
         </div>
     </div>
 </footer>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

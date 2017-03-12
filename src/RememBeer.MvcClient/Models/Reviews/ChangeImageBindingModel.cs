@@ -7,6 +7,7 @@ namespace RememBeer.MvcClient.Models.Reviews
     {
         public int Id { get; set; }
 
+        [Required]
         [FileExtensions(ErrorMessage = "Upload a valid image file.")]
         public HttpPostedFileBase Image { get; set; }
     }

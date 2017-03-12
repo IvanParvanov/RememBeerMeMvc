@@ -10,41 +10,36 @@
 <!-- Modal Structure -->
 <div id="createModal" class="modal">
     @using (Ajax.BeginForm("Index", "Reviews", null,
-                                       new AjaxOptions()
-                                       {
-                                           HttpMethod = "POST",
-                                           UpdateTargetId = "content",
-                                           LoadingElementId = "loading",
-                                           OnFailure = "handleAjaxError",
-                                           OnSuccess = "showSuccess('Review has been successfully created!')",
-                                           InsertionMode = InsertionMode.ReplaceWith
-                                       },
-                                       new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content" }) )
+                           new AjaxOptions()
+                           {
+                               HttpMethod = "POST",
+                               UpdateTargetId = "content",
+                               LoadingElementId = "loading",
+                               OnFailure = "handleAjaxError",
+                               OnSuccess = "showSuccess('Review has been successfully created!')",
+                               InsertionMode = InsertionMode.Replace
+                           },
+                           new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content" }))
     {
-        @Html.HiddenFor(x => x.BeerId, new {id="hiddenBeerId"})
+        @Html.HiddenFor(x => x.BeerId, new { id = "hiddenBeerId" })
         <div class="row">
             <h4>Create a new review</h4>
             <div class="col s12 l4 center-align">
-                <div class="">
                     <p>
                         Upload a new image:
-                        <input type="file" accept="image/*" id="imgUpload" />
-
+                        <input type="file" accept="image/*" id="createImgUpload"/>
                     </p>
-                </div>
             </div>
             <div class="col s12 l8">
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(x => x.Id)
                 <div class="card-content review-body">
                     <div class="card-title">
                         <div class="input-field">
                             <label for="beerName">Beer name</label>
                             <input type="text" required name="beerName" id="beerName"/>
+                            @Html.HiddenFor(x => x.Id)
+                            @Html.ValidationMessageFor(x => x.BeerId)
                         </div>
-                        @*<h5>
-                                @Html.DisplayFor(x => x.BeerName)
-                            </h5>*@
                     </div>
                     <p>
                         <div class="input-field">
@@ -98,7 +93,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="submit" class="btn btn-flat green darken-1 white-text" />
+                <input type="submit" class="btn btn-flat green darken-1 white-text"/>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
             </div>
         </div>
