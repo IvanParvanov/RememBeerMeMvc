@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model IEnumerable<RememBeer.Models.Contracts.IApplicationUser>
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IApplicationUser>
 
 @Html.Partial("_UserList", Model)
+

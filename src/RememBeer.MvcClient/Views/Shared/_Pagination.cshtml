@@ -6,6 +6,7 @@
         @{
             var controller = ViewContext.RouteData.GetRequiredString("controller");
             var action = ViewContext.RouteData.GetRequiredString("action");
+            var area = ViewContext.RouteData.DataTokens["area"];
         }
 
         @if (Model.CurrentPage <= 0)
@@ -19,7 +20,7 @@
         else
         {
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1 })
+                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, area = area })
             </li>
         }
 
@@ -28,7 +29,7 @@
             if (i == Model.CurrentPage)
             {
                 <li class="active">
-                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i })
+                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, area = area })
                 </li>
                 continue;
             }
@@ -39,7 +40,7 @@
             }
 
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i })
+                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, area = area })
             </li>
         }
 
@@ -54,8 +55,20 @@
         else
         {
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1 })
+                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, area = area })
             </li>
         }
     </ul>
+    
+    <script>
+        $(".pagination").on(
+            "click",
+            function(ev) {
+                var $target = $(ev.target);
+                if ($target.is("a")) {
+                    var href = $target.attr("href");
+                    history.pushState({}, "", href);
+                }
+            });
+    </script>
 </div>

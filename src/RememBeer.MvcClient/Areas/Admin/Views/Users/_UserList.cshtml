@@ -1,5 +1,5 @@
 ﻿@using RememBeer.MvcClient.Helpers
-@model IEnumerable<RememBeer.Models.Contracts.IApplicationUser>
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IApplicationUser>
 
 <div class="card">
     <div class="card-content">
@@ -15,7 +15,7 @@
             </tr>
             </thead>
 
-            @foreach (var user in Model)
+            @foreach (var user in Model.Items)
             {
                 <tr>
                     <td>@user.Email</td>
@@ -56,3 +56,5 @@
         </table>
     </div>
 </div>
+
+@Html.Partial("_Pagination", Model)

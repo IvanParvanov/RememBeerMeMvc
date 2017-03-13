@@ -9,6 +9,7 @@ using Bytes2you.Validation;
 
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Models.Reviews;
+using RememBeer.MvcClient.Models.Shared;
 using RememBeer.Services.Contracts;
 
 using Constants = RememBeer.Common.Constants.Constants;
@@ -39,7 +40,20 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             int totalCount;
             var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-            return this.View(users);
+            var viewModel = new PaginatedViewModel<IApplicationUser>()
+                            {
+                                Items = users,
+                                CurrentPage = page,
+                                PageSize = pageSize,
+                                TotalCount = totalCount
+                            };
+
+            if (this.Request.IsAjaxRequest())
+            {
+                return this.PartialView("_UserList", viewModel);
+            }
+
+            return this.View(viewModel);
         }
 
         // GET: Admin/Users/Reviews/id
