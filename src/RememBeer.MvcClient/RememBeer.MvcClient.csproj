@@ -453,6 +453,7 @@
     <Content Include="Views\Shared\_ReviewList.cshtml" />
     <Content Include="Views\Shared\_Edit.cshtml" />
     <Content Include="Views\Shared\_Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CreateReviewBindingModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
