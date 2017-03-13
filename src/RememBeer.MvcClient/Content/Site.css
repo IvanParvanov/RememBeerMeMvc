@@ -122,3 +122,8 @@ input:not([type]).input-validation-error, input:not([type]):focus.input-validati
     border-bottom: 1px solid #00897b;
     overflow: hidden;
 }
+
+nav a.brand-logo  > i.fa {
+    float: none;
+    margin-right: 0;
+}
