@@ -160,7 +160,7 @@ namespace RememBeer.MvcClient.Controllers
                 return this.Json(new UrlOnlyDto { url = url });
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "Image could not be uploaded.");
+            return this.ImageUploadFailure();
         }
 
         // POST: Reviews/Index
@@ -189,7 +189,7 @@ namespace RememBeer.MvcClient.Controllers
             var review = new BeerReview();
             this.mapper.Map(m, review);
             review.ApplicationUserId = this.User.Identity.GetUserId();
-            review.ImgUrl = imgUrl ?? review.ImgUrl; 
+            review.ImgUrl = imgUrl ?? review.ImgUrl;
 
             var result = this.reviewService.CreateReview(review);
             if (result.Successful)
