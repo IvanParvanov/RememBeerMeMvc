@@ -19,6 +19,7 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
         public override void Load()
         {
             this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InRequestScope();
+            this.Rebind<IBeersDb>().To<RememBeerMeDbContext>().InRequestScope();
 
             this.Rebind<IModelFactory>().To<ModelFactory>().InSingletonScope();
             this.Bind<IRankFactory>().To<ModelFactory>().InSingletonScope();

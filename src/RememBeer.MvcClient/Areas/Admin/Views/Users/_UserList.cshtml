@@ -1,0 +1,58 @@
+﻿@using RememBeer.MvcClient.Helpers
+@model IEnumerable<RememBeer.Models.Contracts.IApplicationUser>
+
+<div class="card">
+    <div class="card-content">
+        <h3 colspan="4">Manage Users</h3>
+        <table class="bordered striped responsive-table">
+            <thead>
+            <tr>
+                <td>Email</td>
+                <td>Lockout End</td>
+                <td>Admin</td>
+                <td></td>
+                <td>Reviews</td>
+            </tr>
+            </thead>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.LockoutEndDateUtc</td>
+                    <td>@user.Roles.Any()</td>
+                    <td>
+                        @Ajax.ActionLink("Unlock", "EnableUser", new { userId = user.Id },
+                                         new AjaxOptions()
+                                         {
+                                             HttpMethod = "POST",
+                                             InsertionMode = InsertionMode.Replace,
+                                             LoadingElementId = "loading",
+                                             UpdateTargetId = "content",
+                                             OnSuccess = "showSuccess('User enabled')",
+                                             OnFailure = "handleAjaxError"
+                                         },
+                                         htmlAttributes: new { @class = "btn teal darken-1" })
+
+                        @Ajax.ActionLink("Lock", "DisableUser", new { userId = user.Id },
+                                         new AjaxOptions()
+                                         {
+                                             HttpMethod = "POST",
+                                             InsertionMode = InsertionMode.Replace,
+                                             LoadingElementId = "loading",
+                                             UpdateTargetId = "content",
+                                             OnSuccess = "showSuccess('User disabled.')",
+                                             OnFailure = "handleAjaxError"
+                                         },
+                                         htmlAttributes: new { @class = "btn red" })
+                    </td>
+                    <td>
+                        <a class="btn teal darken-1 white-text" href="@Url.Action("Reviews", "Users", new { id = user.Id })">
+                            <i class="material-icons medium">&#xE315;</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -30,13 +30,13 @@
         <li class="active teal darken-1 z-depth-2">
             <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
         </li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     }
     else
     {
         <li>
-            <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
+            <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
         </li>
 
         if (this.User.IsInRole(Constants.AdminRole))
@@ -48,10 +48,10 @@
                 <a class="subheader white-text"><i class="material-icons left white-text">&#xE8EF;</i> Admin </a>
             </li>
             <li>
-                <a href="@Url.Action("My", "Reviews")">Breweries</a>
+                <a href="@Url.Action("My", "Reviews", new { area = "" })">Breweries</a>
             </li>
             <li>
-                <a href="@Url.Action("My", "Reviews")">Users</a>
+                <a href="@Url.Action("Index", "Users", new { area = "Admin" })">Users</a>
             </li>
         }
 
@@ -59,10 +59,10 @@
             <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
         </li>
 
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }) )
         {
             @Html.AntiForgeryToken()
-            <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })</li>
             <li>
                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
             </li>
@@ -76,10 +76,10 @@
         <a class="subheader white-text"><i class="fa fa-trophy left white-text"></i> Top</a>
     </li>
     <li>
-        <a href="@Url.Action("TopBeers", "Top")">Beers</a>
+        <a href="@Url.Action("TopBeers", "Top", new { area = "" })">Beers</a>
     </li>
     <li>
-        <a href="@Url.Action("TopBreweries", "Top")">Breweries</a>
+        <a href="@Url.Action("TopBreweries", "Top", new { area = "" })">Breweries</a>
     </li>
 </ul>
 
@@ -104,17 +104,17 @@
                 }
 
                 <li>
-                    <a href="@Url.Action("My", "Reviews")"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
+                    <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
                 </li>
             }
         </ul>
         @if (Request.IsAuthenticated)
         {
-            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
                 @Html.AntiForgeryToken()
                 <ul id="nav-mobile-right" class="right">
-                    <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })</li>
                     <li>
                         <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
                     </li>
@@ -124,8 +124,8 @@
         else
         {
             <ul id="nav-mobile-right" class="right">
-                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
             </ul>
         }
     </div>
@@ -133,20 +133,20 @@
     {
         <ul id="adminDropdown" class="dropdown-content">
             <li>
-                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
+                <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
             </li>
             <li>
-                <a href="@Url.Action("My", "Reviews")"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
+                <a href="@Url.Action("Index", "Users", new { area = "Admin" })"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
             </li>
         </ul>
     }
 
     <ul id="topDropdown" class="dropdown-content">
         <li>
-            <a href="@Url.Action("TopBeers", "Top")">Beers</a>
+            <a href="@Url.Action("TopBeers", "Top", new { area = "" })">Beers</a>
         </li>
         <li>
-            <a href="@Url.Action("TopBreweries", "Top")">Breweries</a>
+            <a href="@Url.Action("TopBreweries", "Top", new { area = "" })">Breweries</a>
         </li>
     </ul>
 </nav>

@@ -59,7 +59,7 @@ namespace RememBeer.MvcClient.Controllers
 
             var viewModel = new PaginatedReviewsViewModel()
                             {
-                                Reviews = mappedReviews,
+                                Items = mappedReviews,
                                 TotalCount = totalCount,
                                 CurrentPage = page,
                                 PageSize = pageSize
@@ -67,7 +67,7 @@ namespace RememBeer.MvcClient.Controllers
 
             if (this.Request.IsAjaxRequest())
             {
-                return this.PartialView("Partial/_ReviewList", viewModel);
+                return this.PartialView("_ReviewList", viewModel);
             }
 
             return this.View(viewModel);
@@ -95,7 +95,7 @@ namespace RememBeer.MvcClient.Controllers
             var review = this.reviewService.GetById(id);
             var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
 
-            return this.PartialView("Partial/_Edit", mapped);
+            return this.PartialView("_Edit", mapped);
         }
 
         // PUT: Reviews
@@ -127,7 +127,7 @@ namespace RememBeer.MvcClient.Controllers
             var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
             mapped.IsEdit = true;
 
-            return this.PartialView("Partial/_SingleReview", mapped);
+            return this.PartialView("_SingleReview", mapped);
         }
 
         // POST: Reviews/ChangeImage

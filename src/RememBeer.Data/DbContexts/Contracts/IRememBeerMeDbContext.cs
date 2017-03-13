@@ -8,12 +8,8 @@ using RememBeer.Models;
 
 namespace RememBeer.Data.DbContexts.Contracts
 {
-    public interface IRememBeerMeDbContext : IDisposable
+    public interface IRememBeerMeDbContext : IDisposable, IBeersDb
     {
-        IDbSet<Beer> Beers { get; set; }
-
-        IDbSet<BeerReview> BeerReviews { get; set; }
-
         IDbSet<BeerType> BeerTypes { get; set; }
 
         IDbSet<Brewery> Breweries { get; set; }
@@ -22,12 +18,19 @@ namespace RememBeer.Data.DbContexts.Contracts
 
         IDbSet<T> Set<T>() where T : class;
 
-        int SaveChanges();
-
-        Task<int> SaveChangesAsync();
-
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         DbEntityEntry<T> Entry<T>(T entity) where T : class;
+    }
+
+    public interface IBeersDb : ISaveable
+    {
+        IDbSet<Beer> Beers { get; set; }
+    }
+    public interface ISaveable
+    {
+        int SaveChanges();
+
+        Task<int> SaveChangesAsync();
     }
 }

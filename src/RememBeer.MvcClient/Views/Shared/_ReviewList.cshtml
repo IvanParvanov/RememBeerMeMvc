@@ -1,0 +1,18 @@
+﻿@using RememBeer.MvcClient.Models.Reviews
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<SingleReviewViewModel>
+
+@Html.Partial("_Create", new CreateReviewBindingModel())
+
+@if (Model.Items.Any())
+{
+    foreach (var review in Model.Items)
+    {
+        @Html.Partial("_SingleReview", review)
+    }
+}
+else
+{
+    <h5>You don't have any reviews yet!</h5>
+}
+
+@Html.Partial("_Pagination", Model)

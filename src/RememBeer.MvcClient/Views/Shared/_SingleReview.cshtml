@@ -1,4 +1,4 @@
-﻿@model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
+@model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
 
 <div id="review-@Model.Id" class="card horizontal">
     <div class="row full-width">
@@ -19,7 +19,7 @@
                     <small>@Html.DisplayFor(x => x.BeerBeerTypeType) <em>by  @Html.DisplayFor(x => x.BeerBreweryName)</em></small>
                 </div>
                 <p>@Html.DisplayFor(x => x.Description)</p>
-                <hr/>
+                <hr />
                 <ul class="list-inline flow-text">
                     <li>
                         <strong>
@@ -51,11 +51,11 @@
                 </ul>
             </div>
         </div>
-        @if (Model.IsEdit)
+        @if ( Model.IsEdit )
         {
             <div class="card-action clearfix">
-                @Ajax.ActionLink("Edit", "Edit",
-                                 new { id = Model.Id },
+                @Ajax.ActionLink("Edit", "Edit", "Reviews",
+                                 new { id = Model.Id, area="" },
                                  new AjaxOptions()
                                  {
                                      HttpMethod = "GET",

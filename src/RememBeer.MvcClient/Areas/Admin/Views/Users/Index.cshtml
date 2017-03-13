@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<RememBeer.Models.Contracts.IApplicationUser>
+
+@Html.Partial("_UserList", Model)

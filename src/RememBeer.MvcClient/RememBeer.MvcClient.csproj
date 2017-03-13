@@ -253,12 +253,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
+    <Compile Include="Filters\AdminOnlyAttribute.cs" />
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -349,6 +351,8 @@
     <Content Include="fonts\roboto\Roboto-Thin.ttf" />
     <Content Include="fonts\roboto\Roboto-Thin.woff" />
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_UserList.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\beer-autocomplete.js" />
@@ -439,23 +443,23 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Reviews\My.cshtml" />
+    <Content Include="Views\Shared\My.cshtml" />
     <Content Include="Views\Reviews\Details.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Top\TopBeers.cshtml" />
     <Content Include="Views\Top\TopBreweries.cshtml" />
-    <Content Include="Views\Reviews\Partial\_SingleReview.cshtml" />
+    <Content Include="Views\Shared\_SingleReview.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
-    <Content Include="Views\Reviews\Partial\_ReviewList.cshtml" />
-    <Content Include="Views\Reviews\Partial\_Edit.cshtml" />
-    <Content Include="Views\Reviews\Partial\_Create.cshtml" />
+    <Content Include="Views\Shared\_ReviewList.cshtml" />
+    <Content Include="Views\Shared\_Edit.cshtml" />
+    <Content Include="Views\Shared\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Beers\" />
+    <Folder Include="Views\Reviews\Partial\" />
     <Folder Include="Views\Top\Partial\" />
   </ItemGroup>
   <ItemGroup>

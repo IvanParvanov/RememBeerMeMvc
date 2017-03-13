@@ -127,7 +127,7 @@ namespace RememBeer.Services
 
         public IdentityResult EnableUser(string userId)
         {
-            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue).Result;
+            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue).GetAwaiter().GetResult();
         }
 
         public IdentityResult MakeAdmin(string userId)

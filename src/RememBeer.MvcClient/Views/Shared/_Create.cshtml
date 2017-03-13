@@ -1,46 +1,45 @@
-﻿@using RememBeer.MvcClient.Helpers
+@using RememBeer.MvcClient.Helpers
 @using RememBeer.MvcClient.Models.Reviews
-@model SingleReviewViewModel
+@model RememBeer.MvcClient.Models.Reviews.CreateReviewBindingModel
 
-<div class="card horizontal" id="review-@Model.Id">
-    <div class="row">
-        <div class="col s12 l4 center-align">
-            <div class="">
-                <img class="materialboxed responsive-img" src="@Model.ImgUrl" alt="Review image">
-                <p>
-                    Upload a new image:
-                    @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(x => x.Id, new { id = "review-id" })
+<!-- Modal Trigger -->
+<div class="center-align hide-on-med-and-down">
+    <a class="waves-effect waves-light btn btn-large modal-trigger green " href="#createModal">Create a new review</a>
+</div>
 
-                        <input type="file" accept="image/*" id="imgUpload"/>
-                    }
-                </p>
-            </div>
-        </div>
-        <div class="col s12 l8">
-            @using (Ajax.BeginForm("Index", "Reviews", null,
+<!-- Modal Structure -->
+<div id="createModal" class="modal">
+    @using ( Ajax.BeginForm("Index", "Reviews", null,
                                    new AjaxOptions()
                                    {
-                                       HttpMethod = "PUT",
-                                       UpdateTargetId = "review-" + Model.Id,
+                                       HttpMethod = "POST",
+                                       UpdateTargetId = "content",
                                        LoadingElementId = "loading",
                                        OnFailure = "handleAjaxError",
-                                       OnSuccess = "showSuccess('Review has been successfully updated!')",
-                                       InsertionMode = InsertionMode.ReplaceWith
+                                       OnSuccess = "showSuccess('Review has been successfully created!')",
+                                       InsertionMode = InsertionMode.Replace
                                    },
-                                   new { enctype = "multipart/form-data", accept = "image/*" }))
-            {
+                                   new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content" }) )
+    {
+        @Html.HiddenFor(x => x.BeerId, new { id = "hiddenBeerId" })
+        <div class="row">
+            <h4>Create a new review</h4>
+            <div class="col s12 l4 center-align">
+                <p>
+                    Upload a new image:
+                    <input type="file" accept="image/*" id="createImgUpload" />
+                </p>
+            </div>
+            <div class="col s12 l8">
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(x => x.Id)
                 <div class="card-content review-body">
                     <div class="card-title">
-                        <h5>
-                            @Html.DisplayFor(x => x.BeerName)
-                            <small>@Html.DisplayFor(x => x.BeerBeerTypeType) by <em>@Html.DisplayFor(x => x.BeerBreweryName)</em></small>
-                            <small class="right">@Html.DisplayFor(x => x.CreatedAt)</small>
-                        </h5>
+                        <div class="input-field">
+                            <label for="beerName">Beer name</label>
+                            <input type="text" required name="beerName" id="beerName" />
+                            @Html.HiddenFor(x => x.Id)
+                            @Html.ValidationMessageFor(x => x.BeerId)
+                        </div>
                     </div>
                     <p>
                         <div class="input-field">
@@ -90,16 +89,23 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="card-action clearfix">
-                    <input type="submit" class="btn btn-flat green darken-1 white-text"/>
-
-                    @Ajax.PageRefreshActionLink("Cancel", "btn btn-flat amber darken-2 white-text", "My", "Reviews", new { page = Request.QueryString["page"] })
                 </div>
-            }
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-flat green darken-1 white-text" />
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
         </div>
+    }
 
-    </div>
+    <script src="~/Scripts/devbridge-autocomplete.min.js"></script>
+    <script src="~/Scripts/beer-autocomplete.js"></script>
 </div>
 
-@Scripts.Render("~/bundles/img-upload")
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light modal-trigger green" href="#createModal">
+        <i class="large material-icons">add</i>
+    </a>
+</div>

@@ -8,8 +8,6 @@ using Ninject.Web.Common;
 using RememBeer.Common.Configuration;
 using RememBeer.Common.Services;
 using RememBeer.Common.Services.Contracts;
-using RememBeer.Models.Identity;
-using RememBeer.Models.Identity.Contracts;
 using RememBeer.Services;
 using RememBeer.Services.Contracts;
 using RememBeer.Services.RankingStrategies;
@@ -25,7 +23,6 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
         /// <summary>Loads the module into the kernel.</summary>
         public override void Load()
         {
-            this.Rebind<IIdentityHelper>().To<IdentityHelper>().InSingletonScope();
             this.Rebind<IConfigurationProvider>().To<ConfigurationProvider>().InSingletonScope();
 
             this.Bind<IRankCalculationStrategy>().To<DoubleOverallScoreStrategy>().InRequestScope();

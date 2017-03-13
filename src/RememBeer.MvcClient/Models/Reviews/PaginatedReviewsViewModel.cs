@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-
-using RememBeer.MvcClient.Models.Shared;
+﻿using RememBeer.MvcClient.Models.Shared;
 
 namespace RememBeer.MvcClient.Models.Reviews
 {
-    public class PaginatedReviewsViewModel : PaginatedViewModel
+    public class PaginatedReviewsViewModel : PaginatedViewModel<SingleReviewViewModel>
     {
-        public IEnumerable<SingleReviewViewModel> Reviews { get; set; }
     }
 }

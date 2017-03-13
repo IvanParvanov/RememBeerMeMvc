@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Bytes2you.Validation;
 
-using RememBeer.Data.Repositories.Base;
-using RememBeer.Data.Repositories.Enums;
-using RememBeer.Models;
+using RememBeer.Data.DbContexts.Contracts;
 using RememBeer.Models.Contracts;
 using RememBeer.Services.Contracts;
 
@@ -12,25 +11,24 @@ namespace RememBeer.Services
 {
     public class BeerService : IBeerService
     {
-        private readonly IRepository<Beer> beerRepository;
+        private readonly IBeersDb db;
 
-        public BeerService(IRepository<Beer> beerRepository)
+        public BeerService(IBeersDb db)
         {
-            Guard.WhenArgument(beerRepository, nameof(beerRepository)).IsNull().Throw();
+            Guard.WhenArgument(db, nameof(db)).IsNull().Throw();
 
-            this.beerRepository = beerRepository;
+            this.db = db;
         }
 
         public IEnumerable<IBeer> SearchBeers(string name)
         {
-            return this.beerRepository.GetAll((beer) => beer.IsDeleted == false && beer.Name.StartsWith(name) || beer.Brewery.Name.StartsWith(name),
-                               beer => beer.Name.StartsWith(name) ? (beer.Name == name ? 0 : 1) : 2,
-                               SortOrder.Ascending);
+            return this.db.Beers.Where(beer => beer.IsDeleted == false && beer.Name.StartsWith(name) || beer.Brewery.Name.StartsWith(name))
+                       .OrderBy(beer => beer.Name.StartsWith(name) ? (beer.Name == name ? 0 : 1) : 2).ToList();
         }
 
         public IBeer Get(int id)
         {
-            return this.beerRepository.GetById(id);
+            return this.db.Beers.Find(id);
         }
     }
 }

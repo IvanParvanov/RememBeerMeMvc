@@ -105,9 +105,7 @@
     <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Identity\Contracts\IApplicationSignInManager.cs" />
     <Compile Include="Identity\Contracts\IApplicationUserManager.cs" />
-    <Compile Include="Identity\Contracts\IIdentityHelper.cs" />
     <Compile Include="Identity\IdentityFactory.cs" />
-    <Compile Include="Identity\IdentityHelper.cs" />
     <Compile Include="Identity\IIdentityFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,7 +1,10 @@
-﻿using Moq;
+﻿using System.Data.Entity;
+
+using Moq;
 
 using NUnit.Framework;
 
+using RememBeer.Data.DbContexts.Contracts;
 using RememBeer.Data.Repositories.Base;
 using RememBeer.Models;
 using RememBeer.Services;
@@ -14,25 +17,29 @@ namespace RememBeer.Tests.Services.BeerServiceTests
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(541)]
-        public void Call_RepositoryGetByIdMethodOnceWithCorrectParams(int expectedId)
+        public void Call_DbSetFindMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
-            var repository = new Mock<IRepository<Beer>>();
+            var dbSet = new Mock<IDbSet<Beer>>();
+            var repository = new Mock<IBeersDb>();
+            repository.Setup(r => r.Beers)
+                .Returns(dbSet.Object);
             var sut = new BeerService(repository.Object);
 
             // Act
             sut.Get(expectedId);
 
             // Assert
-            repository.Verify(r => r.GetById(expectedId), Times.Once);
+            dbSet.Verify(d => d.Find(expectedId), Times.Once);
         }
 
-        public void ReturnResultFrom_RepositoryGetByIdMethod()
+        [Test]
+        public void ReturnResultFrom_DbSetFindMethodMethod()
         {
             // Arrange
             var expectedResult = new Beer();
-            var repository = new Mock<IRepository<Beer>>();
-            repository.Setup(r => r.GetById(It.IsAny<int>()))
+            var repository = new Mock<IBeersDb>();
+            repository.Setup(r => r.Beers.Find(It.IsAny<int>()))
                       .Returns(expectedResult);
             var sut = new BeerService(repository.Object);
 
