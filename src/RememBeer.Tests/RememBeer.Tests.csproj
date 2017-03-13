@@ -227,8 +227,8 @@
     <Compile Include="Services\UserServiceTests\ConfirmEmail_Should.cs" />
     <Compile Include="Services\UserServiceTests\CountUsers_Should.cs" />
     <Compile Include="Services\UserServiceTests\Ctor_Should.cs" />
-    <Compile Include="Services\UserServiceTests\DisableUser_Should.cs" />
-    <Compile Include="Services\UserServiceTests\EnableUser_Should.cs" />
+    <Compile Include="Services\UserServiceTests\DisableUserAsync_Should.cs" />
+    <Compile Include="Services\UserServiceTests\EnableUserAsync_Should.cs" />
     <Compile Include="Services\UserServiceTests\FindByName_Should.cs" />
     <Compile Include="Services\UserServiceTests\IsEmailConfirmed_Should.cs" />
     <Compile Include="Services\UserServiceTests\PaginatedUsers_Should.cs" />

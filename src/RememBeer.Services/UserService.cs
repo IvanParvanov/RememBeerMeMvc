@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -114,20 +115,20 @@ namespace RememBeer.Services
             return this.userManager.Users.Count();
         }
 
-        public IdentityResult DisableUser(string userId)
+        public async Task<IdentityResult> DisableUserAsync(string userId)
         {
-            var result = this.userManager.UpdateSecurityStampAsync(userId).Result;
+            var result = await this.userManager.UpdateSecurityStampAsync(userId);
             if (!result.Succeeded)
             {
                 return result;
             }
 
-            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue).Result;
+            return await this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
         }
 
-        public IdentityResult EnableUser(string userId)
+        public Task<IdentityResult> EnableUserAsync(string userId)
         {
-            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue).GetAwaiter().GetResult();
+            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue);
         }
 
         public IdentityResult MakeAdmin(string userId)

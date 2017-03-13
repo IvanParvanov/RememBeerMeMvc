@@ -17,10 +17,10 @@ using RememBeer.Tests.Utils;
 namespace RememBeer.Tests.Services.UserServiceTests
 {
     [TestFixture]
-    public class EnableUser_Should : TestClassBase
+    public class EnableUserAsync_Should : TestClassBase
     {
         [Test]
-        public void CallUserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectParams()
+        public async Task CallUserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
             var expectedId = this.Fixture.Create<string>();
@@ -36,14 +36,14 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.EnableUser(expectedId);
+            var result = await service.EnableUserAsync(expectedId);
 
             // Assert
             userManager.Verify(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MinValue), Times.Once);
         }
 
         [Test]
-        public void ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethod()
+        public async Task ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethod()
         {
             // Arrange
             var expectedResult = IdentityResult.Success;
@@ -61,7 +61,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.EnableUser(id);
+            var result = await service.EnableUserAsync(id);
 
             // Assert
             Assert.AreSame(expectedResult, result);

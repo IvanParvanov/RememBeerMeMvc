@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -25,10 +26,6 @@ namespace RememBeer.Services.Contracts
 
         int CountUsers();
 
-        IdentityResult DisableUser(string userId);
-
-        IdentityResult EnableUser(string userId);
-
         IdentityResult RemoveAdmin(string userId);
 
         IdentityResult MakeAdmin(string userId);
@@ -36,5 +33,9 @@ namespace RememBeer.Services.Contracts
         IApplicationUser GetById(string id);
 
         IdentityResult UpdateUser(string id, string email, string username, bool isConfirmed);
+
+        Task<IdentityResult> EnableUserAsync(string userId);
+
+        Task<IdentityResult> DisableUserAsync(string userId);
     }
 }

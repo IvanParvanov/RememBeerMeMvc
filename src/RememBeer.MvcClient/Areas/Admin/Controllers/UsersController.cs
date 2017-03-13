@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using AutoMapper;
 
 using Bytes2you.Validation;
 
-using Microsoft.AspNet.Identity;
-
 using RememBeer.Models.Contracts;
-using RememBeer.Models.Identity.Contracts;
-using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.Services.Contracts;
 
@@ -76,9 +73,9 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
         // POST: Admin/Users/EnableUser
         [HttpPost]
-        public ActionResult EnableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> EnableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
         {
-            var result = this.userService.EnableUser(userId);
+            var result = await this.userService.EnableUserAsync(userId);
             if (result.Succeeded)
             {
                 int totalCount;
@@ -92,9 +89,9 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
         // POST: Admin/Users/DisableUser
         [HttpPost]
-        public ActionResult DisableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> DisableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
         {
-            var result = this.userService.DisableUser(userId);
+            var result = await this.userService.DisableUserAsync(userId);
             if (result.Succeeded)
             {
                 int totalCount;

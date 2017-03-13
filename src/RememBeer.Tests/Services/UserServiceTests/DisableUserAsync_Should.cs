@@ -16,10 +16,10 @@ using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Services.UserServiceTests
 {
-    public class DisableUser_Should : TestClassBase
+    public class DisableUserAsync_Should : TestClassBase
     {
         [Test]
-        public void CallUserManagerUpdateSecurityStampAsyncMethodOnceWithCorrectParams()
+        public async Task CallUserManagerUpdateSecurityStampAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
             var expectedId = this.Fixture.Create<string>();
@@ -35,14 +35,14 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.DisableUser(expectedId);
+            await service.DisableUserAsync(expectedId);
 
             // Assert
             userManager.Verify(m => m.UpdateSecurityStampAsync(expectedId), Times.Once);
         }
 
         [Test]
-        public void ReturnResultFrom_UserManagerUpdateSecurityStampAsyncMethod_WhenItReturnsFail()
+        public async Task ReturnResultFrom_UserManagerUpdateSecurityStampAsyncMethod_WhenItReturnsFail()
         {
             // Arrange
             var expectedResult = IdentityResult.Failed();
@@ -59,14 +59,14 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.DisableUser(expectedId);
+            var result = await service.DisableUserAsync(expectedId);
 
             // Assert
             Assert.AreSame(expectedResult, result);
         }
 
         [Test]
-        public void Call_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull()
+        public async Task Call_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull()
         {
             // Arrange
             var expectedResult = IdentityResult.Success;
@@ -83,13 +83,13 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.DisableUser(expectedId);
+            await service.DisableUserAsync(expectedId);
 
             userManager.Verify(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MaxValue), Times.Once);
         }
 
         [Test]
-        public void
+        public async Task
             ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethodOnceWithCorrectparams_WhenTimeStampChangeIsSuccessfull()
         {
             // Arrange
@@ -109,7 +109,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.DisableUser(expectedId);
+            var result = await service.DisableUserAsync(expectedId);
 
             // Assert
             Assert.AreSame(expectedResult, result);
