@@ -173,7 +173,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             Assert.IsNotNull(result);
             var actualViewModel = result.Model as PaginatedReviewsViewModel;
             Assert.IsNotNull(actualViewModel);
-            foreach (var actual in actualViewModel.Reviews)
+            foreach (var actual in actualViewModel.Items)
             {
                 Assert.IsTrue(actual.IsEdit);
             }
@@ -204,7 +204,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             Assert.IsNotNull(result);
             var actualViewModel = result.Model as PaginatedReviewsViewModel;
             Assert.IsNotNull(actualViewModel);
-            foreach (var actual in actualViewModel.Reviews)
+            foreach (var actual in actualViewModel.Items)
             {
                 Assert.IsTrue(actual.IsEdit);
             }
