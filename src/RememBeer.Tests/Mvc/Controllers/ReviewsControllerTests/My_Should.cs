@@ -112,7 +112,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             Assert.IsNotNull(result);
             var actualViewModel = result.Model as PaginatedReviewsViewModel;
             Assert.IsNotNull(actualViewModel);
-            Assert.AreEqual("Partial/_ReviewList", result.ViewName);
+            Assert.AreEqual("_ReviewList", result.ViewName);
             Assert.AreEqual(expectedPage, actualViewModel.CurrentPage);
             Assert.AreEqual(expectedPageSize, actualViewModel.PageSize);
             Assert.AreEqual(expectedReviews.Count, actualViewModel.TotalCount);

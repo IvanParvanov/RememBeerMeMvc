@@ -266,7 +266,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Partial/_SingleReview", result.ViewName);
+            Assert.AreEqual("_SingleReview", result.ViewName);
             var actualViewModel = result.Model as SingleReviewViewModel;
             Assert.IsNotNull(actualViewModel);
             Assert.AreSame(expectedViewModel, actualViewModel);
