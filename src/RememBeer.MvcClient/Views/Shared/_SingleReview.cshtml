@@ -62,7 +62,8 @@
                                      InsertionMode = InsertionMode.ReplaceWith,
                                      LoadingElementId = "loading",
                                      UpdateTargetId = "review-" + Model.Id,
-                                     OnSuccess = "initMaterialize()"
+                                     OnSuccess = "initMaterialize()",
+                                     OnFailure = "handleAjaxError"
                                  },
                                  new { @class = "btn btn-flat amber darken-2 white-text" })
 

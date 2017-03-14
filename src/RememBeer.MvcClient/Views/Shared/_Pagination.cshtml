@@ -2,64 +2,56 @@
 @model RememBeer.MvcClient.Models.Shared.IPagination
 
 <div class="center-align">
-    <ul class="pagination">
         @{
             var controller = ViewContext.RouteData.GetRequiredString("controller");
             var action = ViewContext.RouteData.GetRequiredString("action");
             var area = ViewContext.RouteData.DataTokens["area"];
         }
-
-        @if (Model.CurrentPage <= 0)
-        {
-            <li class="disabled">
-                <a>
-                    Previous
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, area = area })
-            </li>
-        }
-
-        @for (var i = 0; i < 10; i++)
-        {
-            if (i == Model.CurrentPage)
+        @{
+            var totalPages = (int)Math.Ceiling((decimal)Model.TotalCount / (decimal)Model.PageSize);
+            var currentPage = Model.CurrentPage;
+            var startPage = currentPage - 5;
+            var endPage = currentPage + 4;
+            if (startPage <= 0)
             {
-                <li class="active">
-                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, pageSize = Model.PageSize, area = area })
-                </li>
-                continue;
+                endPage -= (startPage - 1);
+                startPage = 1;
             }
-
-            if (i * Model.PageSize >= Model.TotalCount)
+            if (endPage > totalPages)
             {
-                break;
+                endPage = totalPages;
+                if (endPage > 10)
+                {
+                    startPage = endPage - 9;
+                }
             }
-
-            <li class="waves-effect">
-                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, pageSize = Model.PageSize, area = area })
-            </li>
         }
-
-        @if (Model.CurrentPage * Model.PageSize >= Model.TotalCount - Model.PageSize)
+        @if (endPage > 1)
         {
-            <li class="disabled">
-                <a>
-                    Next
-                </a>
-            </li>
+            <ul class="pagination">
+                @if (currentPage > 0)
+                {
+                    <li class="waves-effect">
+                        @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
+                    </li>
+                }
+
+                @for (var page = startPage - 1; page < endPage; page++)
+                {
+                    <li class="@(page == currentPage ? "active" : "") btn-flat">
+                        @Ajax.PageRefreshActionLink((page + 1).ToString(), "", action, controller, new { page = page, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
+                    </li>
+                }
+
+                @if (currentPage < totalPages - 1)
+                {
+                    <li class="waves-effect">
+                        @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
+                    </li>
+                }
+            </ul>
         }
-        else
-        {
-            <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, area = area })
-            </li>
-        }
-    </ul>
-    
+
     <script>
         $(".pagination").on(
             "click",
