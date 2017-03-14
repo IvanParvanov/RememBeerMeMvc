@@ -127,3 +127,7 @@ nav a.brand-logo  > i.fa {
     float: none;
     margin-right: 0;
 }
+
+.checkbox {
+    margin-bottom: 10px;
+}

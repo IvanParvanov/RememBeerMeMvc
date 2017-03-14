@@ -4,8 +4,6 @@ using Moq;
 
 using NUnit.Framework;
 
-using RememBeer.MvcClient.Helpers;
-
 namespace RememBeer.Tests.Mvc.Helpers.AjaxHelperExtensionsTests
 {
     [TestFixture]

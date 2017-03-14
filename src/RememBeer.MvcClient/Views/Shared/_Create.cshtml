@@ -1,4 +1,3 @@
-@using RememBeer.MvcClient.Helpers
 @using RememBeer.MvcClient.Models.Reviews
 @model RememBeer.MvcClient.Models.Reviews.CreateReviewBindingModel
 
@@ -19,7 +18,7 @@
                                                OnSuccess = "showSuccess('Review has been successfully created!')",
                                                InsertionMode = InsertionMode.Replace
                                            },
-                                           new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content" }) )
+                                           new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content", id="create-form" }) )
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.BeerId, new { id = "hiddenBeerId" })
@@ -28,7 +27,7 @@
             <div class="col s12 l4 center-align">
                 <p>
                     Upload a new image:
-                    <input type="file" accept="image/*" id="createImgUpload" />
+                    <input type="file" accept="image/*" id="createImgUpload" name="image" />
                 </p>
             </div>
             <div class="col s12 l8">
@@ -50,3 +49,4 @@
         <i class="large material-icons">add</i>
     </a>
 </div>
+<script src="~/Scripts/create.js"></script>

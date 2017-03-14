@@ -247,6 +247,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\Attributes\FileTypeAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -356,6 +357,7 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\beer-autocomplete.js" />
+    <Content Include="Scripts\create.js" />
     <Content Include="Scripts\devbridge-autocomplete.min.js" />
     <Content Include="Scripts\img-upload.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

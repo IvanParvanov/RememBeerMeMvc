@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
 
+using RememBeer.MvcClient.Attributes;
+
 namespace RememBeer.MvcClient.Models.Reviews
 {
     public class ChangeImageBindingModel
@@ -8,7 +10,7 @@ namespace RememBeer.MvcClient.Models.Reviews
         public int Id { get; set; }
 
         [Required]
-        [FileExtensions(ErrorMessage = "Upload a valid image file.")]
+        [FileType("jpg,png,gif,jpeg,psd", ErrorMessage = "Upload a valid image file.")]
         public HttpPostedFileBase Image { get; set; }
     }
 }
