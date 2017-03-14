@@ -131,14 +131,14 @@ namespace RememBeer.Services
             return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue);
         }
 
-        public IdentityResult MakeAdmin(string userId)
+        public Task<IdentityResult> MakeAdminAsync(string userId)
         {
-            return this.userManager.AddToRoleAsync(userId, Constants.AdminRole).Result;
+            return this.userManager.AddToRoleAsync(userId, Constants.AdminRole);
         }
 
-        public IdentityResult RemoveAdmin(string userId)
+        public Task<IdentityResult> RemoveAdminAsync(string userId)
         {
-            return this.userManager.RemoveFromRoleAsync(userId, Constants.AdminRole).Result;
+            return this.userManager.RemoveFromRoleAsync(userId, Constants.AdminRole);
         }
 
         public IApplicationUser GetById(string id)

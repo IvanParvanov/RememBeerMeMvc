@@ -20,7 +20,7 @@
         else
         {
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, area = area })
+                @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, area = area })
             </li>
         }
 
@@ -29,7 +29,7 @@
             if (i == Model.CurrentPage)
             {
                 <li class="active">
-                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, area = area })
+                    @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, pageSize = Model.PageSize, area = area })
                 </li>
                 continue;
             }
@@ -40,7 +40,7 @@
             }
 
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, area = area })
+                @Ajax.PageRefreshActionLink((i + 1).ToString(), "", action, controller, new { page = i, pageSize = Model.PageSize, area = area })
             </li>
         }
 
@@ -55,7 +55,7 @@
         else
         {
             <li class="waves-effect">
-                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, area = area })
+                @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, area = area })
             </li>
         }
     </ul>

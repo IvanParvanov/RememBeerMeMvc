@@ -20,9 +20,44 @@
                 <tr>
                     <td>@user.Email</td>
                     <td>@user.LockoutEndDateUtc</td>
-                    <td>@user.Roles.Any()</td>
                     <td>
-                        @Ajax.ActionLink("Unlock", "EnableUser", new { userId = user.Id },
+                        @{
+                            var isAdmin = user.Roles.Any();
+                        }
+                        @isAdmin
+                    </td>
+                    <td>
+                        @if (isAdmin)
+                        {
+                            @Ajax.ActionLink("-", "RemoveAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                                             new AjaxOptions()
+                                             {
+                                                 HttpMethod = "POST",
+                                                 InsertionMode = InsertionMode.Replace,
+                                                 LoadingElementId = "loading",
+                                                 UpdateTargetId = "content",
+                                                 OnSuccess = "showSuccess('User has been removed from the administrator role.')",
+                                                 OnFailure = "handleAjaxError"
+                                             },
+                                             htmlAttributes: new { @class = "btn-floating red center-align" })
+                        }
+                        else
+                        {
+                            @Ajax.ActionLink("+", "MakeAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                                             new AjaxOptions()
+                                             {
+                                                 HttpMethod = "POST",
+                                                 InsertionMode = InsertionMode.Replace,
+                                                 LoadingElementId = "loading",
+                                                 UpdateTargetId = "content",
+                                                 OnSuccess = "showSuccess('User is now an administrator')",
+                                                 OnFailure = "handleAjaxError"
+                                             },
+                                             htmlAttributes: new { @class = "btn-floating teal darken-1 center-align" })
+                        }
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Unlock", "EnableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
                                          new AjaxOptions()
                                          {
                                              HttpMethod = "POST",
@@ -34,7 +69,7 @@
                                          },
                                          htmlAttributes: new { @class = "btn teal darken-1" })
 
-                        @Ajax.ActionLink("Lock", "DisableUser", new { userId = user.Id },
+                        @Ajax.ActionLink("Lock", "DisableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
                                          new AjaxOptions()
                                          {
                                              HttpMethod = "POST",

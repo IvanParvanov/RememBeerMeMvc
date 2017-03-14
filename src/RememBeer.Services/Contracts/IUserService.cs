@@ -26,10 +26,6 @@ namespace RememBeer.Services.Contracts
 
         int CountUsers();
 
-        IdentityResult RemoveAdmin(string userId);
-
-        IdentityResult MakeAdmin(string userId);
-
         IApplicationUser GetById(string id);
 
         IdentityResult UpdateUser(string id, string email, string username, bool isConfirmed);
@@ -37,5 +33,9 @@ namespace RememBeer.Services.Contracts
         Task<IdentityResult> EnableUserAsync(string userId);
 
         Task<IdentityResult> DisableUserAsync(string userId);
+
+        Task<IdentityResult> MakeAdminAsync(string userId);
+
+        Task<IdentityResult> RemoveAdminAsync(string userId);
     }
 }

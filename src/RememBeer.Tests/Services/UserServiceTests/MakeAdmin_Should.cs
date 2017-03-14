@@ -21,7 +21,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
     internal class MakeAdmin_Should : TestClassBase
     {
         [Test]
-        public void Call_UserManagerAddToRoleAsyncMethodOnceWithCorrectParams()
+        public async Task Call_UserManagerAddToRoleAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
             var expectedId = this.Fixture.Create<string>();
@@ -37,14 +37,14 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.MakeAdmin(expectedId);
+            var result = await service.MakeAdminAsync(expectedId);
 
             // Assert
             userManager.Verify(m => m.AddToRoleAsync(expectedId, Constants.AdminRole), Times.Once);
         }
 
         [Test]
-        public void ReturnResultFrom_UserManagerAddToRoleAsyncMethod()
+        public async Task ReturnResultFrom_UserManagerAddToRoleAsyncMethod()
         {
             // Arrange
             var expectedResult = IdentityResult.Failed();
@@ -61,7 +61,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = service.MakeAdmin(expectedId);
+            var result = await service.MakeAdminAsync(expectedId);
 
             // Assert
             Assert.AreSame(expectedResult, result);
