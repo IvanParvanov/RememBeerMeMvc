@@ -28,7 +28,7 @@ using RememBeer.Tests.Utils.TestExtensions;
 namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     [TestFixture]
-    public class Index_Should : ReviewsControllerTestBase
+    public class Index_Put_Should : ReviewsControllerTestBase
     {
         private readonly string expectedUserId = Guid.NewGuid().ToString();
 

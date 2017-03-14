@@ -40,20 +40,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             int totalCount;
             var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-            var viewModel = new PaginatedViewModel<IApplicationUser>()
-                            {
-                                Items = users,
-                                CurrentPage = page,
-                                PageSize = pageSize,
-                                TotalCount = totalCount
-                            };
-
-            if (this.Request.IsAjaxRequest())
-            {
-                return this.PartialView("_UserList", viewModel);
-            }
-
-            return this.View(viewModel);
+            return this.GetPaginatedUserList(page, pageSize, totalCount, users);
         }
 
         // GET: Admin/Users/Reviews/id
@@ -95,7 +82,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
                 int totalCount;
                 var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-                return this.PartialView("_UserList", users);
+                return this.GetPaginatedUserList(page, pageSize, totalCount, users);
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Join(", ", result.Errors));
@@ -111,7 +98,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
                 int totalCount;
                 var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-                return this.PartialView("_UserList", users);
+                return this.GetPaginatedUserList(page, pageSize, totalCount, users);
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Join(", ", result.Errors));
@@ -124,7 +111,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             int totalCount;
             var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-            return this.PartialView("_UserList", users);
+            return this.GetPaginatedUserList(page, pageSize, totalCount, users);
         }
 
         // POST: Admin/Users/RemoveAdmin
@@ -134,7 +121,25 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             int totalCount;
             var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
-            return this.PartialView("_UserList", users);
+            return this.GetPaginatedUserList(page, pageSize, totalCount, users);
+        }
+
+        private ActionResult GetPaginatedUserList(int page, int pageSize, int totalCount, IEnumerable<IApplicationUser> users)
+        {
+            var viewModel = new PaginatedViewModel<IApplicationUser>()
+                            {
+                                Items = users,
+                                CurrentPage = page,
+                                PageSize = pageSize,
+                                TotalCount = totalCount
+                            };
+
+            if (this.Request.IsAjaxRequest())
+            {
+                return this.PartialView("_UserList", viewModel);
+            }
+
+            return this.View("Index", viewModel);
         }
     }
 }

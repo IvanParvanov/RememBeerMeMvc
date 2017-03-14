@@ -187,7 +187,7 @@ namespace RememBeer.MvcClient.Controllers
             }
 
             var review = new BeerReview();
-            this.mapper.Map(m, review);
+            review = this.mapper.Map(m, review);
             review.ApplicationUserId = this.User.Identity.GetUserId();
             review.ImgUrl = imgUrl ?? review.ImgUrl;
 

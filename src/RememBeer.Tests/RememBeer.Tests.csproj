@@ -169,8 +169,10 @@
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Details_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Edit_Should.cs" />
-    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Should.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Post_Should.cs" />
+    <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Put_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\My_Should.cs" />
+    <Compile Include="Mvc\Helpers\AjaxHelperExtensionsTests\PageRefreshActionLink_Should.cs" />
     <Compile Include="Mvc\Models\Account\ExternalLoginConfirmationViewModelTests.cs" />
     <Compile Include="Mvc\Models\Account\ExternalLoginListViewModelTests.cs" />
     <Compile Include="Mvc\Models\Account\ForgotPasswordViewModelTests.cs" />
