@@ -18,7 +18,7 @@
             {
                 <tr>
                     <td>@user.Email</td>
-                    <td>@user.LockoutEndDateUtc</td>
+                    <td>@(user.LockoutEndDateUtc.HasValue ? user.LockoutEndDateUtc.Value.ToShortDateString() : string.Empty)</td>
                     <td class="center-align">
                         @if (user.LockoutEndDateUtc.HasValue && DateTime.UtcNow < user.LockoutEndDateUtc)
                         {
@@ -32,7 +32,7 @@
                                                  OnSuccess = "showSuccess('User enabled')",
                                                  OnFailure = "handleAjaxError"
                                              },
-                                             htmlAttributes: new { @class = "btn teal darken-1" })
+                                             htmlAttributes: new { @class = "btn teal darken-1 waves-effect waves-light" })
                         }
                         else
                         {
@@ -46,7 +46,7 @@
                                                  OnSuccess = "showSuccess('User disabled.')",
                                                  OnFailure = "handleAjaxError"
                                              },
-                                             htmlAttributes: new { @class = "btn red" })
+                                             htmlAttributes: new { @class = "btn red waves-effect waves-light" })
                         }
                     </td>
                     <td>
@@ -65,7 +65,7 @@
                                                  OnSuccess = "showSuccess('User has been removed from the administrator role.')",
                                                  OnFailure = "handleAjaxError"
                                              },
-                                             htmlAttributes: new { @class = "btn-floating red center-align" })
+                                             htmlAttributes: new { @class = "btn-floating red center-align waves-effect waves-light" })
                         }
                         else
                         {
@@ -79,7 +79,7 @@
                                                  OnSuccess = "showSuccess('User is now an administrator')",
                                                  OnFailure = "handleAjaxError"
                                              },
-                                             htmlAttributes: new { @class = "btn-floating teal darken-1 center-align" })
+                                             htmlAttributes: new { @class = "btn-floating teal darken-1 center-align waves-effect waves-light" })
                         }
                     </td>
                     <td>

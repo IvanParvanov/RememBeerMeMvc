@@ -6,6 +6,7 @@ $("#create-form").submit(function (ev) {
     if ($form.valid()) {
         var form = $('#create-form')[0];
         var formData = new FormData(form);
+        $("#loading").show();
 
         $.ajax({
             type: "POST",
@@ -14,6 +15,7 @@ $("#create-form").submit(function (ev) {
             contentType: false,
             processData: false,
             success: function (response) {
+                $("#loading").hide();
                 $('.modal').modal('close');
                 $("#content").html(response);
                 showSuccess('Review has been created!');

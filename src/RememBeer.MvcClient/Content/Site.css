@@ -54,10 +54,31 @@ ul.pagination li a { padding: 0 10px; }
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    background-color: #7f8c8d;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     display: none;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fade-in 1s;
+    animation: fadeIn 1s;
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
 }
 
 .vh-center {
@@ -123,11 +144,9 @@ input:not([type]).input-validation-error, input:not([type]):focus.input-validati
     overflow: hidden;
 }
 
-nav a.brand-logo  > i.fa {
+nav a.brand-logo > i.fa {
     float: none;
     margin-right: 0;
 }
 
-.checkbox {
-    margin-bottom: 10px;
-}
+.checkbox { margin-bottom: 10px; }
