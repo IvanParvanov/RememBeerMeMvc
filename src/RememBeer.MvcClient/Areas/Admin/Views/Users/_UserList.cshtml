@@ -8,8 +8,8 @@
             <tr>
                 <td>Email</td>
                 <td>Lockout End</td>
-                <td>Admin</td>
                 <td></td>
+                <td>Admin</td>
                 <td>Reviews</td>
             </tr>
             </thead>
@@ -19,16 +19,43 @@
                 <tr>
                     <td>@user.Email</td>
                     <td>@user.LockoutEndDateUtc</td>
+                    <td class="center-align">
+                        @if (user.LockoutEndDateUtc.HasValue && DateTime.UtcNow < user.LockoutEndDateUtc)
+                        {
+                            @Ajax.ActionLink("Unlock", "EnableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                                             new AjaxOptions()
+                                             {
+                                                 HttpMethod = "POST",
+                                                 InsertionMode = InsertionMode.Replace,
+                                                 LoadingElementId = "loading",
+                                                 UpdateTargetId = "content",
+                                                 OnSuccess = "showSuccess('User enabled')",
+                                                 OnFailure = "handleAjaxError"
+                                             },
+                                             htmlAttributes: new { @class = "btn teal darken-1" })
+                        }
+                        else
+                        {
+                            @Ajax.ActionLink("Lock", "DisableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                                             new AjaxOptions()
+                                             {
+                                                 HttpMethod = "POST",
+                                                 InsertionMode = InsertionMode.Replace,
+                                                 LoadingElementId = "loading",
+                                                 UpdateTargetId = "content",
+                                                 OnSuccess = "showSuccess('User disabled.')",
+                                                 OnFailure = "handleAjaxError"
+                                             },
+                                             htmlAttributes: new { @class = "btn red" })
+                        }
+                    </td>
                     <td>
                         @{
                             var isAdmin = user.Roles.Any();
                         }
-                        @isAdmin
-                    </td>
-                    <td>
                         @if (isAdmin)
                         {
-                            @Ajax.ActionLink("-", "RemoveAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                            @Ajax.ActionLink("Yes", "RemoveAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
                                              new AjaxOptions()
                                              {
                                                  HttpMethod = "POST",
@@ -42,7 +69,7 @@
                         }
                         else
                         {
-                            @Ajax.ActionLink("+", "MakeAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
+                            @Ajax.ActionLink("No", "MakeAdmin", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
                                              new AjaxOptions()
                                              {
                                                  HttpMethod = "POST",
@@ -54,31 +81,6 @@
                                              },
                                              htmlAttributes: new { @class = "btn-floating teal darken-1 center-align" })
                         }
-                    </td>
-                    <td>
-                        @Ajax.ActionLink("Unlock", "EnableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
-                                         new AjaxOptions()
-                                         {
-                                             HttpMethod = "POST",
-                                             InsertionMode = InsertionMode.Replace,
-                                             LoadingElementId = "loading",
-                                             UpdateTargetId = "content",
-                                             OnSuccess = "showSuccess('User enabled')",
-                                             OnFailure = "handleAjaxError"
-                                         },
-                                         htmlAttributes: new { @class = "btn teal darken-1" })
-
-                        @Ajax.ActionLink("Lock", "DisableUser", new { userId = user.Id, page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], searchPattern = Request.QueryString["searchPattern"] },
-                                         new AjaxOptions()
-                                         {
-                                             HttpMethod = "POST",
-                                             InsertionMode = InsertionMode.Replace,
-                                             LoadingElementId = "loading",
-                                             UpdateTargetId = "content",
-                                             OnSuccess = "showSuccess('User disabled.')",
-                                             OnFailure = "handleAjaxError"
-                                         },
-                                         htmlAttributes: new { @class = "btn red" })
                     </td>
                     <td>
                         <a class="btn teal darken-1 white-text" href="@Url.Action("Reviews", "Users", new { id = user.Id })">
