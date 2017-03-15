@@ -5,7 +5,6 @@ using Moq;
 using NUnit.Framework;
 
 using RememBeer.Data.DbContexts.Contracts;
-using RememBeer.Data.Repositories.Base;
 using RememBeer.Models;
 using RememBeer.Services;
 
