@@ -163,6 +163,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />

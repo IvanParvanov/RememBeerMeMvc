@@ -21,6 +21,38 @@ namespace RememBeer.Tests.Services.UserServiceTests
     [TestFixture]
     public class PaginatedUsers_Should : TestClassBase
     {
+        [Test]
+        public void Throw_ArgumenOutOfRangeException_WhenPageIsLessThanZero()
+        {
+            // Arrange
+            var userManager = new Mock<IApplicationUserManager>();
+            var signInManager = new Mock<IApplicationSignInManager>();
+            var modelFactory = new Mock<IModelFactory>();
+            var service = new UserService(userManager.Object,
+                                          signInManager.Object,
+                                          modelFactory.Object);
+            var totalCount = 0;
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => service.PaginatedUsers(-1, 1, ref totalCount));
+        }
+
+        [Test]
+        public void Throw_ArgumenOutOfRangeException_WhenPageSizeIsLessThanZero()
+        {
+            // Arrange
+            var userManager = new Mock<IApplicationUserManager>();
+            var signInManager = new Mock<IApplicationSignInManager>();
+            var modelFactory = new Mock<IModelFactory>();
+            var service = new UserService(userManager.Object,
+                                          signInManager.Object,
+                                          modelFactory.Object);
+            var totalCount = 9;
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => service.PaginatedUsers(1, -1, ref totalCount));
+        }
+
         [TestCase(2, 4, 15)]
         [TestCase(0, 4, 15)]
         [TestCase(4, 4, 20)]
@@ -54,10 +86,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
             var service = new UserService(userManager.Object,
                                           signInManager.Object,
                                           modelFactory.Object);
-            int actualTotal;
+            int actualTotal = 0;
 
             // Act
-            var result = service.PaginatedUsers(currentPage, expectedPageSize, out actualTotal);
+            var result = service.PaginatedUsers(currentPage, expectedPageSize, ref actualTotal);
 
             var actualUsers = result as IApplicationUser[] ?? result.ToArray();
             var actualCount = actualUsers.Length;
@@ -112,10 +144,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
             var service = new UserService(userManager.Object,
                                           signInManager.Object,
                                           modelFactory.Object);
-            int actualTotal;
+            int actualTotal = 0;
 
             // Act
-            var result = service.PaginatedUsers(currentPage, expectedPageSize, out actualTotal, searchPattern);
+            var result = service.PaginatedUsers(currentPage, expectedPageSize, ref actualTotal, searchPattern);
 
             var actualUsers = result as IApplicationUser[] ?? result.ToArray();
             var actualCount = actualUsers.Length;

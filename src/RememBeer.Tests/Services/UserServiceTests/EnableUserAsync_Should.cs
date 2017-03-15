@@ -36,35 +36,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = await service.EnableUserAsync(expectedId);
+            await service.EnableUserAsync(expectedId);
 
             // Assert
             userManager.Verify(m => m.SetLockoutEndDateAsync(expectedId, DateTimeOffset.MinValue), Times.Once);
-        }
-
-        [Test]
-        public async Task ReturnResultFrom_UserManagerSetLockoutEndDateAsyncMethod()
-        {
-            // Arrange
-            var expectedResult = IdentityResult.Success;
-            var id = this.Fixture.Create<string>();
-
-            var userManager = new Mock<IApplicationUserManager>();
-            userManager.Setup(m => m.SetLockoutEndDateAsync(It.IsAny<string>(), It.IsAny<DateTimeOffset>()))
-                       .Returns(Task.FromResult(expectedResult));
-
-            var signInManager = new Mock<IApplicationSignInManager>();
-            var modelFactory = new Mock<IModelFactory>();
-
-            var service = new UserService(userManager.Object,
-                                          signInManager.Object,
-                                          modelFactory.Object);
-
-            // Act
-            var result = await service.EnableUserAsync(id);
-
-            // Assert
-            Assert.AreSame(expectedResult, result);
         }
     }
 }

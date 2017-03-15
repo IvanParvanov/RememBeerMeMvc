@@ -37,34 +37,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
                                           modelFactory.Object);
 
             // Act
-            var result = await service.MakeAdminAsync(expectedId);
+            await service.MakeAdminAsync(expectedId);
 
             // Assert
             userManager.Verify(m => m.AddToRoleAsync(expectedId, Constants.AdminRole), Times.Once);
-        }
-
-        [Test]
-        public async Task ReturnResultFrom_UserManagerAddToRoleAsyncMethod()
-        {
-            // Arrange
-            var expectedResult = IdentityResult.Failed();
-            var expectedId = this.Fixture.Create<string>();
-            var userManager = new Mock<IApplicationUserManager>();
-            userManager.Setup(m => m.AddToRoleAsync(expectedId, Constants.AdminRole))
-                       .Returns(Task.FromResult(expectedResult));
-
-            var signInManager = new Mock<IApplicationSignInManager>();
-            var modelFactory = new Mock<IModelFactory>();
-
-            var service = new UserService(userManager.Object,
-                                          signInManager.Object,
-                                          modelFactory.Object);
-
-            // Act
-            var result = await service.MakeAdminAsync(expectedId);
-
-            // Assert
-            Assert.AreSame(expectedResult, result);
         }
     }
 }

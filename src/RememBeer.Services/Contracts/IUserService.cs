@@ -22,7 +22,7 @@ namespace RememBeer.Services.Contracts
 
         SignInStatus PasswordSignIn(string email, string password, bool isPersistent);
 
-        IEnumerable<IApplicationUser> PaginatedUsers(int currentPage, int pageSize, out int total, string searchPattern = null);
+        IEnumerable<IApplicationUser> PaginatedUsers(int currentPage, int pageSize, ref int total, string searchPattern = null);
 
         int CountUsers();
 
@@ -30,12 +30,12 @@ namespace RememBeer.Services.Contracts
 
         IdentityResult UpdateUser(string id, string email, string username, bool isConfirmed);
 
-        Task<IdentityResult> EnableUserAsync(string userId);
+        Task EnableUserAsync(string userId);
 
-        Task<IdentityResult> DisableUserAsync(string userId);
+        Task DisableUserAsync(string userId);
 
-        Task<IdentityResult> MakeAdminAsync(string userId);
+        Task MakeAdminAsync(string userId);
 
-        Task<IdentityResult> RemoveAdminAsync(string userId);
+        Task RemoveAdminAsync(string userId);
     }
 }

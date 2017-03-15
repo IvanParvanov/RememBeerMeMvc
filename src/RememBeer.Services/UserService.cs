@@ -94,7 +94,7 @@ namespace RememBeer.Services
 
         public IEnumerable<IApplicationUser> PaginatedUsers(int currentPage,
                                                             int pageSize,
-                                                            out int totalCount,
+                                                            ref int totalCount,
                                                             string searchPattern = null)
         {
             Guard.WhenArgument(currentPage, nameof(currentPage)).IsLessThan(0).Throw();
@@ -120,30 +120,25 @@ namespace RememBeer.Services
             return this.userManager.Users.Count();
         }
 
-        public async Task<IdentityResult> DisableUserAsync(string userId)
+        public async Task DisableUserAsync(string userId)
         {
-            var result = await this.userManager.UpdateSecurityStampAsync(userId);
-            if (!result.Succeeded)
-            {
-                return result;
-            }
-
-            return await this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
+            await this.userManager.UpdateSecurityStampAsync(userId);
+            await this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MaxValue);
         }
 
-        public Task<IdentityResult> EnableUserAsync(string userId)
+        public async Task EnableUserAsync(string userId)
         {
-            return this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue);
+            await this.userManager.SetLockoutEndDateAsync(userId, DateTimeOffset.MinValue);
         }
 
-        public Task<IdentityResult> MakeAdminAsync(string userId)
+        public async Task MakeAdminAsync(string userId)
         {
-            return this.userManager.AddToRoleAsync(userId, Constants.AdminRole);
+            await this.userManager.AddToRoleAsync(userId, Constants.AdminRole);
         }
 
-        public Task<IdentityResult> RemoveAdminAsync(string userId)
+        public async Task RemoveAdminAsync(string userId)
         {
-            return this.userManager.RemoveFromRoleAsync(userId, Constants.AdminRole);
+            await this.userManager.RemoveFromRoleAsync(userId, Constants.AdminRole);
         }
 
         public IApplicationUser GetById(string id)

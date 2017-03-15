@@ -35,18 +35,18 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users
-        public ActionResult Index(int page = 0, int pageSize = 10, string searchPattern = null)
+        public ActionResult Index(int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             page = page < 0 ? 0 : page;
             pageSize = pageSize < 0 ? 1 : pageSize;
-            int totalCount;
-            var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
+            int totalCount = 0;
+            var users = this.userService.PaginatedUsers(page, pageSize, ref totalCount, searchPattern);
 
             return this.GetPaginatedUserList(page, pageSize, totalCount, users);
         }
 
         // GET: Admin/Users/Reviews/id
-        public ActionResult Reviews(string id, int page = 0, int pageSize = 10)
+        public ActionResult Reviews(string id, int page = 0, int pageSize = Constants.DefaultPageSize)
         {
             page = page < 0 ? 0 : page;
             pageSize = pageSize < 0 ? 1 : pageSize;
@@ -78,59 +78,34 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
         // POST: Admin/Users/EnableUser
         [HttpPost]
-        public async Task<ActionResult> EnableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> EnableUser(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
-            var result = await this.userService.EnableUserAsync(userId);
-            if (result.Succeeded)
-            {
-                return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
-            }
-
-            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Join(", ", result.Errors));
+            await this.userService.EnableUserAsync(userId);
+            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
         }
 
         // POST: Admin/Users/DisableUser
         [HttpPost]
-        public async Task<ActionResult> DisableUser(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> DisableUser(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
-            var result = await this.userService.DisableUserAsync(userId);
-            if (result.Succeeded)
-            {
-                return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
-            }
-
-            return this.InternalError(string.Join(", ", result.Errors));
+            await this.userService.DisableUserAsync(userId);
+            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
         }
 
         // POST: Admin/Users/MakeAdmin
         [HttpPost]
-        public async Task<ActionResult> MakeAdmin(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> MakeAdmin(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
-            var result = await this.userService.MakeAdminAsync(userId);
-            if (result.Succeeded)
-            {
-                return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
-            }
-
-            return this.InternalError(string.Join(", ", result.Errors));
+            await this.userService.MakeAdminAsync(userId);
+            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
         }
 
         // POST: Admin/Users/RemoveAdmin
         [HttpPost]
-        public async Task<ActionResult> RemoveAdmin(string userId, int page = 0, int pageSize = 10, string searchPattern = null)
+        public async Task<ActionResult> RemoveAdmin(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
-            var result = await this.userService.RemoveAdminAsync(userId);
-            if (result.Succeeded)
-            {
-                return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
-            }
-
-            return this.InternalError(string.Join(", ", result.Errors));
-        }
-
-        private ActionResult InternalError(string message)
-        {
-            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, message);
+            await this.userService.RemoveAdminAsync(userId);
+            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
         }
 
         private ActionResult GetPaginatedUserList(int page, int pageSize, int totalCount, IEnumerable<IApplicationUser> users)

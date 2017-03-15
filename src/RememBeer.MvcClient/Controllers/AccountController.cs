@@ -462,6 +462,7 @@ namespace RememBeer.MvcClient.Controllers
                 {
                     properties.Dictionary[XsrfKey] = this.UserId;
                 }
+
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
             }
         }
