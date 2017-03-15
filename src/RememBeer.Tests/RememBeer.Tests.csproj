@@ -164,7 +164,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\DisableUser_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\EnableUser_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Index_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\MakeAdmin_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\RemoveAdmin_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />

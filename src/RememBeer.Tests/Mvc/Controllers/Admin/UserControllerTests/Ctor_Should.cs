@@ -16,7 +16,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
     public class Ctor_Should
     {
         [Test]
-        public void Class_ShouldHaveAuthorizeAttribute()
+        public void Class_ShouldHaveAdminAuthorizeAttribute()
         {
             // Act & Assert
             AttributeTester.EnsureClassHasAdminAuthorizationAttribute(typeof(UsersController));
