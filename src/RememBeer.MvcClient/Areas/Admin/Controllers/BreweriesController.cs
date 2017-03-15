@@ -9,6 +9,7 @@ using Bytes2you.Validation;
 using RememBeer.Common.Constants;
 using RememBeer.Models.Contracts;
 using RememBeer.Models.Dtos;
+using RememBeer.MvcClient.Areas.Admin.Controllers.Base;
 using RememBeer.MvcClient.Areas.Admin.Models;
 using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Shared;
@@ -17,7 +18,7 @@ using RememBeer.Services.Contracts;
 namespace RememBeer.MvcClient.Areas.Admin.Controllers
 {
     [ValidateInput(false)]
-    public class BreweriesController : Controller
+    public class BreweriesController : AdminController
     {
         private readonly IMapper mapper;
         private readonly IBreweryService breweryService;
