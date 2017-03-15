@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 
 using AutoMapper;
@@ -8,6 +9,7 @@ using Bytes2you.Validation;
 using RememBeer.Common.Constants;
 using RememBeer.Models.Contracts;
 using RememBeer.Models.Dtos;
+using RememBeer.MvcClient.Areas.Admin.Models;
 using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Shared;
 using RememBeer.Services.Contracts;
@@ -21,7 +23,9 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         private readonly IBreweryService breweryService;
         private readonly IBeerTypesService beerTypesService;
 
-        public BreweriesController(IMapper mapper, IBreweryService breweryService, IBeerTypesService beerTypesService)
+        public BreweriesController(IMapper mapper,
+                                   IBreweryService breweryService,
+                                   IBeerTypesService beerTypesService)
         {
             Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
             Guard.WhenArgument(breweryService, nameof(breweryService)).IsNull().Throw();
@@ -57,8 +61,35 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public ActionResult Details(int id)
         {
             var brewery = this.breweryService.GetById(id);
+            if (this.Request.IsAjaxRequest())
+            {
+                return this.PartialView("_Details", brewery);
+            }
 
             return this.View(brewery);
+        }
+
+        // POST: Admin/Breweries/Details/5
+        [HttpPost]
+        [AjaxOnly]
+        public ActionResult Details(CreateBeerBindingModel model)
+        {
+            var result = this.breweryService.AddNewBeer(model.Id, model.TypeId, model.BeerName);
+            if (result.Successful)
+            {
+                return this.RedirectToAction("Details", new { id = model.Id });
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Beer validation failed");
+        }
+
+        // POST: Admin/Breweries/DeleteBeer/5
+        [AjaxOnly]
+        public HttpStatusCodeResult DeleteBeer(int beerId)
+        {
+            this.breweryService.DeleteBeer(beerId);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Beer has been deleted!");
         }
 
         [AjaxOnly]

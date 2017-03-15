@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -7,14 +8,9 @@ using RememBeer.Models;
 
 namespace RememBeer.Data.DbContexts
 {
+    [ExcludeFromCodeCoverage]
     public class RememBeerMeDbContext : IdentityDbContext<ApplicationUser>, IRememBeerMeDbContext
     {
-        // Your context has been configured to use a 'RememBeerMeDbContext' connection string from your application's 
-        // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'RememBeer.Data.RememBeerMeDbContext' database on your LocalDb instance. 
-        // 
-        // If you wish to target a different database and/or database provider, modify the 'RememBeerMeDbContext' 
-        // connection string in the application configuration file.
         public RememBeerMeDbContext()
             : base("name=RememBeerMeDbContext")
         {
@@ -36,11 +32,6 @@ namespace RememBeer.Data.DbContexts
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
-        }
-
-        public static RememBeerMeDbContext Create()
-        {
-            return new RememBeerMeDbContext();
         }
     }
 }

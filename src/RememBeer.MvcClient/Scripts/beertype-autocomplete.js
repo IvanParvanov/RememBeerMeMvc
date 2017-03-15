@@ -18,7 +18,7 @@
             };
         },
         onSelect: function (suggestion) {
-            $("#hiddenTypeId").val(suggestion.data);
+            $("#TypeId").val(suggestion.data);
         }
     });
 })();

@@ -1,0 +1,35 @@
+﻿@model RememBeer.MvcClient.Areas.Admin.Models.CreateBeerBindingModel
+
+@using (Ajax.BeginForm("Details", "Breweries", null, new AjaxOptions()
+                                                     {
+                                                         HttpMethod = "POST",
+                                                         InsertionMode = InsertionMode.Replace,
+                                                         LoadingElementId = "loading",
+                                                         UpdateTargetId = "content",
+                                                         OnSuccess = "showSuccess('Beer created successfuly!')",
+                                                         OnFailure = "handleAjaxError"
+                                                     }, new { @class = "" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="input-field col s12 m12 l5">
+        @Html.LabelFor(x => x.BeerName)
+        @Html.TextBoxFor(x => x.BeerName)
+        @Html.ValidationMessageFor(x => x.BeerName)
+    </div>
+
+    <div class="input-field col s12 m12 l5">
+        <label for="type">Beer type</label>
+        <input id="type" name="type" type="text"/>
+        @Html.HiddenFor(x => x.TypeId)
+        @Html.ValidationMessageFor(x => x.TypeId)
+    </div>
+    <div class="input-field col s12 m12 l2 center-align">
+        <button type="submit" class="btn green waves-effect waves-light">Add</button>
+    </div>
+
+    <div class="clearfix"></div>
+}
+
+<script src="~/Scripts/devbridge-autocomplete.min.js"></script>
+
+<script src="~/Scripts/beertype-autocomplete.js"></script>

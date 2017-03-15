@@ -1,7 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace RememBeer.Data.Migrations
 {
     using System.Data.Entity.Migrations;
     
+    [ExcludeFromCodeCoverage]
     public partial class UserChanges : DbMigration
     {
         public override void Up()

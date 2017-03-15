@@ -1,0 +1,20 @@
+﻿<tr id="beer-@Model.Id">
+    <td>@Model.Name</td>
+    <td>
+        <em>@Model.BeerType.Type</em>
+    </td>
+    <td>
+        <a class="btn-floating red"
+           data-ajax="true"
+           data-ajax-failure="handleAjaxError"
+           data-ajax-loading="#loading"
+           data-ajax-method="POST"
+           data-ajax-mode="replace"
+           data-ajax-success="showSuccess('Beer has been deleted!')"
+           data-ajax-update="#beer-@Model.Id"
+           href="/admin/breweries/deletebeer?beerId=@Model.Id">
+            <i class="material-icons">&#xE872;</i>
+        </a>
+    </td>
+</tr>
+

@@ -20,6 +20,7 @@ function initMaterialize() {
     $.validator.unobtrusive.parse($("form"));
     $('.modal').modal();
     $('.materialboxed').materialbox();
+    $('.collapsible').collapsible();
 }
 
 function handleAjaxError(response) {

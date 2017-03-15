@@ -1,4 +1,5 @@
 using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -7,6 +8,7 @@ using RememBeer.Common.Constants;
 
 namespace RememBeer.Data.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public sealed class Configuration : DbMigrationsConfiguration<DbContexts.RememBeerMeDbContext>
     {
         public Configuration()
