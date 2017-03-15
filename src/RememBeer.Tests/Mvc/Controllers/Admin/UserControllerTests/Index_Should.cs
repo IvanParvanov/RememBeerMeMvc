@@ -111,6 +111,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))
                        .Returns(expectedUsers);
+
             // Act
             var result = sut.Index(expectedPage, expectedPageSize) as PartialViewResult;
 
@@ -140,6 +141,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))
                        .Returns(expectedUsers);
+
             // Act
             var result = sut.Index(expectedPage, expectedPageSize) as ViewResult;
 
@@ -153,42 +155,6 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             Assert.AreEqual(expectedPage, actual.CurrentPage);
             Assert.AreEqual(0, actual.TotalCount);
             Assert.AreEqual(expectedPageSize, actual.PageSize);
-        }
-
-        public override void Init()
-        {
-            this.Kernel.Bind<HttpContextBase>()
-                .ToMethod(ctx =>
-                          {
-                              var request = new Mock<HttpRequestBase>();
-                              request.SetupGet(x => x.Headers).Returns(
-                                                                       new System.Net.WebHeaderCollection
-                                                                       {
-                                                                           { "X-Requested-With", "XMLHttpRequest" }
-                                                                       });
-                              var context = new Mock<HttpContextBase>();
-                              context.SetupGet(x => x.Request).Returns(request.Object);
-
-                              return context.Object;
-                          })
-                .InSingletonScope()
-                .Named(AjaxContextName);
-
-            this.Kernel.Bind<HttpContextBase>()
-                .ToMethod(ctx =>
-                          {
-                              var request = new Mock<HttpRequestBase>();
-                              request.SetupGet(x => x.Headers).Returns(new System.Net.WebHeaderCollection());
-
-                              var context = new Mock<HttpContextBase>();
-                              context.SetupGet(x => x.Request).Returns(request.Object);
-
-                              return context.Object;
-                          })
-                .InSingletonScope()
-                .Named(RegularContextName);
-
-            base.Init();
         }
     }
 }

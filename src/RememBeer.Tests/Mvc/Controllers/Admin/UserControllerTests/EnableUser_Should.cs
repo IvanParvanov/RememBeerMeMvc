@@ -42,6 +42,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             var expectedPage = 991;
             var expectedSearch = Guid.NewGuid().ToString();
             var sut = this.Kernel.Get<UsersController>();
+
             // Act
             var result = await sut.EnableUser("sa", expectedPage, expectedPageSize, expectedSearch) as RedirectToRouteResult;
 

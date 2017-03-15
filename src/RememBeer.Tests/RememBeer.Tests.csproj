@@ -169,6 +169,7 @@
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\MakeAdmin_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\RemoveAdmin_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Reviews_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />

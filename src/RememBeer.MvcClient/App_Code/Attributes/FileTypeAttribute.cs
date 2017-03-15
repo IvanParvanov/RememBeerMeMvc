@@ -9,7 +9,7 @@ namespace RememBeer.MvcClient.Attributes
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class FileTypeAttribute : ValidationAttribute
     {
-        private List<string> AllowedExtensions { get; set; }
+        private List<string> AllowedExtensions { get; }
 
         public FileTypeAttribute(string fileExtensions)
         {
