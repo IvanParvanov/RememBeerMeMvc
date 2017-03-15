@@ -4,12 +4,12 @@ namespace RememBeer.MvcClient.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return this.View();
         }
 
-        public ActionResult Error()
+        public ViewResult Error()
         {
             return this.View("Error");
         }

@@ -163,8 +163,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />
+    <Compile Include="Mvc\Controllers\HomeControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\Ninject\Base\NinjectTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\ReviewsControllerTestBase.cs" />
+    <Compile Include="Mvc\Controllers\Ninject\TopControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\ChangeImage_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Details_Should.cs" />
@@ -172,6 +175,9 @@
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Post_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Index_Put_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\My_Should.cs" />
+    <Compile Include="Mvc\Controllers\TopControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\TopControllerTests\TopBeers_Should.cs" />
+    <Compile Include="Mvc\Controllers\TopControllerTests\TopBreweries_Should.cs" />
     <Compile Include="Mvc\Helpers\AjaxHelperExtensionsTests\PageRefreshActionLink_Should.cs" />
     <Compile Include="Mvc\Models\Account\ExternalLoginConfirmationViewModelTests.cs" />
     <Compile Include="Mvc\Models\Account\ExternalLoginListViewModelTests.cs" />

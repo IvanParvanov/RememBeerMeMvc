@@ -20,14 +20,14 @@ namespace RememBeer.MvcClient.Controllers
         }
 
         // GET: Top/TopBeers
-        public ActionResult TopBeers()
+        public ViewResult TopBeers()
         {
             var topBeers = this.topService.GetTopBeers(Constants.TopBeersCount).ToList();
             return this.View(topBeers);
         }
 
         // GET: Top/TopBeers
-        public ActionResult TopBreweries()
+        public ViewResult TopBreweries()
         {
             var topBreweries = this.topService.GetTopBreweries(Constants.TopBeersCount).ToList();
             return this.View(topBreweries);
