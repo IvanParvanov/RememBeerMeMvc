@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -8,6 +7,7 @@ using AutoMapper;
 using Bytes2you.Validation;
 
 using RememBeer.Models.Contracts;
+using RememBeer.MvcClient.Areas.Admin.Controllers.Base;
 using RememBeer.MvcClient.Models.Reviews;
 using RememBeer.MvcClient.Models.Shared;
 using RememBeer.Services.Contracts;
@@ -16,8 +16,7 @@ using Constants = RememBeer.Common.Constants.Constants;
 
 namespace RememBeer.MvcClient.Areas.Admin.Controllers
 {
-    [Authorize(Roles = Constants.AdminRole)]
-    public class UsersController : Controller
+    public class UsersController : AdminController
     {
         private readonly IUserService userService;
         private readonly IBeerReviewService reviewService;
@@ -42,7 +41,20 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             int totalCount = 0;
             var users = this.userService.PaginatedUsers(page, pageSize, ref totalCount, searchPattern);
 
-            return this.GetPaginatedUserList(page, pageSize, totalCount, users);
+            var viewModel = new PaginatedViewModel<IApplicationUser>()
+                            {
+                                Items = users,
+                                CurrentPage = page,
+                                PageSize = pageSize,
+                                TotalCount = totalCount
+                            };
+
+            if (this.Request.IsAjaxRequest())
+            {
+                return this.PartialView("_UserList", viewModel);
+            }
+
+            return this.View("Index", viewModel);
         }
 
         // GET: Admin/Users/Reviews/id
@@ -106,24 +118,6 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         {
             await this.userService.RemoveAdminAsync(userId);
             return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
-        }
-
-        private ActionResult GetPaginatedUserList(int page, int pageSize, int totalCount, IEnumerable<IApplicationUser> users)
-        {
-            var viewModel = new PaginatedViewModel<IApplicationUser>()
-                            {
-                                Items = users,
-                                CurrentPage = page,
-                                PageSize = pageSize,
-                                TotalCount = totalCount
-                            };
-
-            if (this.Request.IsAjaxRequest())
-            {
-                return this.PartialView("_UserList", viewModel);
-            }
-
-            return this.View("Index", viewModel);
         }
     }
 }

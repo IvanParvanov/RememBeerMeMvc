@@ -2,6 +2,11 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web.Mvc;
+
+using NUnit.Framework;
+
+using RememBeer.Common.Constants;
 
 namespace RememBeer.Tests.Utils
 {
@@ -20,6 +25,20 @@ namespace RememBeer.Tests.Utils
         {
             MethodCallExpression body = (MethodCallExpression)expression.Body;
             return body.Method;
+        }
+
+        public static bool ClassHasAttribute(Type classType, Type attributeType)
+        {
+            var attr = Attribute.GetCustomAttribute(classType, attributeType);
+            return attr != null;
+        }
+
+        public static void EnsureClassHasAdminAuthorizationAttribute(Type classType)
+        {
+            var attr = Attribute.GetCustomAttribute(classType, typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+            Assert.IsNotNull(attr);
+            Assert.AreEqual(attr.Roles, Constants.AdminRole);
         }
     }
 }

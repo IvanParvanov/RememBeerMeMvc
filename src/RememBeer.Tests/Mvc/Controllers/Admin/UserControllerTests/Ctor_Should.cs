@@ -8,12 +8,20 @@ using NUnit.Framework;
 
 using RememBeer.MvcClient.Areas.Admin.Controllers;
 using RememBeer.Services.Contracts;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
 {
     [TestFixture]
     public class Ctor_Should
     {
+        [Test]
+        public void Class_ShouldHaveAuthorizeAttribute()
+        {
+            // Act & Assert
+            AttributeTester.EnsureClassHasAdminAuthorizationAttribute(typeof(UsersController));
+        }
+
         [Test]
         public void ThrowArgumentNullException_WhenIMapperIsNull()
         {

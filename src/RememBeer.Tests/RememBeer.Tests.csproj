@@ -164,6 +164,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Mvc\Controllers\Ninject\Base\NinjectTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\ReviewsControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\TopControllerTestBase.cs" />
+    <Compile Include="Mvc\Controllers\Ninject\UsersControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\ChangeImage_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\ReviewsControllerTests\Details_Should.cs" />
