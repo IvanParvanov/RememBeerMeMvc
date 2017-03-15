@@ -93,5 +93,52 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             Assert.GreaterOrEqual(expectedPageSize, actualCount);
             CollectionAssert.IsOrdered(actualUsers, breweryComparer);
         }
+
+        [TestCase(5, "kasdjkl2j3")]
+        [TestCase(5, "asi8789798790123897a9sd")]
+        [TestCase(5, "asasd654as")]
+        [TestCase( 10, "Glarus")]
+        public void ReturnCorrectResult_WhenSearching(int foundPerCriteria,
+                                                      string search)
+        {
+            // Arrange
+            var breweries = new List<Brewery>();
+            breweries.Add(new Brewery() { Name = "", Country = "" });
+            breweries.Add(new Brewery() { Name = "", Country = "" });
+
+            for (var i = 0; i < foundPerCriteria; i++)
+            {
+                breweries.Add(new Brewery()
+                              {
+                                  Name = this.Fixture.Create<string>() + search + this.Fixture.Create<string>(),
+                                  Country = this.Fixture.Create<string>()
+                              });
+            }
+
+            for (var i = 0; i < foundPerCriteria; i++)
+            {
+                breweries.Add(new Brewery()
+                {
+                    Country = this.Fixture.Create<string>() + search + this.Fixture.Create<string>(),
+                    Name = this.Fixture.Create<string>()
+                });
+            }
+
+            var queryableBreweries = breweries.AsQueryable();
+            var repository = new Mock<IRepository<Brewery>>();
+            repository.Setup(r => r.All)
+                      .Returns(queryableBreweries);
+            var beerRepo = new Mock<IRepository<Beer>>();
+
+            var service = new BreweryService(repository.Object, beerRepo.Object);
+
+            // Act
+            var result = service.GetAll(0, int.MaxValue, (a) => a.Name, search);
+
+            // Assert
+            var actual = result as IList<IBrewery> ?? result.ToList();
+            Assert.AreEqual(foundPerCriteria * 2, actual.Count);
+            CollectionAssert.IsSubsetOf(actual, breweries);
+        }
     }
 }

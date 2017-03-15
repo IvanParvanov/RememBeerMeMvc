@@ -6,8 +6,9 @@ using Bytes2you.Validation;
 using RememBeer.Data.Repositories.Base;
 using RememBeer.Models;
 using RememBeer.Models.Contracts;
+using RememBeer.Services.Contracts;
 
-namespace RememBeer.Services.Contracts
+namespace RememBeer.Services
 {
     public class BeerTypesService : IBeerTypesService
     {
