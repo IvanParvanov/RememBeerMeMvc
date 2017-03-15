@@ -209,6 +209,8 @@
     <Compile Include="Mvc\Models\Reviews\SingleReviewViewModelTests.cs" />
     <Compile Include="Services\BeerServiceTests\Ctor_Should.cs" />
     <Compile Include="Services\BeerServiceTests\Get_Should.cs" />
+    <Compile Include="Services\BeerTypeServiceTests\Ctor_Should.cs" />
+    <Compile Include="Services\BeerTypeServiceTests\Search_Should.cs" />
     <Compile Include="Services\BreweryServiceTests\CountAll_Should.cs" />
     <Compile Include="Utils\AttributeTester.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
