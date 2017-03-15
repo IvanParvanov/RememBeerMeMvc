@@ -28,7 +28,7 @@ namespace RememBeer.MvcClient.Controllers
 
         // GET: Beers?name={name}
         [AjaxOnly]
-        public ActionResult Index(string name)
+        public JsonResult Index(string name)
         {
             var beers = this.beerService.SearchBeers(name);
 

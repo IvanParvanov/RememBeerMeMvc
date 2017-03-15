@@ -163,6 +163,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Mvc\Controllers\BeersControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\Ninject\Base\NinjectTestBase.cs" />
