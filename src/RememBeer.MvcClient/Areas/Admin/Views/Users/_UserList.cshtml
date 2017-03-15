@@ -2,7 +2,15 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 colspan="4">Manage Users</h3>
+        @using ( Html.BeginForm("Index", "Users", new { a = "1" }, FormMethod.Get, new { @class = "a" }) )
+        {
+            <div class="input-field inline">
+                <label for="searchPattern" class="">Search users</label>
+                <input type="text" name="searchPattern" id="searchPattern" />
+            </div>
+            <button type="submit" class="btn-floating prefix"><i class="suffix material-icons">&#xE8B6;</i></button>
+        }
+
         <table class="bordered striped responsive-table">
             <thead>
             <tr>
@@ -18,7 +26,7 @@
             {
                 <tr>
                     <td>@user.Email</td>
-                    <td>@(user.LockoutEndDateUtc.HasValue ? user.LockoutEndDateUtc.Value.ToShortDateString() : string.Empty)</td>
+                    <td>@(user.LockoutEndDateUtc?.ToShortDateString() ?? string.Empty)</td>
                     <td class="center-align">
                         @if (user.LockoutEndDateUtc.HasValue && DateTime.UtcNow < user.LockoutEndDateUtc)
                         {

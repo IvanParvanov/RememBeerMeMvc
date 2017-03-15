@@ -248,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Attributes\FileTypeAttribute.cs" />
+    <Content Include="App_Code\Utils\StringExtensions.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -268,6 +269,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />

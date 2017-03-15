@@ -1,3 +1,4 @@
+@using RememBeer.MvcClient.Utils
 @model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
 
 <div id="review-@Model.Id" class="card horizontal">
@@ -18,7 +19,14 @@
 
                     <small>@Html.DisplayFor(x => x.BeerBeerTypeType) <em>by  @Html.DisplayFor(x => x.BeerBreweryName)</em></small>
                 </div>
-                <p>@Html.DisplayFor(x => x.Description)</p>
+                @if (Model.IsEdit)
+                {
+                    <p>@Model.Description.Truncate(1024)</p>
+                }
+                else
+                {
+                    <p>@Html.DisplayFor(x => x.Description)</p>
+                }
                 <hr />
                 <ul class="list-inline flow-text">
                     <li>

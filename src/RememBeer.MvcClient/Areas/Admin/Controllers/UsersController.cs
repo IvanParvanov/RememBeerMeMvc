@@ -37,6 +37,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         // GET: Admin/Users
         public ActionResult Index(int page = 0, int pageSize = 10, string searchPattern = null)
         {
+            page = page < 0 ? 0 : page;
+            pageSize = pageSize < 0 ? 1 : pageSize;
             int totalCount;
             var users = this.userService.PaginatedUsers(page, pageSize, out totalCount, searchPattern);
 
@@ -46,6 +48,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         // GET: Admin/Users/Reviews/id
         public ActionResult Reviews(string id, int page = 0, int pageSize = 10)
         {
+            page = page < 0 ? 0 : page;
+            pageSize = pageSize < 0 ? 1 : pageSize;
             var skip = page * pageSize;
             var reviews = this.reviewService.GetReviewsForUser(id, skip, pageSize);
             var totalCount = this.reviewService.CountUserReviews(id);

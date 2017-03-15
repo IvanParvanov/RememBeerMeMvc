@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Bytes2you.Validation;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -95,6 +97,9 @@ namespace RememBeer.Services
                                                             out int totalCount,
                                                             string searchPattern = null)
         {
+            Guard.WhenArgument(currentPage, nameof(currentPage)).IsLessThan(0).Throw();
+            Guard.WhenArgument(pageSize, nameof(pageSize)).IsLessThan(0).Throw();
+
             var result = this.userManager.Users;
 
             if (searchPattern != null)

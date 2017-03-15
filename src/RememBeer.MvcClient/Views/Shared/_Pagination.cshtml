@@ -8,7 +8,7 @@
             var area = ViewContext.RouteData.DataTokens["area"];
         }
         @{
-            var totalPages = (int)Math.Ceiling((decimal)Model.TotalCount / (decimal)Model.PageSize);
+            var totalPages = (int)Math.Ceiling((decimal)Model.TotalCount / (decimal)(Model.PageSize == 0 ? 1 : Model.PageSize));
             var currentPage = Model.CurrentPage;
             var startPage = currentPage - 5;
             var endPage = currentPage + 4;
