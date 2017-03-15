@@ -1,24 +1,27 @@
 ﻿@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IApplicationUser>
 
+<h4>User administration</h4>
 <div class="card">
     <div class="card-content">
-        @using ( Html.BeginForm("Index", "Users", new { a = "1" }, FormMethod.Get, new { @class = "a" }) )
+        @using (Html.BeginForm("Index", "Users", null, FormMethod.Get, new { @class = "a" }))
         {
             <div class="input-field inline">
                 <label for="searchPattern" class="">Search users</label>
-                <input type="text" name="searchPattern" id="searchPattern" />
+                <input type="text" name="searchPattern" id="searchPattern"/>
             </div>
-            <button type="submit" class="btn-floating prefix"><i class="suffix material-icons">&#xE8B6;</i></button>
+            <button type="submit" class="btn-floating prefix">
+                <i class="suffix material-icons">&#xE8B6;</i>
+            </button>
         }
 
         <table class="bordered striped responsive-table">
             <thead>
             <tr>
-                <td>Email</td>
-                <td>Lockout End</td>
-                <td></td>
-                <td>Admin</td>
-                <td>Reviews</td>
+                <th>Email</th>
+                <th>Lockout End</th>
+                <th></th>
+                <th>Admin</th>
+                <th>Reviews</th>
             </tr>
             </thead>
 

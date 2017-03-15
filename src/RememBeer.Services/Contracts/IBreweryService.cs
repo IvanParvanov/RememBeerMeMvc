@@ -10,7 +10,7 @@ namespace RememBeer.Services.Contracts
     {
         IEnumerable<IBrewery> GetAll();
 
-        IEnumerable<IBrewery> GetAll<T>(int skip, int pageSize, Func<IBrewery, T> order);
+        IEnumerable<IBrewery> GetAll<T>(int skip, int pageSize, Func<IBrewery, T> order, string searchPattern = null);
 
         IEnumerable<IBrewery> Search(string pattern);
 
@@ -21,5 +21,9 @@ namespace RememBeer.Services.Contracts
         IDataModifiedResult AddNewBeer(int breweryId, int beerTypeId, string name);
 
         IDataModifiedResult DeleteBeer(int beerId);
+
+        int CountAll();
+
+        int CountAll(string pattern);
     }
 }

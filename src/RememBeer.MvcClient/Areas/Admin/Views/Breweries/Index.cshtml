@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Breweries";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IBrewery>
+
+
+@Html.Partial("_BreweryList", Model)

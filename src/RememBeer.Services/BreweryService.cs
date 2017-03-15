@@ -36,13 +36,29 @@ namespace RememBeer.Services
             return this.breweryRepository.GetAll();
         }
 
-        public IEnumerable<IBrewery> GetAll<T>(int skip, int pageSize, Func<IBrewery, T> order)
+        public IEnumerable<IBrewery> GetAll<T>(int skip, int pageSize, Func<IBrewery, T> order, string searchPattern = null)
         {
-            return this.breweryRepository.All
-                       .OrderBy(order)
+            var result = this.breweryRepository.All;
+
+            if (searchPattern != null)
+            {
+                result = result.Where(b => b.Name.Contains(searchPattern) || b.Country.Contains(searchPattern));
+            }
+
+            return result.OrderBy(order)
                        .Skip(skip)
                        .Take(pageSize)
                        .ToList();
+        }
+
+        public int CountAll()
+        {
+            return this.breweryRepository.All.Count();
+        }
+
+        public int CountAll(string pattern)
+        {
+            return this.breweryRepository.All.Count(x => x.Name.Contains(pattern));
         }
 
         public IEnumerable<IBrewery> Search(string pattern)

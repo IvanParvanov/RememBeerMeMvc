@@ -27,7 +27,7 @@
 
     <ul id="slide-out" class="side-nav">
 
-        @if ( !Request.IsAuthenticated )
+        @if (!Request.IsAuthenticated)
         {
             <li class="active teal darken-1 z-depth-2">
                 <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
@@ -53,8 +53,8 @@
                 <li class="active teal darken-1 z-depth-2">
                     <a class="subheader white-text"><i class="material-icons left white-text">&#xE8EF;</i> Admin </a>
                 </li>
-                <li class="@Html.IsSelected("My", "Reviews")">
-                    <a href="@Url.Action("My", "Reviews", new { area = "" })">Breweries</a>
+                <li class="@Html.IsSelected("Index", "Breweries")">
+                    <a href="@Url.Action("Index", "Breweries", new { area = "Admin" })">Breweries</a>
                 </li>
                 <li class="@Html.IsSelected("Index", "Users")">
                     <a href="@Url.Action("Index", "Users", new { area = "Admin" })">Users</a>
@@ -144,8 +144,8 @@
     @if (this.User.IsInRole(Constants.AdminRole))
     {
         <ul id="adminDropdown" class="dropdown-content">
-            <li class="@Html.IsSelected("My", "Reviews")">
-                <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
+            <li class="@Html.IsSelected("Index", "Breweries")">
+                <a href="@Url.Action("Index", "Breweries", new { area = "Admin" })"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
             </li>
             <li class="@Html.IsSelected("Index", "Users")">
                 <a href="@Url.Action("Index", "Users", new { area = "Admin" })"><i class="fa fa-user" aria-hidden="true"></i> Users</a>

@@ -1,0 +1,46 @@
+﻿@using RememBeer.MvcClient.Utils
+@model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IBrewery>
+<h4>Brewery administration</h4>
+
+<div class="card">
+    <div class="card-content">
+        @using (Html.BeginForm("Index", "Breweries", null, FormMethod.Get, new { @class = "a" }))
+        {
+            <div class="input-field inline">
+                <label for="searchPattern" class="">Search breweries</label>
+                <input type="text" name="searchPattern" id="searchPattern"/>
+            </div>
+            <button type="submit" class="btn-floating prefix">
+                <i class="suffix material-icons">&#xE8B6;</i>
+            </button>
+        }
+
+        <table class="bordered striped responsive-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Country</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Country</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description.Truncate(50)</td>
+                    <td>
+                        <a class="btn-floating" href="@Url.Action("Details", new { id = item.Id })">
+                            <i class="material-icons">&#xE5C8;</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+@Html.Partial("_Pagination", Model)

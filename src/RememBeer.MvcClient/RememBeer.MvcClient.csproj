@@ -256,6 +256,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BreweriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BeersController.cs" />
@@ -357,6 +358,10 @@
     <Content Include="fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\_UserList.cshtml" />
+    <Content Include="Areas\Admin\Views\Breweries\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Breweries\_BreweryList.cshtml" />
+    <Content Include="Areas\Admin\Views\Breweries\_SingleBreweryRow.cshtml" />
+    <Content Include="Areas\Admin\Views\Breweries\Details.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\beer-autocomplete.js" />

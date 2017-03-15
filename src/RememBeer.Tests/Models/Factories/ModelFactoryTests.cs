@@ -62,5 +62,22 @@ namespace RememBeer.Tests.Models.Factories
             Assert.AreEqual(totalReviews, rank.TotalReviews);
             Assert.AreSame(beer.Object, rank.Beer);
         }
+
+        [Test]
+        public void CreateBreweryRank_ShouldReturnCorrectBreweryRank()
+        {
+            // Arrange
+            var average = this.Fixture.Create<decimal>();
+            var totalCount = this.Fixture.Create<int>();
+            var name = this.Fixture.Create<string>();
+
+            // Act
+            var rank = new ModelFactory().CreateBreweryRank(average, totalCount, name);
+
+            // Assert
+            Assert.AreSame(name, rank.Name);
+            Assert.AreEqual(average, rank.AveragePerBeer);
+            Assert.AreEqual(totalCount, rank.TotalBeersCount);
+        }
     }
 }

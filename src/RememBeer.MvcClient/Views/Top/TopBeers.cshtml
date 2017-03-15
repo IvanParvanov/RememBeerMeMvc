@@ -10,20 +10,20 @@
     <div class="card-content">
         <table class="bordered striped responsive-table">
             <thead>
-            <tr>
-                <td>Position</td>
-                <td>Beer</td>
-                <td>Brewery</td>
-                <td>Country</td>
-                <td>Looks</td>
-                <td>Aroma</td>
-                <td>Taste</td>
-                <td>Overall</td>
-                <td>Final Score</td>
-            </tr>
+                <tr>
+                    <th>Position</th>
+                    <th>Beer</th>
+                    <th>Brewery</th>
+                    <th>Country</th>
+                    <th>Looks</th>
+                    <th>Aroma</th>
+                    <th>Taste</th>
+                    <th>Overall</th>
+                    <th>Final Score</th>
+                </tr>
             </thead>
 
-            @for (int i = 0; i < Model.Count; i++)
+            @for ( int i = 0; i < Model.Count; i++ )
             {
                 <tr>
                     <td>@(i + 1)</td>

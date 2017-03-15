@@ -150,3 +150,13 @@ nav a.brand-logo > i.fa {
 }
 
 .checkbox { margin-bottom: 10px; }
+
+.table {
+    display: table;
+}
+.tr {
+    display: table-row;
+}
+.td {
+    display: table-cell;
+}
