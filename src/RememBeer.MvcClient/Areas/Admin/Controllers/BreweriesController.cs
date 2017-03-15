@@ -1,9 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+
+using AutoMapper;
 
 using Bytes2you.Validation;
 
 using RememBeer.Common.Constants;
 using RememBeer.Models.Contracts;
+using RememBeer.Models.Dtos;
+using RememBeer.MvcClient.Filters;
 using RememBeer.MvcClient.Models.Shared;
 using RememBeer.Services.Contracts;
 
@@ -12,13 +17,19 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
     [ValidateInput(false)]
     public class BreweriesController : Controller
     {
+        private readonly IMapper mapper;
         private readonly IBreweryService breweryService;
+        private readonly IBeerTypesService beerTypesService;
 
-        public BreweriesController(IBreweryService breweryService)
+        public BreweriesController(IMapper mapper, IBreweryService breweryService, IBeerTypesService beerTypesService)
         {
+            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
             Guard.WhenArgument(breweryService, nameof(breweryService)).IsNull().Throw();
+            Guard.WhenArgument(beerTypesService, nameof(beerTypesService)).IsNull().Throw();
 
+            this.mapper = mapper;
             this.breweryService = breweryService;
+            this.beerTypesService = beerTypesService;
         }
 
         // GET: Admin/Breweries
@@ -26,14 +37,13 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         {
             var skip = page * pageSize;
             var breweries = this.breweryService.GetAll(skip, pageSize, x => x.Id, searchPattern);
-
             var viewModel = new PaginatedViewModel<IBrewery>()
                             {
                                 Items = breweries,
                                 CurrentPage = page,
                                 PageSize = pageSize,
                                 TotalCount = searchPattern == null ? this.breweryService.CountAll() : this.breweryService.CountAll(searchPattern)
-            };
+                            };
 
             if (this.Request.IsAjaxRequest())
             {
@@ -49,6 +59,17 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             var brewery = this.breweryService.GetById(id);
 
             return this.View(brewery);
+        }
+
+        [AjaxOnly]
+        // GET: Admin/Breweries/Types?name={name}
+        public JsonResult Types(string name)
+        {
+            var result = this.beerTypesService.Search(name);
+
+            var dtos = this.mapper.Map<IEnumerable<IBeerType>, IEnumerable<BeerTypeDto>>(result);
+
+            return this.Json(new { data = dtos }, JsonRequestBehavior.AllowGet);
         }
 
         //// GET: Admin/Breweries/Edit/5

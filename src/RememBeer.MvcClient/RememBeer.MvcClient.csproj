@@ -365,6 +365,7 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\beer-autocomplete.js" />
+    <Content Include="Scripts\beertype-autocomplete.js" />
     <Content Include="Scripts\create.js" />
     <Content Include="Scripts\devbridge-autocomplete.min.js" />
     <Content Include="Scripts\img-upload.js" />

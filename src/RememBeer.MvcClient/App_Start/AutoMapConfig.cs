@@ -22,6 +22,7 @@ namespace RememBeer.MvcClient
                                   cfg.CreateMap<CreateReviewBindingModel, IBeerReview>();
                                   cfg.CreateMap<BeerReview, CreateReviewBindingModel>();
                                   cfg.CreateMap<IBeer, BeerDto>();
+                                  cfg.CreateMap<IBeerType, BeerTypeDto>();
                               });
         }
     }

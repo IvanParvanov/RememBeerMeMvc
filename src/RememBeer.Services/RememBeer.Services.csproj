@@ -107,7 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeerService.cs" />
+    <Compile Include="Contracts\BeerTypesService.cs" />
     <Compile Include="Contracts\IBeerService.cs" />
+    <Compile Include="Contracts\IBeerTypesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BeerReviewService.cs" />
     <Compile Include="BreweryService.cs" />

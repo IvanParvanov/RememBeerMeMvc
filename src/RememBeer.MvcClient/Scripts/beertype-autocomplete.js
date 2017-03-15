@@ -1,7 +1,7 @@
 ﻿(function () {
-    $("#beerName")
+    $("#type")
     .autocomplete({
-        serviceUrl: "/Beers",
+        serviceUrl: "/breweries/types",
         paramName: "name",
         dataType: "json",
         showNoSuggestionNotice: true,
@@ -11,17 +11,14 @@
                     response.data,
                     function (dataItem) {
                         return {
-                            value: dataItem.Name + ", " + dataItem.BreweryName,
+                            value: dataItem.Type,
                             data: dataItem.Id
                         };
                     })
             };
         },
         onSelect: function (suggestion) {
-            $("#hiddenBeerId").val(suggestion.data);
+            $("#hiddenTypeId").val(suggestion.data);
         }
     });
-
-    $('#createNew').modal('close');
-    $('.modal-overlay').remove();
 })();
