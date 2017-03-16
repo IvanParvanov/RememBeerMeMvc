@@ -166,6 +166,7 @@
   <ItemGroup>
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\DeleteBeer_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Details_Put_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Types_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\DisableUser_Should.cs" />

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 using AutoMapper;
@@ -16,14 +12,29 @@ using NUnit.Framework;
 using RememBeer.Models.Contracts;
 using RememBeer.Models.Dtos;
 using RememBeer.MvcClient.Areas.Admin.Controllers;
+using RememBeer.MvcClient.Filters;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.Mvc.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
 {
     [TestFixture]
     public class Types_Should : BreweriesControllerTestBase
     {
+        [Test]
+        public void Have_AjaxOnlyAttribute()
+        {
+            // Arrange
+            var sut = this.Kernel.Get<BreweriesController>();
+
+            // Act
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Types(It.IsAny<string>()), typeof(AjaxOnlyAttribute));
+
+            // Assert
+            Assert.IsTrue(hasAttribute);
+        }
+
         [TestCase("")]
         [TestCase(null)]
         [TestCase("l;kasdl;kasdopi123908231908asd90uasdhasdkjhnasdkjlasd")]

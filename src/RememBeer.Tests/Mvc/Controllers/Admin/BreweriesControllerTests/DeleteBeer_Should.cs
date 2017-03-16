@@ -7,14 +7,29 @@ using Ninject;
 using NUnit.Framework;
 
 using RememBeer.MvcClient.Areas.Admin.Controllers;
+using RememBeer.MvcClient.Filters;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.Mvc.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
 {
     [TestFixture]
     public class DeleteBeer_Should : BreweriesControllerTestBase
     {
+        [Test]
+        public void Have_AjaxOnlyAttribute()
+        {
+            // Arrange
+            var sut = this.Kernel.Get<BreweriesController>();
+
+            // Act
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Types(It.IsAny<string>()), typeof(AjaxOnlyAttribute));
+
+            // Assert
+            Assert.IsTrue(hasAttribute);
+        }
+
         [TestCase(-1)]
         [TestCase(1)]
         [TestCase(991)]
