@@ -1,0 +1,54 @@
+﻿@model RememBeer.MvcClient.Areas.Admin.Models.EditBreweryBindingModel
+@using (Ajax.BeginForm("Details", "Breweries", null, new AjaxOptions()
+                                                     {
+                                                         InsertionMode = InsertionMode.Replace,
+                                                         UpdateTargetId = "content",
+                                                         LoadingElementId = "loading",
+                                                         HttpMethod = "PUT",
+                                                         OnFailure = "handleAjaxError",
+                                                         OnSuccess = "showSuccess('Brewery has been updated')"
+                                                     }, new { }))
+{
+    <table class="bordered striped">
+        <tr>
+            <th>Id</th>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>
+                <div class="input-field">
+                    @Html.LabelFor(x => x.Name)
+                    @Html.EditorFor(x => x.Name)
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>
+                <div class="input-field">
+                    @Html.LabelFor(x => x.Country)
+                    @Html.EditorFor(x => x.Country)
+                    @Html.ValidationMessageFor(x => x.Country)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>
+                <div class="input-field">
+                    @Html.LabelFor(x => x.Description)
+                    @Html.TextAreaFor(x => x.Description, new { @class = "materialize-textarea" })
+                    @Html.ValidationMessageFor(x => x.Description)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" value="Save"/>
+            </td>
+        </tr>
+    </table>
+}

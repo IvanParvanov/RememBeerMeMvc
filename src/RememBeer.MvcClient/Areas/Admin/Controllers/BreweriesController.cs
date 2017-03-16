@@ -62,12 +62,15 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public ActionResult Details(int id)
         {
             var brewery = this.breweryService.GetById(id);
+
+            var viewModel = this.mapper.Map<IBrewery, BreweryDetailsViewModel>(brewery);
+
             if (this.Request.IsAjaxRequest())
             {
-                return this.PartialView("_Details", brewery);
+                return this.PartialView("_Details", viewModel);
             }
 
-            return this.View(brewery);
+            return this.View(viewModel);
         }
 
         // POST: Admin/Breweries/Details/5
@@ -82,6 +85,26 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Beer validation failed");
+        }
+
+        // PUT: Admin/Breweries/Details/5
+        [AjaxOnly]
+        [HttpPut]
+        public ActionResult Details(EditBreweryBindingModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var result = this.breweryService.UpdateBrewery(model.Id, model.Name, model.Country, model.Description);
+                if (result.Successful)
+                {
+                    var brewery = this.breweryService.GetById(model.Id);
+                    var viewModel = this.mapper.Map<IBrewery, BreweryDetailsViewModel>(brewery);
+
+                    return this.PartialView("_Details", viewModel);
+                }
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Brewery validation failed");
         }
 
         // POST: Admin/Breweries/DeleteBeer/5
@@ -103,27 +126,5 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
             return this.Json(new { data = dtos }, JsonRequestBehavior.AllowGet);
         }
-
-        //// GET: Admin/Breweries/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Admin/Breweries/Edit/5
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

@@ -266,7 +266,9 @@
     <Compile Include="Areas\Admin\Controllers\Base\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BreweriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\Models\BreweryDetailsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\CreateBeerBindingModel.cs" />
+    <Compile Include="Areas\Admin\Models\EditBreweryBindingModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -375,6 +377,7 @@
     <Content Include="Areas\Admin\Views\Breweries\_SingleBeerRow.cshtml" />
     <Content Include="Areas\Admin\Views\Breweries\_CreateBeer.cshtml" />
     <Content Include="Areas\Admin\Views\Breweries\_Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Breweries\_BreweryEdit.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\beer-autocomplete.js" />
