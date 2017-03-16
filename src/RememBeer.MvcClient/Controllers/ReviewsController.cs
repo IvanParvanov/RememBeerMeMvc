@@ -22,23 +22,21 @@ using Constants = RememBeer.Common.Constants.Constants;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
+    [ValidateInput(false)]
     public class ReviewsController : Controller
     {
         private readonly IMapper mapper;
         private readonly IBeerReviewService reviewService;
-        private readonly IBeerService beerService;
         private readonly IImageUploadService imageUpload;
 
-        public ReviewsController(IMapper mapper, IBeerReviewService reviewService, IBeerService beerService, IImageUploadService imageUpload)
+        public ReviewsController(IMapper mapper, IBeerReviewService reviewService, IImageUploadService imageUpload)
         {
             Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
             Guard.WhenArgument(reviewService, nameof(reviewService)).IsNull().Throw();
-            Guard.WhenArgument(beerService, nameof(beerService)).IsNull().Throw();
             Guard.WhenArgument(imageUpload, nameof(imageUpload)).IsNull().Throw();
 
             this.mapper = mapper;
             this.reviewService = reviewService;
-            this.beerService = beerService;
             this.imageUpload = imageUpload;
         }
 

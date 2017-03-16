@@ -16,6 +16,7 @@ using RememBeer.MvcClient.Models.AccountModels;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
+    [ValidateInput(false)]
     public class AccountController : Controller
     {
         // Used for XSRF protection when adding external logins

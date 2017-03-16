@@ -12,6 +12,7 @@ using RememBeer.MvcClient.Models.Manage;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
+    [ValidateInput(false)]
     public class ManageController : Controller
     {
         private IApplicationUserManager userManager;

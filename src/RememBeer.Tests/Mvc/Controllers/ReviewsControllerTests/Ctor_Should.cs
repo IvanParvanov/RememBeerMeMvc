@@ -20,11 +20,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         {
             // Arrange
             var mapper = new Mock<IMapper>();
-            var beerService = new Mock<IBeerService>();
             var imageUpload = new Mock<IImageUploadService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ReviewsController(mapper.Object, null, beerService.Object, imageUpload.Object));
+            Assert.Throws<ArgumentNullException>(() => new ReviewsController(mapper.Object, null, imageUpload.Object));
         }
 
         [Test]
@@ -32,34 +31,21 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         {
             // Arrange
             var reviewService = new Mock<IBeerReviewService>();
-            var beerService = new Mock<IBeerService>();
             var imageUpload = new Mock<IImageUploadService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ReviewsController(null, reviewService.Object, beerService.Object, imageUpload.Object));
+            Assert.Throws<ArgumentNullException>(() => new ReviewsController(null, reviewService.Object, imageUpload.Object));
         }
 
-        [Test]
-        public void ThrowArgumenNullException_WhenBeerServiceIsNull()
-        {
-            // Arrange
-            var reviewService = new Mock<IBeerReviewService>();
-            var mapper = new Mock<IMapper>();
-            var imageUpload = new Mock<IImageUploadService>();
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ReviewsController(mapper.Object, reviewService.Object, null, imageUpload.Object));
-        }
         [Test]
         public void ThrowArgumenNullException_WhenImageUploadServiceIsNull()
         {
             // Arrange
             var reviewService = new Mock<IBeerReviewService>();
             var mapper = new Mock<IMapper>();
-            var beerService = new Mock<IBeerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ReviewsController(mapper.Object, reviewService.Object, beerService.Object, null));
+            Assert.Throws<ArgumentNullException>(() => new ReviewsController(mapper.Object, reviewService.Object, null));
         }
     }
 }

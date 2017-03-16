@@ -68,6 +68,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -163,6 +164,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Ctor_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\DeleteBeer_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Types_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\DisableUser_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\EnableUser_Should.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="Mvc\Controllers\HomeControllerTests\Error_Should.cs" />
     <Compile Include="Mvc\Controllers\HomeControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\Ninject\Base\NinjectTestBase.cs" />
+    <Compile Include="Mvc\Controllers\Ninject\BreweriesControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\ReviewsControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\TopControllerTestBase.cs" />
     <Compile Include="Mvc\Controllers\Ninject\UsersControllerTestBase.cs" />

@@ -17,7 +17,6 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
 
             this.Kernel.Bind<IMapper>().ToMock().InSingletonScope();
             this.Kernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IBeerService>().ToMock().InSingletonScope();
             this.Kernel.Bind<IImageUploadService>().ToMock().InSingletonScope();
         }
     }
