@@ -1,6 +1,21 @@
 ﻿$(document).ready(function() {
     initMaterialize();
     $(".button-collapse").sideNav();
+
+    // Reference the auto-generated proxy for the hub.
+    var chat = $.connection.notificationsHub;
+    // Create a function that the hub can call back to display messages.
+    chat.client.showSuccess = function (message) {
+        showSuccess(message);
+    };
+
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $('.btn').click(function () {
+            // Call the Send method on the hub.
+            chat.server.send("pesho");
+        });
+    });
 });
 
 function scrollToTop() {
@@ -30,7 +45,7 @@ function handleAjaxError(response) {
     } else {
         message = response.statusText;
     }
-    
+
     Materialize.toast(message, 5000, 'red');
 }
 

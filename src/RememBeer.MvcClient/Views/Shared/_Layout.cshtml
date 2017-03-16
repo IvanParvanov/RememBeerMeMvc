@@ -17,6 +17,8 @@
 <body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+<script src="/signalr/hubs"></script>
+
 <script type="text/javascript">
     $.validator.setDefaults({
         ignore: ""
@@ -30,6 +32,7 @@
         @if (!Request.IsAuthenticated)
         {
             <li class="active teal darken-1 z-depth-2">
+                
                 <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
             </li>
             <li class="@Html.IsSelected("Register", "Account")">

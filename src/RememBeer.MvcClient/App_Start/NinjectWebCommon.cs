@@ -3,11 +3,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Web;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Microsoft.AspNet.SignalR;
 
 using Ninject;
 using Ninject.Web.Common;
 
 using RememBeer.MvcClient.Ninject.Compositions;
+using RememBeer.MvcClient.Ninject.Resolvers;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(RememBeer.MvcClient.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(RememBeer.MvcClient.App_Start.NinjectWebCommon), "Stop")]
@@ -85,7 +87,8 @@ namespace RememBeer.MvcClient.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var composition = new DefaultComposition();
+            GlobalHost.DependencyResolver = new NinjectSignalRDependencyResolver(kernel);
+            var composition = new DefaultComposition(); 
             composition.RegisterServices(kernel);
 
             //PresenterBinder.Factory = kernel.Get<IPresenterFactory>();

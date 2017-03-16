@@ -14,6 +14,7 @@ namespace RememBeer.MvcClient
         public void Configuration(IAppBuilder app)
         {
             this.ConfigureAuth(app, NinjectWebCommon.Kernel);
+            app.MapSignalR();
         }
     }
 }
