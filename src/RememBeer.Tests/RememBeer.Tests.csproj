@@ -209,6 +209,9 @@
     <Compile Include="MvcClient\Models\Account\ResetPasswordViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Account\SendCodeViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Account\VerifyCodeViewModelTests.cs" />
+    <Compile Include="MvcClient\Models\Admin\BreweryDetailsViewModelTests.cs" />
+    <Compile Include="MvcClient\Models\Admin\CreateBeerBindingModelTests.cs" />
+    <Compile Include="MvcClient\Models\Admin\EditBreweryBindingModelTests.cs" />
     <Compile Include="MvcClient\Models\Manage\ChangePasswordViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Manage\ConfigureTwoFactorViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Manage\IndexViewModelTests.cs" />
