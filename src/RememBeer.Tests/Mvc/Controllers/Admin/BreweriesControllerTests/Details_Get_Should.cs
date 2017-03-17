@@ -27,9 +27,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
         public void Call_BreweryServiceGetByIdMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
             var breweryService = this.Kernel.GetMock<IBreweryService>();
 
             // Act
@@ -44,9 +42,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedBrewery = new Mock<IBrewery>();
-            var sut = this.Kernel.Get<BreweriesController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
             var breweryService = this.Kernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.GetById(It.IsAny<int>()))
                 .Returns(expectedBrewery.Object);
@@ -64,9 +60,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedModel = new BreweryDetailsViewModel();
-            var sut = this.Kernel.Get<BreweriesController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
                   .Returns(expectedModel);
@@ -86,9 +80,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedModel = new BreweryDetailsViewModel();
-            var sut = this.Kernel.Get<BreweriesController>();
-            var context = this.Kernel.Get<HttpContextBase>(RegularContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<BreweriesController>(RegularContextName);
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
                   .Returns(expectedModel);
