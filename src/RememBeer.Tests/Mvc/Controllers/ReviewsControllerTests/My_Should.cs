@@ -34,14 +34,11 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         {
             // Arrange
             var expected = new List<IBeerReview>();
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
+            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
 
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetReviewsForUser(this.expectedUserId, page * pageSize, pageSize))
                          .Returns(expected);
-
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
 
             // Act
             sut.My(page, pageSize);
@@ -55,14 +52,11 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         {
             // Arrange
             var expected = new List<IBeerReview>();
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
+            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
             var mapper = this.Kernel.GetMock<IMapper>();
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetReviewsForUser(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                          .Returns(expected);
-
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
 
             // Act
             sut.My();
@@ -76,10 +70,8 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         public void Call_CountUserReviewsrOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
+            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
             var reviewService = this.Kernel.GetMock<IBeerReviewService>();
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
 
             // Act
             sut.My();
@@ -95,9 +87,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             var expectedPageSize = 50;
             var expectedPage = 11;
 
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
@@ -108,6 +98,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 
             // Act
             var result = sut.My(expectedPage, expectedPageSize) as PartialViewResult;
+
             // Assert
             Assert.IsNotNull(result);
             var actualViewModel = result.Model as PaginatedReviewsViewModel;
@@ -125,9 +116,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             var expectedPageSize = 50;
             var expectedPage = 11;
 
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(RegularContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<ReviewsController>(RegularContextName);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
@@ -138,6 +127,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 
             // Act
             var result = sut.My(expectedPage, expectedPageSize) as ViewResult;
+
             // Assert
             Assert.IsNotNull(result);
             var actualViewModel = result.Model as PaginatedReviewsViewModel;
@@ -155,9 +145,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             var expectedPageSize = 50;
             var expectedPage = 11;
 
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel(), new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
@@ -186,9 +174,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             var expectedPageSize = 50;
             var expectedPage = 11;
 
-            var sut = this.Kernel.Get<ReviewsController>();
-            var context = this.Kernel.Get<HttpContextBase>(RegularContextName);
-            sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
+            var sut = this.Kernel.Get<ReviewsController>(RegularContextName);
             var expectedReviews = new List<SingleReviewViewModel>() { new SingleReviewViewModel(), new SingleReviewViewModel() };
             var mapper = this.Kernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))

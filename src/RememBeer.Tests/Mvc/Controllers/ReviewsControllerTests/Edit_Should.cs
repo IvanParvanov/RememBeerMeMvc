@@ -26,6 +26,7 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
             // Act
             var sut = this.Kernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(EditReviewBindingModel)), typeof(AjaxOnlyAttribute));
+
             // Assert
             Assert.IsTrue(hasAttribute);
         }

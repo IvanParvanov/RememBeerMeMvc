@@ -12,8 +12,10 @@ namespace RememBeer.Tests.Mvc.Controllers.HomeControllerTests
         {
             // Arrange
             var sut = new HomeController();
+
             // Act
             var result = sut.Error();
+
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual("Error", result.ViewName);

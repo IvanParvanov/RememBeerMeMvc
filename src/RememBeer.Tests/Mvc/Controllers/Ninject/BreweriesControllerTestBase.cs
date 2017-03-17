@@ -33,7 +33,8 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
 
                                                                  return sut;
                                                              })
-                .Named(AjaxContextName).BindingConfiguration.IsImplicit = true;
+                .Named(AjaxContextName)
+                .BindingConfiguration.IsImplicit = true;
 
             this.Kernel.Bind<BreweriesController>().ToMethod(ctx =>
                                                              {
@@ -43,7 +44,8 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
 
                                                                  return sut;
                                                              })
-                .Named(RegularContextName).BindingConfiguration.IsImplicit = true;
+                .Named(RegularContextName)
+                .BindingConfiguration.IsImplicit = true;
 
             this.Kernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>

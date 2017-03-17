@@ -37,8 +37,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveValidateAntiForgeryTokenAttribute()
         {
+            // Arrange
             var sut = this.Kernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
+
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -46,8 +48,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAjaxOnlyAttribute()
         {
+            // Arrange
             var sut = this.Kernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(AjaxOnlyAttribute));
+
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -55,8 +59,10 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveHttpPostAttribute()
         {
+            // Arrange
             var sut = this.Kernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(HttpPostAttribute));
+
             // Assert
             Assert.IsTrue(hasAttribute);
         }
@@ -311,15 +317,6 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
                               return context.Object;
                           })
                 .InSingletonScope();
-        }
-
-        private byte[] StreamToArray(Stream stream)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                stream.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
         }
     }
 }

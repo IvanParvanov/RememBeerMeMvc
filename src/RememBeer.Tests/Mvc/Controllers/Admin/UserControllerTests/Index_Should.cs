@@ -25,9 +25,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
         public void Call_UserServicePaginatedUsersOnceWithDefaultParams_WhenNoParamsAreProvided()
         {
             // Arrange
-            var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
@@ -44,9 +42,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
         public void Call_UserServicePaginatedUsersOnceWithDefaultParams_WhenParamsAreProvided(int page, int pageSize, string searchPattern)
         {
             // Arrange
-            var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
@@ -64,9 +60,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
         {
             // Arrange
             const int expectedPage = 0;
-            var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
@@ -84,9 +78,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
         {
             // Arrange
             const int expectedPageSize = 1;
-            var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
@@ -104,9 +96,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             var expectedUsers = new List<IApplicationUser>();
             var expectedPage = 10;
             var expectedPageSize = 15;
-            var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))
@@ -134,9 +124,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.UserControllerTests
             var expectedUsers = new List<IApplicationUser>();
             var expectedPage = 10;
             var expectedPageSize = 15;
-            var httpContext = this.Kernel.Get<HttpContextBase>(RegularContextName);
-            var sut = this.Kernel.Get<UsersController>();
-            sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+            var sut = this.Kernel.Get<UsersController>(RegularContextName);
             var userService = this.Kernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))

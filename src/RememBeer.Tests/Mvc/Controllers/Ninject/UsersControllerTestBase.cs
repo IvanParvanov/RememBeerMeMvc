@@ -1,9 +1,12 @@
 ﻿using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 using AutoMapper;
 
 using Moq;
 
+using Ninject;
 using Ninject.MockingKernel;
 
 using RememBeer.MvcClient.Areas.Admin.Controllers;
@@ -21,6 +24,28 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
             this.Kernel.Bind<IMapper>().ToMock().InSingletonScope();
             this.Kernel.Bind<IUserService>().ToMock().InSingletonScope();
             this.Kernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
+
+            this.Kernel.Bind<UsersController>().ToMethod(ctx =>
+                                                             {
+                                                                 var sut = this.Kernel.Get<UsersController>();
+                                                                 var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
+                                                                 sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+
+                                                                 return sut;
+                                                             })
+                .Named(AjaxContextName)
+                .BindingConfiguration.IsImplicit = true;
+
+            this.Kernel.Bind<UsersController>().ToMethod(ctx =>
+                                                             {
+                                                                 var sut = this.Kernel.Get<UsersController>();
+                                                                 var httpContext = this.Kernel.Get<HttpContextBase>(RegularContextName);
+                                                                 sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+
+                                                                 return sut;
+                                                             })
+                .Named(RegularContextName)
+                .BindingConfiguration.IsImplicit = true;
 
             this.Kernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
