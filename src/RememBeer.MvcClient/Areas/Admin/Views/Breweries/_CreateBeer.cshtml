@@ -19,7 +19,7 @@
 
     <div class="input-field col s12 m12 l5">
         <label for="type">Beer type</label>
-        <input id="type" name="type" type="text"/>
+        <input id="type" class="type-autocomplete" name="type" type="text"/>
         @Html.HiddenFor(x => x.TypeId)
         @Html.ValidationMessageFor(x => x.TypeId)
     </div>
@@ -29,6 +29,7 @@
 
     <div class="clearfix"></div>
 }
-
 <script src="~/Scripts/devbridge-autocomplete.min.js"></script>
-<script src="~/Scripts/beertype-autocomplete.js"></script>
+<script>
+    eventManager.attachBeerTypeAutocomplete();
+</script>

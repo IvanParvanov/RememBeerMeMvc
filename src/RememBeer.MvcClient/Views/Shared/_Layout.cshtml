@@ -15,8 +15,8 @@
     <meta name="description" content="The description of my page"/>
 </head>
 <body>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/vendor")
+@*@Scripts.Render("~/bundles/jqueryval")*@
 <script src="/signalr/hubs"></script>
 
 <script type="text/javascript">
@@ -24,7 +24,7 @@
         ignore: ""
     });
 </script>
-@Scripts.Render("~/bundles/materialize")
+@*@Scripts.Render("~/bundles/materialize")*@
 @Scripts.Render("~/bundles/custom")
 
     <ul id="slide-out" class="side-nav">

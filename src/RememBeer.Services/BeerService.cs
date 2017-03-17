@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 using Bytes2you.Validation;
@@ -22,8 +23,10 @@ namespace RememBeer.Services
 
         public IEnumerable<IBeer> SearchBeers(string name)
         {
-            return this.db.Beers.Where(beer => beer.IsDeleted == false && beer.Name.StartsWith(name) || beer.Brewery.Name.StartsWith(name))
-                       .OrderBy(beer => beer.Name.StartsWith(name) ? (beer.Name == name ? 0 : 1) : 2).ToList();
+            return this.db.Beers.Where(beer => beer.IsDeleted == false && beer.Name.Contains(name) || beer.Brewery.Name.StartsWith(name))
+                       .OrderBy(beer => beer.Name.StartsWith(name) ? (beer.Name == name ? 0 : 1) : 2)
+                       .Include(b => b.Brewery)
+                       .ToList();
         }
 
         public IBeer Get(int id)

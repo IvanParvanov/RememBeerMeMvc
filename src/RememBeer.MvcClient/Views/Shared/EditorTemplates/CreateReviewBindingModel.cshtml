@@ -5,7 +5,7 @@
     <div class="card-title">
         <div class="input-field">
             <label for="beerName">Beer name</label>
-            <input type="text" required name="beerName" id="beerName" />
+            <input type="text" required name="beerName" id="beerName" class="beer-autocomplete"/>
             @Html.HiddenFor(x => x.Id)
             @Html.ValidationMessageFor(x => x.BeerId)
         </div>

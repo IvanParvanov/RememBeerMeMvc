@@ -39,7 +39,10 @@
         </div>
     }
     <script src="~/Scripts/devbridge-autocomplete.min.js"></script>
-    <script src="~/Scripts/beer-autocomplete.js"></script>
+    <script>
+        eventManager.attachCreateReview();
+        eventManager.attachBeerAutocomplete();
+    </script>
 </div>
 
 
@@ -48,4 +51,4 @@
         <i class="large material-icons">add</i>
     </a>
 </div>
-<script src="~/Scripts/create.js"></script>
+

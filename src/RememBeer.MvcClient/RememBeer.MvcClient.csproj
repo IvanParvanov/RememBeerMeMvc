@@ -316,10 +316,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\default-beer.png" />
     <Content Include="Content\materialize-v0.97.5\css\materialize.css" />
@@ -380,11 +376,7 @@
     <Content Include="Areas\Admin\Views\Breweries\_BreweryEdit.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\beer-autocomplete.js" />
-    <Content Include="Scripts\beertype-autocomplete.js" />
-    <Content Include="Scripts\create.js" />
     <Content Include="Scripts\devbridge-autocomplete.min.js" />
-    <Content Include="Scripts\img-upload.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -400,8 +392,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="RememBeerMeSettings.config" />
     <Content Include="Content\materialize-v0.97.5\font\roboto\Roboto-Thin.woff2" />
     <Content Include="Content\materialize-v0.97.5\font\roboto\Roboto-Thin.woff" />

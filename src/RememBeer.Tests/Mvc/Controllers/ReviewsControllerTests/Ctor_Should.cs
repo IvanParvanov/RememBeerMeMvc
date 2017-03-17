@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 
 using AutoMapper;
 
@@ -9,12 +10,23 @@ using NUnit.Framework;
 using RememBeer.Common.Services.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.Services.Contracts;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
 {
     [TestFixture]
     public class Ctor_Should
     {
+        [Test]
+        public void Class_ShouldHaveAuthorizeAttribute()
+        {
+            // Act
+            var hasAttribute = AttributeTester.ClassHasAttribute(typeof(ReviewsController), typeof(AuthorizeAttribute));
+
+            // Assert
+            Assert.IsTrue(hasAttribute);
+        }
+
         [Test]
         public void ThrowArgumenNullException_WhenReviewServiceIsNull()
         {
