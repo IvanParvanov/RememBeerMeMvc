@@ -183,8 +183,15 @@
     <Compile Include="MvcClient\Controllers\BeersControllerTests\Index_Should.cs" />
     <Compile Include="MvcClient\Controllers\HomeControllerTests\Error_Should.cs" />
     <Compile Include="MvcClient\Controllers\HomeControllerTests\Index_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\ChangePassword_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\ChangePassword_Post_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Ctor_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Dispose_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Index_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Mocks\MockedManageController.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\Base\NinjectTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\BreweriesControllerTestBase.cs" />
+    <Compile Include="MvcClient\Controllers\Ninject\ManageControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\ReviewsControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\TopControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\UsersControllerTestBase.cs" />

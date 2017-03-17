@@ -15,7 +15,6 @@ namespace RememBeer.Tests.MvcClient.Models.Admin
             // Arrange
             var sut = new EditBreweryBindingModel();
             var id = 902908234;
-            var typeId = 23908321;
             var name = Guid.NewGuid().ToString();
             var description = Guid.NewGuid().ToString();
             var country = Guid.NewGuid().ToString();
