@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using RememBeer.Models;
-using RememBeer.Models.Contracts;
 
 namespace RememBeer.MvcClient.Areas.Admin.Models
 {

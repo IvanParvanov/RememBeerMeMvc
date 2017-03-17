@@ -10,7 +10,6 @@ using Ninject;
 
 using NUnit.Framework;
 
-using RememBeer.Data.Repositories;
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.MvcClient.Filters;
