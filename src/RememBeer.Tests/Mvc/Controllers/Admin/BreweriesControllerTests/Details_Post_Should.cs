@@ -78,6 +78,7 @@ namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
             var breweryService = this.Kernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.AddNewBeer(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                           .Returns(new Mock<IDataModifiedResult>().Object);
+
             // Act
             var result = sut.Details(new CreateBeerBindingModel()) as HttpStatusCodeResult;
 

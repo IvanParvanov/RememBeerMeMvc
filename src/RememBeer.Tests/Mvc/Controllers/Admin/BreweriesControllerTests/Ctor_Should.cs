@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using AutoMapper;
 
@@ -12,12 +8,20 @@ using NUnit.Framework;
 
 using RememBeer.MvcClient.Areas.Admin.Controllers;
 using RememBeer.Services.Contracts;
+using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.Mvc.Controllers.Admin.BreweriesControllerTests
 {
     [TestFixture]
     public class Ctor_Should
     {
+        [Test]
+        public void Class_ShouldHaveAdminAuthorizeAttribute()
+        {
+            // Act & Assert
+            AttributeTester.EnsureClassHasAdminAuthorizationAttribute(typeof(BreweriesController));
+        }
+
         [Test]
         public void ThrowArgumentNullException_WhenIMapperIsNull()
         {

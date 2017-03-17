@@ -32,7 +32,6 @@ namespace RememBeer.MvcClient
                                   breweryDetailsMap.ForMember(model => model.CreateModel, opt => opt.MapFrom(x => x));
                               });
 
-            Mapper.AssertConfigurationIsValid();
         }
     }
 }
