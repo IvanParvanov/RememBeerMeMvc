@@ -23,8 +23,12 @@ namespace RememBeer.Tests.Mvc.Controllers.ReviewsControllerTests
         [Test]
         public void HaveAllowAnonymousAttribute()
         {
+            // Arrange
             var sut = this.Kernel.Get<ReviewsController>();
+
+            // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(default(int)), typeof(AllowAnonymousAttribute));
+
             // Assert
             Assert.IsTrue(hasAttribute);
         }
