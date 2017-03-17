@@ -21,12 +21,14 @@ namespace RememBeer.Tests.MvcClient.Models.Manage
             var expectedNumber = this.Fixture.Create<string>();
             var expectedLogins = new List<UserLoginInfo>();
             var sut = new IndexViewModel();
+
             // Act
             sut.BrowserRemembered = true;
             sut.HasPassword = true;
             sut.PhoneNumber = expectedNumber;
             sut.TwoFactor = true;
             sut.Logins = expectedLogins;
+
             // Assert
             Assert.AreSame(expectedNumber, sut.PhoneNumber);
             Assert.AreSame(expectedLogins, sut.Logins);
