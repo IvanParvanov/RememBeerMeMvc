@@ -22,7 +22,6 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
             this.Kernel.Bind<IBreweryService>().ToMock().InSingletonScope();
             this.Kernel.Bind<IBeerTypesService>().ToMock().InSingletonScope();
 
-
             this.Kernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
                 {

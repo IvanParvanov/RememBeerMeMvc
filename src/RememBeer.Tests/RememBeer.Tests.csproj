@@ -169,6 +169,7 @@
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Details_Get_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Details_Post_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Details_Put_Should.cs" />
+    <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Index_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\BreweriesControllerTests\Types_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\Ctor_Should.cs" />
     <Compile Include="Mvc\Controllers\Admin\UserControllerTests\DisableUser_Should.cs" />

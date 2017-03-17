@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Bytes2you.Validation;
+
 using Microsoft.AspNet.SignalR;
 
 using Ninject;
@@ -14,6 +16,8 @@ namespace RememBeer.MvcClient.Ninject.Resolvers
 
         public NinjectSignalRDependencyResolver(IKernel kernel)
         {
+            Guard.WhenArgument(kernel, nameof(kernel)).IsNull().Throw();
+
             this.kernel = kernel;
         }
 
