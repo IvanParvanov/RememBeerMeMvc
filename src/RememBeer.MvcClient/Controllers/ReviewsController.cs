@@ -128,6 +128,24 @@ namespace RememBeer.MvcClient.Controllers
             return this.PartialView("_SingleReview", mapped);
         }
 
+        // DELETE: Reviews
+        [ValidateAntiForgeryToken]
+        [AjaxOnly]
+        [HttpDelete]
+        public HttpStatusCodeResult Index(int id)
+        {
+            var review = this.reviewService.GetById(id);
+            var userId = this.User.Identity.GetUserId();
+            if (userId != review.ApplicationUserId && !this.User.IsInRole(Constants.AdminRole))
+            {
+                return this.Unauthorized();
+            }
+
+            this.reviewService.DeleteReview(id);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK, "Review has been deleted successfully!");
+        }
+
         // POST: Reviews/ChangeImage
         [HttpPost]
         [AjaxOnly]

@@ -27,8 +27,8 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
 
             this.Kernel.Bind<BreweriesController>().ToMethod(ctx =>
                                                              {
-                                                                 var sut = this.Kernel.Get<BreweriesController>();
-                                                                 var httpContext = this.Kernel.Get<HttpContextBase>(AjaxContextName);
+                                                                 var sut = ctx.Kernel.Get<BreweriesController>();
+                                                                 var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
                                                                  sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
                                                                  return sut;
@@ -38,8 +38,8 @@ namespace RememBeer.Tests.Mvc.Controllers.Ninject
 
             this.Kernel.Bind<BreweriesController>().ToMethod(ctx =>
                                                              {
-                                                                 var sut = this.Kernel.Get<BreweriesController>();
-                                                                 var httpContext = this.Kernel.Get<HttpContextBase>(RegularContextName);
+                                                                 var sut = ctx.Kernel.Get<BreweriesController>();
+                                                                 var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);
                                                                  sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
                                                                  return sut;
