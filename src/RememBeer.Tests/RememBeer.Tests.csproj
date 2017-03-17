@@ -164,6 +164,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="MvcClient\App_Code\FIleTypeAttributeTests\IsValid_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\DeleteBeer_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Details_Get_Should.cs" />
