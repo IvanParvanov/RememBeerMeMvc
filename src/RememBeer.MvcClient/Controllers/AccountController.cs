@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using Bytes2you.Validation;
@@ -23,7 +21,9 @@ namespace RememBeer.MvcClient.Controllers
         private IApplicationUserManager userManager;
         private readonly IAuthenticationManager authenticationManager;
 
-        public AccountController(IApplicationUserManager userManager, IApplicationSignInManager signInManager, IAuthenticationManager authenticationManager)
+        public AccountController(IApplicationUserManager userManager,
+                                 IApplicationSignInManager signInManager,
+                                 IAuthenticationManager authenticationManager)
         {
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
             Guard.WhenArgument(signInManager, nameof(signInManager)).IsNull().Throw();
@@ -37,7 +37,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ViewResult Login(string returnUrl)
         {
             this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
@@ -59,7 +59,12 @@ namespace RememBeer.MvcClient.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    if (returnUrl != null)
+                    {
+                        return this.Redirect(returnUrl);
+                    }
+
+                    return this.RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -249,16 +254,6 @@ namespace RememBeer.MvcClient.Controllers
             {
                 this.ModelState.AddModelError("", error);
             }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (this.Url.IsLocalUrl(returnUrl))
-            {
-                return this.Redirect(returnUrl);
-            }
-
-            return this.RedirectToAction("Index", "Home");
         }
     }
 }

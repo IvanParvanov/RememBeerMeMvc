@@ -165,6 +165,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MvcClient\App_Code\FIleTypeAttributeTests\IsValid_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Ctor_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Login_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Login_Post_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Register_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Register_Post_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\DeleteBeer_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Details_Get_Should.cs" />
@@ -189,6 +194,7 @@
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Dispose_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Index_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Mocks\MockedManageController.cs" />
+    <Compile Include="MvcClient\Controllers\Ninject\AccountControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\Base\NinjectTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\BreweriesControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\ManageControllerTestBase.cs" />
