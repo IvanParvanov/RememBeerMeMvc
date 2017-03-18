@@ -1,7 +1,8 @@
 @using RememBeer.MvcClient.Utils
 @model RememBeer.MvcClient.Models.Reviews.SingleReviewViewModel
 
-<div id="review-@Model.Id" class="card horizontal">
+
+<div class="card horizontal">
     <div class="row full-width">
         <div class="col s12 l4 center-align">
             <img class="materialboxed responsive-img" data-caption="@Model.BeerName @@ @Model.Place" src="@Model.ImgUrl" alt="Review image">
@@ -65,11 +66,11 @@
         {
             <div class="card-action clearfix">
                 @Ajax.ActionLink("Edit", "Edit", "Reviews",
-                                 new { id = Model.Id, area = "", page= Request.QueryString["page"], pageSize = Request.QueryString["pageSize"] },
+                                 new { id = Model.Id, area = "", page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"] },
                                  new AjaxOptions()
                                  {
                                      HttpMethod = "GET",
-                                     InsertionMode = InsertionMode.ReplaceWith,
+                                     InsertionMode = InsertionMode.Replace,
                                      LoadingElementId = "loading",
                                      UpdateTargetId = "review-" + Model.Id,
                                      OnSuccess = "initMaterialize()",
@@ -77,34 +78,10 @@
                                  },
                                  new { @class = "btn amber darken-2 white-text waves-effect waves-light" })
 
-                <a class="btn deep-orange darken-2 white-text waves-effect waves-light modal-trigger " href="#deleteModal-@Model.Id">Delete</a>
-                <a class="right" href="@Url.Action("Details", "Reviews", new { id = Model.Id, area = "" })">Share Link</a>
+                <a class="btn deep-orange darken-2 white-text waves-effect waves-light modal-trigger " href="#deleteModal" onclick="updateModal(this)" data-id="@Model.Id">Delete</a>
+                <a class="right" href="@Url.Action("Details", "Reviews", new { area = "" })">Share Link</a>
                 <div class="clearfix"></div>
             </div>
         }
     </div>
 </div>
-
-<div id="deleteModal-@Model.Id" class="modal">
-    @using ( Ajax.BeginForm("Index", "Reviews", new { id = Model.Id }, new AjaxOptions()
-    {
-        HttpMethod = "DELETE",
-        InsertionMode = InsertionMode.ReplaceWith,
-        LoadingElementId = "loading",
-        UpdateTargetId = "review-" + Model.Id,
-        OnSuccess = "$('.modal').modal('close');showSuccess('Review has been deleted!')",
-        OnFailure = "handleAjaxError"
-    }, new { }) )
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="modal-content">
-            <h4>Are you sure you want to delete this review?</h4>
-        </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn deep-orange darken-2 white-text waves-effect waves-light" value="Delete" />
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-            </div>
-    }
-</div>
-

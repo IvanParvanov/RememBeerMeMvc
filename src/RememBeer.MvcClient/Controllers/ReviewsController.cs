@@ -95,6 +95,17 @@ namespace RememBeer.MvcClient.Controllers
             return this.PartialView("_Edit", mapped);
         }
 
+        // GET: Reviews/Cancel/{id}
+        [AjaxOnly]
+        public ActionResult Cancel(int id)
+        {
+            var review = this.reviewService.GetById(id);
+            var mapped = this.mapper.Map<IBeerReview, SingleReviewViewModel>(review);
+            mapped.IsEdit = true;
+
+            return this.PartialView("_SingleReview", mapped);
+        }
+
         // PUT: Reviews
         [ValidateAntiForgeryToken]
         [AjaxOnly]

@@ -18,6 +18,12 @@
     });
 });
 
+function updateModal(_this) {
+    var id = $(_this).attr("data-id");
+    $("#hidden-review-id").val(id);
+    $("#form1").attr("data-ajax-update", "#review-" + id);
+}
+
 function scrollToTop() {
     window.scrollTo(0, 0);
 }
