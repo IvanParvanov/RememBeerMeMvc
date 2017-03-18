@@ -137,7 +137,7 @@ var eventManager = {
             }
         });
     },
-    attachBeerTypeAutocomplete() {
+    attachBeerTypeAutocomplete: function() {
         $(".type-autocomplete")
             .autocomplete({
                 serviceUrl: "/breweries/types",
@@ -161,7 +161,7 @@ var eventManager = {
                 }
             });
     },
-    attachBeerAutocomplete() {
+    attachBeerAutocomplete: function() {
         $(".beer-autocomplete")
             .autocomplete({
                 serviceUrl: "/Beers",

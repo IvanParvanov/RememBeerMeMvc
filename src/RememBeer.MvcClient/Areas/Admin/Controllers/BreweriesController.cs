@@ -17,7 +17,6 @@ using RememBeer.Services.Contracts;
 
 namespace RememBeer.MvcClient.Areas.Admin.Controllers
 {
-    [ValidateInput(false)]
     public class BreweriesController : AdminController
     {
         private readonly IMapper mapper;

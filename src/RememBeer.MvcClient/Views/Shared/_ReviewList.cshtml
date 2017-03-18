@@ -1,15 +1,23 @@
 ﻿@using RememBeer.MvcClient.Models.Reviews
 
 @model PaginatedReviewsViewModel
+@{
+    ViewBag.Page = Model.CurrentPage;
+    ViewBag.PageSize = Model.PageSize;
+}
 
 @Html.Partial("_Create", new CreateReviewBindingModel())
 
 @if (Model.Items.Any())
 {
-    foreach (var review in Model.Items)
-    {
-        @Html.Partial("_SingleReview", review)
-    }
+    <ul class="fade-quick">
+        @foreach (var review in Model.Items)
+        {
+            <li class="fade-quick">
+                @Html.Partial("_SingleReview", review)
+            </li>
+        }
+    </ul>
 }
 else
 {

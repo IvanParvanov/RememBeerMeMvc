@@ -48,6 +48,14 @@ ul.pagination li { padding: 0 0; }
 
 ul.pagination li a { padding: 0 10px; }
 
+nav {
+    z-index: 10;
+}
+
+.below {
+    z-index: 2;
+}
+
 #loading {
     width: 100%;
     height: 100%;
@@ -56,11 +64,30 @@ ul.pagination li a { padding: 0 10px; }
     left: 0;
     background-color: #7f8c8d;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    z-index: 5;
     display: none;
     -webkit-animation: fadeIn 1s;
-    -moz-animation: fade-in 1s;
+    -moz-animation: fadeIn 1s;
     animation: fadeIn 1s;
+}
+
+#loading .active {
+    -webkit-animation: fadeOut 1s;
+    -moz-animation: fadeOut 1s;
+    animation: fadeOut 1s;
+}
+
+.fade, .fade-quick {
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
+
+.fade {
+    animation: fadeIn 1s;
+}
+
+.fade-quick {
+    animation: fadeIn 0.5s;
 }
 
 @-webkit-keyframes fadeIn {
@@ -79,6 +106,24 @@ ul.pagination li a { padding: 0 10px; }
     from { opacity: 0; }
 
     to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
+}
+
+@-moz-keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
 }
 
 .vh-center {
@@ -151,12 +196,12 @@ nav a.brand-logo > i.fa {
 
 .checkbox { margin-bottom: 10px; }
 
-.table {
-    display: table;
-}
-.tr {
-    display: table-row;
-}
-.td {
-    display: table-cell;
+.table { display: table; }
+
+.tr { display: table-row; }
+
+.td { display: table-cell; }
+
+.opaque {
+    opacity: 0;
 }

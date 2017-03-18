@@ -1,11 +1,9 @@
 @model RememBeer.MvcClient.Models.Reviews.CreateReviewBindingModel
 
-<!-- Modal Trigger -->
 <div class="center-align hide-on-med-and-down">
     <a class="waves-effect waves-light btn btn-large modal-trigger green " href="#createModal">Create a new review</a>
 </div>
 
-<!-- Modal Structure -->
 <div id="createModal" class="modal">
     @using (Ajax.BeginForm("Index", "Reviews", null,
                                            new AjaxOptions()
@@ -33,7 +31,7 @@
                 @Html.EditorForModel()
             </div>
             <div class="modal-footer">
-                <input type="submit" class="btn btn-flat green darken-1 white-text waves-effect waves-light" value="Submit"/>
+                <button type="submit" class="btn green darken-1 white-text waves-effect waves-light">Submit</button>
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
             </div>
         </div>
@@ -46,7 +44,7 @@
 </div>
 
 
-<div class="fixed-action-btn">
+<div class="fixed-action-btn below">
     <a class="btn-floating btn-large waves-effect waves-light modal-trigger green" href="#createModal">
         <i class="large material-icons">add</i>
     </a>

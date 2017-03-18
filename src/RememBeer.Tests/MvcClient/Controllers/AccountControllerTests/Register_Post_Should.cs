@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -35,7 +32,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
             var sut = this.Kernel.Get<AccountController>();
 
             // Act
+#pragma warning disable 4014
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Register(default(RegisterViewModel)), attrType);
+#pragma warning restore 4014
 
             // Assert
             Assert.IsTrue(hasAttribute);

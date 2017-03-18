@@ -12,7 +12,6 @@ using RememBeer.Services.Contracts;
 
 namespace RememBeer.MvcClient.Controllers
 {
-    [ValidateInput(false)]
     public class BeersController : Controller
     {
         private readonly IBeerService beerService;

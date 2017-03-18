@@ -2,7 +2,7 @@
 @model RememBeer.MvcClient.Models.Shared.PaginatedViewModel<RememBeer.Models.Contracts.IBrewery>
 <h4>Brewery administration</h4>
 
-<div class="card">
+<div class="card fade-quick">
     <div class="card-content">
         @using (Html.BeginForm("Index", "Breweries", null, FormMethod.Get, new { @class = "a" }))
         {

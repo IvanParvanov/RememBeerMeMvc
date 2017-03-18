@@ -2,7 +2,6 @@
 
 namespace RememBeer.MvcClient.Controllers
 {
-    [ValidateInput(false)]
     public class HomeController : Controller
     {
         public ViewResult Index()

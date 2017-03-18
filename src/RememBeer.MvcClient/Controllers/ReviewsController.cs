@@ -22,7 +22,6 @@ using Constants = RememBeer.Common.Constants.Constants;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
-    [ValidateInput(false)]
     public class ReviewsController : Controller
     {
         private readonly IMapper mapper;

@@ -65,7 +65,7 @@
         {
             <div class="card-action clearfix">
                 @Ajax.ActionLink("Edit", "Edit", "Reviews",
-                                 new { id = Model.Id, area = "" },
+                                 new { id = Model.Id, area = "", page= Request.QueryString["page"], pageSize = Request.QueryString["pageSize"] },
                                  new AjaxOptions()
                                  {
                                      HttpMethod = "GET",
