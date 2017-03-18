@@ -201,6 +201,7 @@
     <Compile Include="MvcClient\Controllers\Ninject\ReviewsControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\TopControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\UsersControllerTestBase.cs" />
+    <Compile Include="MvcClient\Controllers\ReviewsControllerTests\Cancel_Should.cs" />
     <Compile Include="MvcClient\Controllers\ReviewsControllerTests\ChangeImage_Should.cs" />
     <Compile Include="MvcClient\Controllers\ReviewsControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\ReviewsControllerTests\Details_Should.cs" />

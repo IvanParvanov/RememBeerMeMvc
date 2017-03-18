@@ -2,55 +2,99 @@
 @model RememBeer.MvcClient.Models.Shared.IPagination
 
 <div class="center-align">
-        @{
-            var controller = ViewContext.RouteData.GetRequiredString("controller");
-            var action = ViewContext.RouteData.GetRequiredString("action");
-            var area = ViewContext.RouteData.DataTokens["area"];
-        }
-        @{
-            var totalPages = (int)Math.Ceiling((decimal)Model.TotalCount / (decimal)(Model.PageSize == 0 ? 1 : Model.PageSize));
-            var currentPage = Model.CurrentPage;
-            var startPage = currentPage - 5;
-            var endPage = currentPage + 4;
-            if (startPage <= 0)
-            {
-                endPage -= (startPage - 1);
-                startPage = 1;
-            }
-            if (endPage > totalPages)
-            {
-                endPage = totalPages;
-                if (endPage > 10)
-                {
-                    startPage = endPage - 9;
-                }
-            }
-        }
-        @if (endPage > 1)
+    @{
+        var controller = ViewContext.RouteData.GetRequiredString("controller");
+        var action = ViewContext.RouteData.GetRequiredString("action");
+        var area = ViewContext.RouteData.DataTokens["area"];
+    }
+    @{
+        var totalPages = (int)Math.Ceiling((decimal)Model.TotalCount / (decimal)(Model.PageSize == 0 ? 1 : Model.PageSize));
+        var currentPage = Model.CurrentPage;
+        var startPage = currentPage - 5;
+        var endPage = currentPage + 4;
+        if (startPage <= 0)
         {
-            <ul class="pagination">
-                @if (currentPage > 0)
-                {
-                    <li class="waves-effect">
-                        @Ajax.PageRefreshActionLink("Previous", "", action, controller, new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
-                    </li>
-                }
-
-                @for (var page = startPage - 1; page < endPage; page++)
-                {
-                    <li class="@(page == currentPage ? "active" : "") btn-flat">
-                        @Ajax.PageRefreshActionLink((page + 1).ToString(), "", action, controller, new { page = page, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
-                    </li>
-                }
-
-                @if (currentPage < totalPages - 1)
-                {
-                    <li class="waves-effect">
-                        @Ajax.PageRefreshActionLink("Next", "", action, controller, new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
-                    </li>
-                }
-            </ul>
+            endPage -= (startPage - 1);
+            startPage = 1;
         }
+        if (endPage > totalPages)
+        {
+            endPage = totalPages;
+            if (endPage > 10)
+            {
+                startPage = endPage - 9;
+            }
+        }
+    }
+    @if ( endPage > 1 )
+    {
+        <ul class="pagination">
+
+            @if ( currentPage == 0 )
+            {
+                <li class="disabled">
+                    <a>
+                        <i class="material-icons">&#xE5CB;</i>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="waves-effect">
+                    <a data-ajax="true"
+                    data-ajax-failure="handleAjaxError"
+                    data-ajax-loading="#loading"
+                    data-ajax-method="GET"
+                    data-ajax-mode="replace"
+                    data-ajax-success="initMaterialize()"
+                    data-ajax-update="#content"
+                    href="@Url.Action(action, controller,
+                                         new
+                                         {
+                                             page = Model.CurrentPage - 1,
+                                             pageSize = Model.PageSize,
+                                             area = area,
+                                             searchPattern = Request.QueryString["searchPattern"]
+                                         })">
+                    <i class="material-icons">&#xE5CB;</i>
+                    </a>
+                </li>
+            }
+
+
+            @for ( var page = startPage - 1; page < endPage; page++ )
+            {
+                <li class="@(page == currentPage ? "active" : "") btn-flat">
+                    @Ajax.PageRefreshActionLink(( page + 1 ).ToString(), "", action, controller, new { page = page, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })
+                </li>
+            }
+
+            @if ( currentPage == totalPages - 1 )
+            {
+                <li class="disabled">
+                    <a>
+                        <i class="material-icons">&#xE5CC;</i>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="waves-effect">
+                    <a data-ajax="true"
+                       data-ajax-failure="handleAjaxError"
+                       data-ajax-loading="#loading"
+                       data-ajax-method="GET"
+                       data-ajax-mode="replace"
+                       data-ajax-success="initMaterialize()"
+                       data-ajax-update="#content"
+                       href="@Url.Action(action, controller,
+                                         new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, area = area, searchPattern = Request.QueryString["searchPattern"] })">
+                        <i class="material-icons">&#xE5CC;</i>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
 
     <script>
         $(".pagination").on(
