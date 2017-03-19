@@ -117,7 +117,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ViewResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -131,7 +131,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
-        public ActionResult ForgotPassword()
+        public ViewResult ForgotPassword()
         {
             return this.View();
         }
@@ -154,10 +154,10 @@ namespace RememBeer.MvcClient.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                //string code = await this.userManager.GeneratePasswordResetTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //await this.userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return this.RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -167,7 +167,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public ViewResult ForgotPasswordConfirmation()
         {
             return this.View();
         }
@@ -175,7 +175,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ViewResult ResetPassword(string code)
         {
             return code == null ? this.View("Error") : this.View();
         }
@@ -212,7 +212,7 @@ namespace RememBeer.MvcClient.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public ViewResult ResetPasswordConfirmation()
         {
             return this.View();
         }
@@ -221,7 +221,7 @@ namespace RememBeer.MvcClient.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public RedirectToRouteResult LogOff()
         {
             this.authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Home");

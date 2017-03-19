@@ -165,11 +165,21 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MvcClient\App_Code\FIleTypeAttributeTests\IsValid_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ConfirmEmail_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Ctor_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Dispose_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ForgotPasswordConfirmation_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ForgotPassword_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ForgotPassword_Post_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Login_Get_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Login_Post_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\LogOff_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\Mocks\MockedAccountController.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Register_Get_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Register_Post_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ResetPasswordConfirmation_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ResetPassword_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\AccountControllerTests\ResetPassword_Post_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\DeleteBeer_Should.cs" />
     <Compile Include="MvcClient\Controllers\Admin\BreweriesControllerTests\Details_Get_Should.cs" />
