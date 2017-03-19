@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 using Ploeh.AutoFixture;
 
-using RememBeer.MvcClient.Models.AccountModels;
+using RememBeer.MvcClient.Models.Account;
 using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.MvcClient.Models.Account

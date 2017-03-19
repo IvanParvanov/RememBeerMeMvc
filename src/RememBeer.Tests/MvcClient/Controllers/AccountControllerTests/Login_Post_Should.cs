@@ -12,7 +12,7 @@ using NUnit.Framework;
 
 using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
-using RememBeer.MvcClient.Models.AccountModels;
+using RememBeer.MvcClient.Models.Account;
 using RememBeer.Tests.MvcClient.Controllers.Ninject;
 using RememBeer.Tests.Utils;
 using RememBeer.Tests.Utils.TestExtensions;

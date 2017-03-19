@@ -9,7 +9,7 @@ using Microsoft.Owin.Security;
 
 using RememBeer.Models;
 using RememBeer.Models.Identity.Contracts;
-using RememBeer.MvcClient.Models.AccountModels;
+using RememBeer.MvcClient.Models.Account;
 
 namespace RememBeer.MvcClient.Controllers
 {
