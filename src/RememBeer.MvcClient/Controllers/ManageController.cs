@@ -128,7 +128,7 @@ namespace RememBeer.MvcClient.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.NotFound, string.Join(", ", result.Errors));
         }
 
-        // GET: /Manage/Follow
+        // GET: /Manage/Unfollow
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Unfollow(string username)

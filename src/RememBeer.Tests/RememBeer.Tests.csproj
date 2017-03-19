@@ -202,8 +202,11 @@
     <Compile Include="MvcClient\Controllers\ManageControllerTests\ChangePassword_Post_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Dispose_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Follow_Get_Should.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Follow_Post_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Index_Should.cs" />
     <Compile Include="MvcClient\Controllers\ManageControllerTests\Mocks\MockedManageController.cs" />
+    <Compile Include="MvcClient\Controllers\ManageControllerTests\Unfollow_Should.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\AccountControllerTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\Base\NinjectTestBase.cs" />
     <Compile Include="MvcClient\Controllers\Ninject\BreweriesControllerTestBase.cs" />

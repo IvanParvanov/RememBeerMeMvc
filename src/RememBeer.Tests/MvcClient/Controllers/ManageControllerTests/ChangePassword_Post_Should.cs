@@ -18,6 +18,7 @@ using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.MvcClient.Models.Manage;
 using RememBeer.Tests.MvcClient.Controllers.Ninject;
+using RememBeer.Tests.Utils;
 using RememBeer.Tests.Utils.TestExtensions;
 
 namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
@@ -26,6 +27,20 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
     public class ChangePassword_Post_Should : ManageControllerTestBase
     {
         private readonly string expectedUserId = Guid.NewGuid().ToString();
+
+        [TestCase(typeof(HttpPostAttribute))]
+        [TestCase(typeof(ValidateAntiForgeryTokenAttribute))]
+        public void Have_RequiredAttributes(Type attrType)
+        {
+            // Arrange
+            var sut = this.MockingKernel.Get<ManageController>();
+
+            // Act
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangePassword(default(ChangePasswordViewModel)), attrType);
+
+            // Assert
+            Assert.IsTrue(hasAttribute);
+        }
 
         [Test]
         public async Task Return_ViewWithModel_WhenModelStateIsInvalid()
