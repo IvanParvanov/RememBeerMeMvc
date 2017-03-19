@@ -27,5 +27,11 @@
         string ImageUploadApiKey { get; }
 
         string ImageUploadApiSecret { get; }
+
+        string MailSenderEmailAddress { get; }
+
+        string MailUsername { get; }
+
+        string MailPassword { get; }
     }
 }

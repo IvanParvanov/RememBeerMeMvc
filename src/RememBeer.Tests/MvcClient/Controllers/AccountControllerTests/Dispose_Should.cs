@@ -26,6 +26,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
             var sut = this.Kernel.Get<MockedAccountController>();
             var userManager = this.Kernel.GetMock<IApplicationUserManager>();
             var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+
             // Act
             sut.Dispose(false);
 

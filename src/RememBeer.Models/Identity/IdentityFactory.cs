@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 
+using Bytes2you.Validation;
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,10 +20,7 @@ namespace RememBeer.Models.Identity
 
         public IdentityFactory(IConfigurationProvider configProvider)
         {
-            if (configProvider == null)
-            {
-                throw new ArgumentNullException(nameof(configProvider));
-            }
+            Guard.WhenArgument(configProvider, nameof(configProvider)).IsNull().Throw();
 
             this.config = configProvider;
         }
@@ -53,17 +52,17 @@ namespace RememBeer.Models.Identity
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            //manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-            //                                                {
-            //                                                    Subject = "Security Code",
-            //                                                    BodyFormat = "Your security code is {0}"
-            //                                                });
+            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Security Code",
+                BodyFormat = "Your security code is {0}"
+            });
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = this.config.UserLockoutEnabledByDefault;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(this.config.DefaultAccountLockoutTimeSpan);
             manager.MaxFailedAccessAttemptsBeforeLockout = this.config.MaxFailedAccessAttemptsBeforeLockout;
 
-            manager.EmailService = new EmailService();
+            manager.EmailService = new MailjetEmailService(this.config.MailUsername, this.config.MailPassword, this.config.MailSenderEmailAddress);
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {

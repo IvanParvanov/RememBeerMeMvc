@@ -13,12 +13,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("UserNamesAllowOnlyAlphanumeric");
+                    var val = TryGetValue(nameof(this.UserNamesAllowOnlyAlphanumeric));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("UserNamesAllowOnlyAlphanumeric");
+                    throw new InvalidConfigurationOptionException(nameof(this.UserNamesAllowOnlyAlphanumeric));
                 }
             }
         }
@@ -29,12 +29,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("RequireUniqueEmail");
+                    var val = TryGetValue(nameof(this.RequireUniqueEmail));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("RequireUniqueEmail");
+                    throw new InvalidConfigurationOptionException(nameof(this.RequireUniqueEmail));
                 }
             }
         }
@@ -45,12 +45,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("PasswordMinLength");
+                    var val = TryGetValue(nameof(this.PasswordMinLength));
                     return int.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("PasswordMinLength");
+                    throw new InvalidConfigurationOptionException(nameof(this.PasswordMinLength));
                 }
             }
         }
@@ -61,12 +61,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("PasswordRequireNonLetterOrDigit");
+                    var val = TryGetValue(nameof(this.PasswordRequireNonLetterOrDigit));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("PasswordRequireNonLetterOrDigit");
+                    throw new InvalidConfigurationOptionException(nameof(this.PasswordRequireNonLetterOrDigit));
                 }
             }
         }
@@ -77,12 +77,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("PasswordRequireDigit");
+                    var val = TryGetValue(nameof(this.PasswordRequireDigit));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("PasswordRequireDigit");
+                    throw new InvalidConfigurationOptionException(nameof(this.PasswordRequireDigit));
                 }
             }
         }
@@ -93,12 +93,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("PasswordRequireLowercase");
+                    var val = TryGetValue(nameof(this.PasswordRequireLowercase));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("PasswordRequireLowercase");
+                    throw new InvalidConfigurationOptionException(nameof(this.PasswordRequireLowercase));
                 }
             }
         }
@@ -109,12 +109,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("PasswordRequireUppercase");
+                    var val = TryGetValue(nameof(this.PasswordRequireUppercase));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("PasswordRequireUppercase");
+                    throw new InvalidConfigurationOptionException(nameof(this.PasswordRequireUppercase));
                 }
             }
         }
@@ -125,12 +125,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("UserLockoutEnabledByDefault");
+                    var val = TryGetValue(nameof(this.UserLockoutEnabledByDefault));
                     return bool.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("UserLockoutEnabledByDefault");
+                    throw new InvalidConfigurationOptionException(nameof(this.UserLockoutEnabledByDefault));
                 }
             }
         }
@@ -141,12 +141,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("DefaultAccountLockoutTimeSpan");
+                    var val = TryGetValue(nameof(this.DefaultAccountLockoutTimeSpan));
                     return int.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("DefaultAccountLockoutTimeSpan");
+                    throw new InvalidConfigurationOptionException(nameof(this.DefaultAccountLockoutTimeSpan));
                 }
             }
         }
@@ -157,12 +157,12 @@ namespace RememBeer.Common.Configuration
             {
                 try
                 {
-                    var val = TryGetValue("MaxFailedAccessAttemptsBeforeLockout");
+                    var val = TryGetValue(nameof(this.MaxFailedAccessAttemptsBeforeLockout));
                     return int.Parse(val);
                 }
                 catch (FormatException)
                 {
-                    throw new InvalidConfigurationOptionException("MaxFailedAccessAttemptsBeforeLockout");
+                    throw new InvalidConfigurationOptionException(nameof(this.MaxFailedAccessAttemptsBeforeLockout));
                 }
             }
         }
@@ -171,7 +171,7 @@ namespace RememBeer.Common.Configuration
         {
             get
             {
-                return TryGetValue("ImageUploadName");
+                return TryGetValue(nameof(this.ImageUploadName));
             }
         }
 
@@ -179,7 +179,7 @@ namespace RememBeer.Common.Configuration
         {
             get
             {
-                return TryGetValue("ImageUploadApiKey");
+                return TryGetValue(nameof(this.ImageUploadApiKey));
             }
         }
 
@@ -187,7 +187,31 @@ namespace RememBeer.Common.Configuration
         {
             get
             {
-                return TryGetValue("ImageUploadApiSecret");
+                return TryGetValue(nameof(this.ImageUploadApiSecret));
+            }
+        }
+
+        public string MailSenderEmailAddress
+        {
+            get
+            {
+                return TryGetValue(nameof(this.MailSenderEmailAddress));
+            }
+        }
+
+        public string MailUsername
+        {
+            get
+            {
+                return TryGetValue(nameof(this.MailUsername));
+            }
+        }
+
+        public string MailPassword
+        {
+            get
+            {
+                return TryGetValue(nameof(this.MailPassword));
             }
         }
 

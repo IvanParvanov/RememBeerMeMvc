@@ -2,6 +2,8 @@
 
 using AutoMapper;
 
+using Microsoft.AspNet.Identity;
+
 using Ninject.Modules;
 using Ninject.Web.Common;
 
@@ -35,6 +37,7 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
             this.Bind<IMapper>().ToMethod(m => Mapper.Instance);
 
             this.Bind<IImageUploadService>().To<CloudinaryImageUpload>();
+            this.Bind<IIdentityMessageService>().To<MailjetEmailService>();
 
 #if DEBUG
             // Don't waste cloudinary space if in debug.
