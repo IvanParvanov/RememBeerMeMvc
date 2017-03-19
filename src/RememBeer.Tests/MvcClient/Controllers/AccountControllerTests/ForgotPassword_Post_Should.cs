@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 using Moq;
 
@@ -93,31 +96,22 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         }
 
         [Test]
-        public async Task Return_ForgottenPasswordConfirmView_WhenUserIsNotConfirmed()
-        {
-            // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var viewModel = new ForgotPasswordViewModel();
-            var user = new ApplicationUser();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
-            userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
-                       .Returns(Task.FromResult(user));
-            userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
-                       .Returns(Task.FromResult(false));
-
-            // Act
-            var result = await sut.ForgotPassword(viewModel) as ViewResult;
-
-            // Assert
-            Assert.NotNull(result);
-            StringAssert.Contains("ForgotPasswordConfirmation", result.ViewName);
-        }
-
-        [Test]
         public async Task Return_CorrectRedirect_WhenEverythingIsOk()
         {
             // Arrange
             var sut = this.Kernel.Get<AccountController>();
+            var urlHelper = new Mock<UrlHelper>();
+            urlHelper.Setup(h => h.Action(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
+                     .Returns("asdas");
+            sut.Url = urlHelper.Object;
+            var url = new Uri("http://somesite.com/account/resetpassword");
+            var request = new Mock<HttpRequestBase>();
+            request.Setup(r => r.Url)
+                   .Returns(url);
+            var httpContext = new Mock<HttpContextBase>();
+            httpContext.Setup(c => c.Request)
+                       .Returns(request.Object);
+            sut.ControllerContext = new ControllerContext(httpContext.Object, new RouteData(), sut);
             var viewModel = new ForgotPasswordViewModel();
             var user = new ApplicationUser();
             var userManager = this.Kernel.GetMock<IApplicationUserManager>();
