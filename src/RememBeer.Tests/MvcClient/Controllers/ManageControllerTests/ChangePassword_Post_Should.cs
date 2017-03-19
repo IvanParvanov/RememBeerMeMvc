@@ -31,7 +31,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Return_ViewWithModel_WhenModelStateIsInvalid()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>();
+            var sut = this.MockingKernel.Get<ManageController>();
             var expected = new ChangePasswordViewModel();
 
             // Act
@@ -51,13 +51,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_UserManagerChangePasswordAsyncMethodOnceWithCorrectParams(string expectedOld, string expectedNew)
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
             var expected = new ChangePasswordViewModel()
                            {
                                NewPassword = expectedNew,
                                OldPassword = expectedOld
                            };
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(this.expectedUserId, expectedOld, expectedNew))
                        .Returns(Task.FromResult(IdentityResult.Failed()));
             // Act
@@ -71,10 +71,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Return_ViewWithModel_WhenChangePasswordFails()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
             var expected = new ChangePasswordViewModel();
 
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Failed("asd")));
             // Act
@@ -91,10 +91,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_UserManagerFindByIdAsyncMethodWithCorrectParamsOnce_WhenChangePassSucceeds()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
             var expected = new Mock<ChangePasswordViewModel>().Object;
 
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Success));
             
@@ -109,15 +109,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_SignInManagerSignInAsynccMethodWithCorrectParamsOnce_WhenUserManagerFindsUser()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
             var viewModel = new Mock<ChangePasswordViewModel>().Object;
             var expectedUser = new Mock<ApplicationUser>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Success));
             userManager.Setup(m => m.FindByIdAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(expectedUser.Object));
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
 
             // Act
             await sut.ChangePassword(viewModel);
@@ -130,10 +130,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Return_CorrectRedirectResult_WhenChangePasswordSucceeds()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
             var expected = new Mock<ChangePasswordViewModel>().Object;
 
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Success));
 
@@ -150,7 +150,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         {
             base.Init();
 
-            this.Kernel.Bind<HttpContextBase>()
+            this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
                 {
                     var identity = new Mock<ClaimsIdentity>();

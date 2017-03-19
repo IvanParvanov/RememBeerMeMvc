@@ -27,8 +27,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
         public void Call_BeerServiceSearchMethodOnceWithCorrectParams(string search)
         {
             // Arrange
-            var sut = this.Kernel.Get<BeersController>();
-            var beerService = this.Kernel.GetMock<IBeerService>();
+            var sut = this.MockingKernel.Get<BeersController>();
+            var beerService = this.MockingKernel.GetMock<IBeerService>();
 
             // Act
             sut.Index(search);
@@ -41,12 +41,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
         public void Call_IMapperMapMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<BeersController>();
+            var sut = this.MockingKernel.Get<BeersController>();
             var expected = new List<IBeer>();
-            var beerService = this.Kernel.GetMock<IBeerService>();
+            var beerService = this.MockingKernel.GetMock<IBeerService>();
             beerService.Setup(s => s.SearchBeers(It.IsAny<string>()))
                        .Returns(expected);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Index("");
@@ -59,9 +59,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
         public void Return_CorrectJsonResult()
         {
             // Arrange
-            var sut = this.Kernel.Get<BeersController>();
+            var sut = this.MockingKernel.Get<BeersController>();
             var expected = new List<BeerDto>();
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeer>, IEnumerable<BeerDto>>(It.IsAny<IEnumerable<IBeer>>()))
                 .Returns(expected);
 
@@ -77,10 +77,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
 
         public override void Init()
         {
-            this.Kernel.Bind<BeersController>().ToSelf();
+            this.MockingKernel.Bind<BeersController>().ToSelf();
 
-            this.Kernel.Bind<IMapper>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IBeerService>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IMapper>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IBeerService>().ToMock().InSingletonScope();
         }
     }
 }

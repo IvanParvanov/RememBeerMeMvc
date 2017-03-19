@@ -17,7 +17,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void HaveAllowAnonymousAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ResetPassword(default(string)), typeof(AllowAnonymousAttribute));
@@ -30,7 +30,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Return_ErrorView_WhenCodeIsNull()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var result = sut.ResetPassword((string)null);
@@ -43,7 +43,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Return_View_WhenCodeIsNotNull()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var result = sut.ResetPassword("notnull");

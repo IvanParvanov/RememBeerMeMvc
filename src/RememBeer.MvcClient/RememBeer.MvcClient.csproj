@@ -467,6 +467,10 @@
     <Content Include="Views\Shared\_Edit.cshtml" />
     <Content Include="Views\Shared\_Create.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CreateReviewBindingModel.cshtml" />
+    <Content Include="Views\Manage\_ManageFollowing.cshtml" />
+    <Content Include="Views\Manage\_SingleFollowingRow.cshtml" />
+    <Content Include="Views\Manage\_AddFollower.cshtml" />
+    <Content Include="Views\Manage\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

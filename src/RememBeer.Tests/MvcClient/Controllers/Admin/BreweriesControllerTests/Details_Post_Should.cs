@@ -24,7 +24,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_AjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<CreateBeerBindingModel>()), typeof(AjaxOnlyAttribute));
@@ -37,7 +37,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_HttpPostAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<CreateBeerBindingModel>()), typeof(HttpPostAttribute));
@@ -52,8 +52,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_ReviewServiceAddBeerMethodOnceWithCorrectParams(int expectedId, int expectedType, string expectedName)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.AddNewBeer(expectedId, expectedType, expectedName))
                           .Returns(new Mock<IDataModifiedResult>().Object);
 
@@ -74,8 +74,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Return_CorrectResult_WhenCreationFails()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.AddNewBeer(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                           .Returns(new Mock<IDataModifiedResult>().Object);
 
@@ -92,11 +92,11 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Return_CorrectResult_WhenCreationSucceeds()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(true);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.AddNewBeer(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
             // Act

@@ -26,8 +26,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Call_GetReviewsForUserMethodOnceWithCorrectParams(string expectedUserId, int expectedPage, int expectedPageSize)
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
             sut.Reviews(expectedUserId, expectedPage, expectedPageSize);
@@ -44,8 +44,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
             // Arrange
             const int expectedPage = 0;
             const int expectedPageSize = 1;
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
             sut.Reviews(It.IsAny<string>(), page, pageSize);
@@ -60,8 +60,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Call_CountUserReviewsWithCorrectParamsOnce(string expectedUserId)
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
             sut.Reviews(expectedUserId);
@@ -75,11 +75,11 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         {
             // Arrange
             var expectedReviews = new List<IBeerReview>();
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.GetReviewsForUser(It.IsAny<string>()))
                          .Returns(expectedReviews);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Reviews(It.IsAny<string>());
@@ -92,14 +92,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Set_ViewModelsIsEditPropertyToTrue()
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
             var viewModels = new List<SingleReviewViewModel>()
                              {
                                  new SingleReviewViewModel(),
                                  new SingleReviewViewModel()
                              };
 
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(viewModels);
 
@@ -117,13 +117,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Return_CorrectPartialView_WhenAjaxRequest()
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
             var viewModels = new List<SingleReviewViewModel>()
                              {
                                  new SingleReviewViewModel(),
                                  new SingleReviewViewModel()
                              };
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(viewModels);
 
@@ -142,13 +142,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Return_CorrectPartialView_WhenNotAjaxRequest()
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(RegularContextName);
+            var sut = this.MockingKernel.Get<UsersController>(RegularContextName);
             var viewModels = new List<SingleReviewViewModel>()
                              {
                                  new SingleReviewViewModel(),
                                  new SingleReviewViewModel()
                              };
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(viewModels);
 

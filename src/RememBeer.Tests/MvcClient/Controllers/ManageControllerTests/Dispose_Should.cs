@@ -17,8 +17,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public void DoNothing_WhenDisposingIsFalse()
         {
             // Arrange
-            var sut = this.Kernel.Get<MockedManageController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<MockedManageController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             sut.Dispose(false);
@@ -31,8 +31,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public void Call_UserManagerDisposeMethodOnce_WhenDisposingIsTrue()
         {
             // Arrange
-            var sut = this.Kernel.Get<MockedManageController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<MockedManageController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             sut.Dispose(true);

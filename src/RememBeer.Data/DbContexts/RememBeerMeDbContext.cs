@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -32,6 +33,24 @@ namespace RememBeer.Data.DbContexts
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Entity<ApplicationUser>()
+                        .HasMany(c => c.Followers)
+                        .WithMany()
+                        .Map(m =>
+                             {
+                                 m.MapLeftKey("FirstUserId");
+                                 m.MapRightKey("SecondUserId");
+                                 m.ToTable("Followers");
+                             });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

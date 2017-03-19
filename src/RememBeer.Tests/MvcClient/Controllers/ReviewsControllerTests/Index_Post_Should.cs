@@ -38,7 +38,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveValidateAntiForgeryTokenAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
@@ -51,7 +51,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveAjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(AjaxOnlyAttribute));
@@ -64,7 +64,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveHttpPostAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(HttpPostAttribute));
@@ -77,7 +77,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Return_CorrectHttpStatusCodeResult_WhenModelValidationFails()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var invalidModel = new CreateReviewBindingModel();
 
             // Act
@@ -94,15 +94,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Call_ReviewServiceCreateReviewMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var bindingModel = new CreateReviewBindingModel();
             var expectedReview = new BeerReview();
 
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CreateReview(expectedReview))
                          .Returns(new Mock<IDataModifiedResult>().Object);
             // Act
@@ -116,15 +116,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Call_IMapperMapMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var bindingModel = new CreateReviewBindingModel();
 
             var expectedReview = new BeerReview();
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(new Mock<IDataModifiedResult>().Object);
             // Act
@@ -143,16 +143,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             updateResult.Setup(r => r.Errors).Returns(expectedErrors);
 
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var bindingModel = new CreateReviewBindingModel();
             var beerReview = new Mock<IBeerReview>();
 
             var expectedReview = new BeerReview();
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview.Object);
             reviewService.Setup(r => r.CreateReview(expectedReview))
@@ -173,13 +173,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var updateResult = new Mock<IDataModifiedResult>();
             updateResult.Setup(r => r.Successful).Returns(true);
 
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var bindingModel = new CreateReviewBindingModel();
             var expectedReview = new BeerReview();
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(updateResult.Object);
 
@@ -204,16 +204,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(expectedStream);
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var bindingModel = new CreateReviewBindingModel()
                                {
                                    Image = fileMock.Object
                                };
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(updateResult.Object);
-            var imgUploadService = this.Kernel.GetMock<IImageUploadService>();
+            var imgUploadService = this.MockingKernel.GetMock<IImageUploadService>();
 
             // Act
             sut.Index(bindingModel);
@@ -228,20 +228,20 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
             updateResult.Setup(r => r.Successful).Returns(true);
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var expectedReview = new BeerReview();
             var bindingModel = new CreateReviewBindingModel()
                                {
                                    Image = null
                                };
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(updateResult.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
-            var imgUploadService = this.Kernel.GetMock<IImageUploadService>();
+            var imgUploadService = this.MockingKernel.GetMock<IImageUploadService>();
 
             // Act
             sut.Index(bindingModel);
@@ -256,7 +256,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
             updateResult.Setup(r => r.Successful).Returns(true);
-            var sut = this.Kernel.Get<ReviewsController>(AjaxContextName);
+            var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var expectedReview = new BeerReview();
 
             var expectedByteArray = new byte[50];
@@ -269,10 +269,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                                    Image = fileMock.Object
             };
 
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(updateResult.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map(bindingModel, It.IsAny<BeerReview>()))
                   .Returns(expectedReview);
 
@@ -287,7 +287,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
 
         public override void Init()
         {
-            this.Kernel.Bind<HttpContextBase>()
+            this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
                           {
                               var request = new Mock<HttpRequestBase>();

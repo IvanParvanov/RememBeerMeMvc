@@ -31,7 +31,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ForgotPassword(default(ForgotPasswordViewModel)), attrType);
@@ -44,7 +44,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_View_ModelStateIsInvalid()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
             var expected = new ForgotPasswordViewModel();
 
             // Act
@@ -65,8 +65,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Call_UserManagerFindByNameAsyncMethodOnceWithCorrectParams_WhenModelStateIsValid(string expectedEmail)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             var viewModel = new ForgotPasswordViewModel()
                             {
                                 Email = expectedEmail
@@ -83,9 +83,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_ForgottenPasswordConfirmView_WhenUserIsNotFound()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
             var viewModel = new ForgotPasswordViewModel();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(true));
 
@@ -101,12 +101,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectRedirect_WhenEverythingIsOk()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>(RegularContextName);
+            var sut = this.MockingKernel.Get<AccountController>(RegularContextName);
             var viewModel = new ForgotPasswordViewModel();
             var user = new Mock<ApplicationUser>();
             user.Setup(u => u.Id)
                 .Returns(Guid.NewGuid().ToString);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(user.Object));
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
@@ -125,12 +125,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Call_UserManagerGeneratePasswordResetTokenAsyncOnceWithCorrectParams_WhenOk()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>(RegularContextName);
+            var sut = this.MockingKernel.Get<AccountController>(RegularContextName);
             var viewModel = new ForgotPasswordViewModel();
             var user = new Mock<ApplicationUser>();
             user.Setup(u => u.Id)
                 .Returns(Guid.NewGuid().ToString);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(user.Object));
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
@@ -147,12 +147,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Call_UserManagerSendEmailAsyncOnceWithCorrectParams_WhenOk()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>(RegularContextName);
+            var sut = this.MockingKernel.Get<AccountController>(RegularContextName);
             var viewModel = new ForgotPasswordViewModel();
             var user = new Mock<ApplicationUser>();
             user.Setup(u => u.Id)
                 .Returns(Guid.NewGuid().ToString);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(user.Object));
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
@@ -171,7 +171,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
 
         public override void Init()
         {
-            this.Kernel.Bind<AccountController>().ToMethod(ctx =>
+            this.MockingKernel.Bind<AccountController>().ToMethod(ctx =>
                                                            {
                                                                var sut = ctx.Kernel.Get<AccountController>();
                                                                var urlHelper = new Mock<UrlHelper>();

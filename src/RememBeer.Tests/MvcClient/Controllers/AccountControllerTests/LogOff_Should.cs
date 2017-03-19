@@ -22,7 +22,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.LogOff(), attrType);
@@ -35,8 +35,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Call_AuthenticationManagerSignOutMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var auth = this.Kernel.GetMock<IAuthenticationManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var auth = this.MockingKernel.GetMock<IAuthenticationManager>();
 
             // Act
             sut.LogOff();
@@ -49,7 +49,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Return_CorrectRedirect()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var result = sut.LogOff();

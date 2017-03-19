@@ -28,7 +28,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_AjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<EditBreweryBindingModel>()), typeof(AjaxOnlyAttribute));
@@ -41,7 +41,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_HttpPutAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<EditBreweryBindingModel>()), typeof(HttpPutAttribute));
@@ -54,7 +54,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Return_HttpStatusCode_WhenModelStateIsInvalid()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var invalidModel = new EditBreweryBindingModel();
 
             // Act
@@ -73,9 +73,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_UpdateBreweryMethodOnceWithCorrectParams_WhenModelIsValid(int expectedId, string expectedCountry, string expectedName, string expectedDescription)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var result = new Mock<IDataModifiedResult>();
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.UpdateBrewery(expectedId, expectedName, expectedCountry, expectedDescription))
                           .Returns(result.Object);
             var model = new EditBreweryBindingModel()
@@ -97,11 +97,11 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Return_CorrectResult_WhenUpdateFails()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(false);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.UpdateBrewery(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
 
@@ -119,12 +119,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_GetByIdMethodOnceWithCorrectParams_WhenUpdateIsSuccessful(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var model = new EditBreweryBindingModel() {Id = expectedId};
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(true);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.UpdateBrewery(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
 
@@ -139,18 +139,18 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_MapOnceWithCorrectParams_WhenUpdateIsSuccessful()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var model = new EditBreweryBindingModel();
             var expectedBrewery = new Mock<IBrewery>();
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(true);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.UpdateBrewery(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
             breweryService.Setup(s => s.GetById(It.IsAny<int>()))
                 .Returns(expectedBrewery.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Details(model);
@@ -163,16 +163,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void ReturnCorrectResult_WhenUpdateIsSuccessful()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var model = new EditBreweryBindingModel();
             var expected = new BreweryDetailsViewModel();
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(true);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.UpdateBrewery(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
                 .Returns(expected);
 

@@ -25,8 +25,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_BreweryServiceGetAllMethodOnceWithCorrectParams(int page, int expectedPageSize, string search)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
 
             // Act
             sut.Index(page, expectedPageSize, search);
@@ -40,8 +40,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedSearch = Guid.NewGuid().ToString();
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
 
             // Act
             sut.Index(1, 1, expectedSearch);
@@ -54,8 +54,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_BreweryServiceCountAllMethodOnceWithNoParams_WhenSearchIsNull()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
 
             // Act
             sut.Index(1, 1, null);
@@ -69,8 +69,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedBreweries = new List<IBrewery>();
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.GetAll(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Func<IBrewery, int>>(), It.IsAny<string>()))
                           .Returns(expectedBreweries);
 
@@ -90,8 +90,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedBreweries = new List<IBrewery>();
-            var sut = this.Kernel.Get<BreweriesController>(RegularContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(RegularContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.GetAll(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Func<IBrewery, int>>(), It.IsAny<string>()))
                           .Returns(expectedBreweries);
 

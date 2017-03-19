@@ -20,6 +20,7 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
         {
             this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InRequestScope();
             this.Rebind<IBeersDb>().To<RememBeerMeDbContext>().InRequestScope();
+            this.Rebind<IUsersDb>().To<RememBeerMeDbContext>().InRequestScope();
 
             this.Rebind<IModelFactory>().To<ModelFactory>().InSingletonScope();
             this.Bind<IRankFactory>().To<ModelFactory>().InSingletonScope();

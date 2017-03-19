@@ -8,13 +8,11 @@ using RememBeer.Models;
 
 namespace RememBeer.Data.DbContexts.Contracts
 {
-    public interface IRememBeerMeDbContext : IDisposable, IBeersDb
+    public interface IRememBeerMeDbContext : IDisposable, IBeersDb, IUsersDb
     {
         IDbSet<BeerType> BeerTypes { get; set; }
 
         IDbSet<Brewery> Breweries { get; set; }
-
-        IDbSet<ApplicationUser> Users { get; set; }
 
         IDbSet<T> Set<T>() where T : class;
 
@@ -27,6 +25,12 @@ namespace RememBeer.Data.DbContexts.Contracts
     {
         IDbSet<Beer> Beers { get; set; }
     }
+
+    public interface IUsersDb : ISaveable
+    {
+        IDbSet<ApplicationUser> Users { get; set; }
+    }
+
     public interface ISaveable
     {
         int SaveChanges();

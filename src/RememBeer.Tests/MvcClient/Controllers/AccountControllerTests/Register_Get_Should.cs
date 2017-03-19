@@ -18,7 +18,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Register(), attrType);
@@ -31,7 +31,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void ReturnCorrectView()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var result = sut.Register() as ViewResult;

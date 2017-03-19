@@ -1,0 +1,32 @@
+﻿<ul class="collapsible" data-collapsible="accordion">
+    <li>
+        <div class="collapsible-header teal darken-1 white-text waves-effect waves-light">
+            <i class="material-icons">&#xE145;</i>Follow
+        </div>
+        <div class="collapsible-body">
+            @using (Ajax.BeginForm("Follow", null, new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "loading",
+                UpdateTargetId = "content",
+                OnSuccess = "showSuccess('User has been followed!')",
+                OnFailure = "handleAjaxError"
+            }, new { @class = "" }) )
+            {
+                @Html.AntiForgeryToken()
+                <div class="input-field col s12 m12 l10">
+                    <label for="Username" class="">Username</label>
+                    <input data-val="true" data-val-required="The Username field is required." id="Username" name="Username" type="text" value="">
+                    <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="input-field col s12 m12 l2 center-align">
+                    <button type="submit" class="btn green waves-effect waves-light">Add</button>
+                </div>
+
+                <div class="clearfix"></div>
+            }
+        </div>
+    </li>
+</ul>

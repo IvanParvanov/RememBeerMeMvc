@@ -12,11 +12,11 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
     {
         public override void Init()
         {
-            this.Kernel.Bind<AccountController>().ToSelf();
+            this.MockingKernel.Bind<AccountController>().ToSelf();
 
-            this.Kernel.Bind<IApplicationUserManager>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IApplicationSignInManager>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IAuthenticationManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IApplicationUserManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IApplicationSignInManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IAuthenticationManager>().ToMock().InSingletonScope();
         }
     }
 }

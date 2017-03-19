@@ -1,29 +1,7 @@
-﻿@model RememBeer.MvcClient.Models.Manage.IndexViewModel
+﻿@using RememBeer.Models
+@model RememBeer.MvcClient.Models.Manage.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
 
-@if (ViewBag.StatusMessage != null && ViewBag.StatusMessage != string.Empty)
-{
-    <div class="card-panel green">
-        <span class="white-text">
-            @ViewBag.StatusMessage
-        </span>
-    </div>
-}
-<div class="row">
-    <div class="card col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card-content">
-            <div>
-                <h4>Change your account settings</h4>
-                <hr/>
-                <dl class="dl-horizontal">
-                    <dt>Password:</dt>
-                    <dd>
-                        @Html.ActionLink("Change your password", "ChangePassword")
-                    </dd>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_Index", Model);

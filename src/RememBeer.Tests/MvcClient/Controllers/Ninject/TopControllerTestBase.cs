@@ -10,9 +10,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
     {
         public override void Init()
         {
-            this.Kernel.Bind<TopController>().ToSelf();
+            this.MockingKernel.Bind<TopController>().ToSelf();
 
-            this.Kernel.Bind<ITopBeersService>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<ITopBeersService>().ToMock().InSingletonScope();
         }
     }
 }

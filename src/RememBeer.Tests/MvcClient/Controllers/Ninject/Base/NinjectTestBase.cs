@@ -10,12 +10,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject.Base
         public const string RegularContextName = "non-ajax";
         public const string UnauthContextName = "unauthorized";
 
-        protected readonly MoqMockingKernel Kernel = new MoqMockingKernel();
+        protected readonly MoqMockingKernel MockingKernel = new MoqMockingKernel();
 
         [TearDown]
         public void ResetMocks()
         {
-            this.Kernel.Reset();
+            this.MockingKernel.Reset();
         }
 
         [OneTimeSetUp]

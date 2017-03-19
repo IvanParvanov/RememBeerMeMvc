@@ -23,8 +23,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Call_UserServicePaginatedUsersOnceWithDefaultParams_WhenNoParamsAreProvided()
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
             // Act
@@ -40,8 +40,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public void Call_UserServicePaginatedUsersOnceWithDefaultParams_WhenParamsAreProvided(int page, int pageSize, string searchPattern)
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
             // Act
@@ -58,8 +58,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         {
             // Arrange
             const int expectedPage = 0;
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
             // Act
@@ -76,8 +76,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         {
             // Arrange
             const int expectedPageSize = 1;
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
 
             // Act
@@ -94,8 +94,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
             var expectedUsers = new List<IApplicationUser>();
             var expectedPage = 10;
             var expectedPageSize = 15;
-            var sut = this.Kernel.Get<UsersController>(AjaxContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))
                        .Returns(expectedUsers);
@@ -122,8 +122,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
             var expectedUsers = new List<IApplicationUser>();
             var expectedPage = 10;
             var expectedPageSize = 15;
-            var sut = this.Kernel.Get<UsersController>(RegularContextName);
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>(RegularContextName);
+            var userService = this.MockingKernel.GetMock<IUserService>();
             var anyInt = It.IsAny<int>();
             userService.Setup(s => s.PaginatedUsers(It.IsAny<int>(), It.IsAny<int>(), ref anyInt, It.IsAny<string>()))
                        .Returns(expectedUsers);

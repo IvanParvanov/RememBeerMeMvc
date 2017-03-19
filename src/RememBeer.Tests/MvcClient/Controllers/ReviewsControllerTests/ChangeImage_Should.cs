@@ -38,7 +38,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveValidateAntiForgeryTokenAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
 
             // Assert
@@ -49,7 +49,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveAjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(AjaxOnlyAttribute));
 
             // Assert
@@ -60,7 +60,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveHttpPostAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ChangeImage(default(ChangeImageBindingModel)), typeof(HttpPostAttribute));
 
             // Assert
@@ -74,16 +74,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var bindingModel = new ChangeImageBindingModel
                                {
                                    Image = fileMock.Object
                                };
             var beerReview = new Mock<IBeerReview>();
 
-            var context = this.Kernel.Get<HttpContextBase>();
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview.Object);
             // Act
@@ -103,7 +103,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var bindingModel = new ChangeImageBindingModel
                                {
                                    Id = expectedId,
@@ -111,9 +111,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                                };
             var beerReview = new Mock<IBeerReview>();
 
-            var context = this.Kernel.Get<HttpContextBase>();
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(expectedId))
                          .Returns(beerReview.Object);
             // Act
@@ -132,18 +132,18 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(expectedStream);
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var bindingModel = new ChangeImageBindingModel
                                {
                                    Image = fileMock.Object
                                };
-            var beerReview = this.Kernel.Get<IBeerReview>(ForCurrentUser);
-            var context = this.Kernel.Get<HttpContextBase>();
+            var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview);
-            var imgUploadServie = this.Kernel.GetMock<IImageUploadService>();
+            var imgUploadServie = this.MockingKernel.GetMock<IImageUploadService>();
 
             // Act
             sut.ChangeImage(bindingModel);
@@ -159,15 +159,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var bindingModel = new ChangeImageBindingModel
             {
                 Image = fileMock.Object
             };
-            var beerReview = this.Kernel.Get<IBeerReview>(ForCurrentUser);
-            var context = this.Kernel.Get<HttpContextBase>();
+            var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview);
 
@@ -188,22 +188,22 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var updateResult = new Mock<IDataModifiedResult>();
             var bindingModel = new ChangeImageBindingModel
             {
                 Image = fileMock.Object
             };
-            var beerReview = this.Kernel.Get<IBeerReview>(ForCurrentUser);
-            var context = this.Kernel.Get<HttpContextBase>();
+            var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview);
             reviewService.Setup(r => r.UpdateReview(beerReview))
                          .Returns(updateResult.Object);
-            var mockedReview = this.Kernel.GetMock<IBeerReview>();
-            var imgUpload = this.Kernel.GetMock<IImageUploadService>();
+            var mockedReview = this.MockingKernel.GetMock<IBeerReview>();
+            var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
             imgUpload.Setup(i => i.UploadImage(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(expectedUrl);
             // Act
@@ -222,21 +222,21 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var updateResult = new Mock<IDataModifiedResult>();
             var bindingModel = new ChangeImageBindingModel
             {
                 Image = fileMock.Object
             };
-            var beerReview = this.Kernel.Get<IBeerReview>(ForCurrentUser);
-            var context = this.Kernel.Get<HttpContextBase>();
+            var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview);
             reviewService.Setup(r => r.UpdateReview(beerReview))
                          .Returns(updateResult.Object);
-            var imgUpload = this.Kernel.GetMock<IImageUploadService>();
+            var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
             imgUpload.Setup(i => i.UploadImage(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(expectedUrl);
             // Act
@@ -256,7 +256,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(new MemoryStream());
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var updateResult = new Mock<IDataModifiedResult>();
             updateResult.Setup(r => r.Successful)
                         .Returns(true);
@@ -264,15 +264,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             {
                 Image = fileMock.Object
             };
-            var beerReview = this.Kernel.Get<IBeerReview>(ForCurrentUser);
-            var context = this.Kernel.Get<HttpContextBase>();
+            var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
+            var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(r => r.GetById(It.IsAny<int>()))
                          .Returns(beerReview);
             reviewService.Setup(r => r.UpdateReview(beerReview))
                          .Returns(updateResult.Object);
-            var imgUpload = this.Kernel.GetMock<IImageUploadService>();
+            var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
             imgUpload.Setup(i => i.UploadImage(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(expectedUrl);
             // Act
@@ -289,7 +289,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         {
             base.Init();
 
-            this.Kernel.Bind<IBeerReview>().ToMethod(ctx =>
+            this.MockingKernel.Bind<IBeerReview>().ToMethod(ctx =>
                                                      {
                                                          var review = new Mock<IBeerReview>();
                                                          review.Setup(r => r.ApplicationUserId)
@@ -300,7 +300,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                 .InSingletonScope()
                 .Named(ForCurrentUser);
 
-            this.Kernel.Rebind<HttpContextBase>()
+            this.MockingKernel.Rebind<HttpContextBase>()
                 .ToMethod(ctx =>
                           {
                               var identity = new Mock<ClaimsIdentity>();

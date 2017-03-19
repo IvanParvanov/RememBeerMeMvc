@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201702191618254_IsDeleted-Beer.Designer.cs">
       <DependentUpon>201702191618254_IsDeleted-Beer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703191742382_Followers.cs" />
+    <Compile Include="Migrations\201703191742382_Followers.Designer.cs">
+      <DependentUpon>201703191742382_Followers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702191618254_IsDeleted-Beer.resx">
       <DependentUpon>201702191618254_IsDeleted-Beer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703191742382_Followers.resx">
+      <DependentUpon>201703191742382_Followers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

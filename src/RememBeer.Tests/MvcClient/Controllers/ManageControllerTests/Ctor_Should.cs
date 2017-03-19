@@ -9,6 +9,7 @@ using NUnit.Framework;
 
 using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
+using RememBeer.Services.Contracts;
 using RememBeer.Tests.Utils;
 
 namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
@@ -31,9 +32,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             // Arrange
             var signInManager = new Mock<IApplicationSignInManager>();
             var authManager = new Mock<IAuthenticationManager>();
+            var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(null, signInManager.Object, authManager.Object));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(null, signInManager.Object, authManager.Object, followerService.Object));
         }
 
         [Test]
@@ -42,9 +44,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             // Arrange
             var userManager = new Mock<IApplicationUserManager>();
             var authManager = new Mock<IAuthenticationManager>();
+            var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, null, authManager.Object));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, null, authManager.Object, followerService.Object));
         }
 
         [Test]
@@ -53,10 +56,10 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             // Arrange
             var userManager = new Mock<IApplicationUserManager>();
             var signInManager = new Mock<IApplicationSignInManager>();
+            var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, signInManager.Object, null));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, signInManager.Object, null, followerService.Object));
         }
-
     }
 }

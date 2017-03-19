@@ -23,8 +23,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public async Task Call_UserServiceRemoveAdminAsyncOnceWithCorrectParams(string userId)
         {
             // Arrange
-            var sut = this.Kernel.Get<UsersController>();
-            var userService = this.Kernel.GetMock<IUserService>();
+            var sut = this.MockingKernel.Get<UsersController>();
+            var userService = this.MockingKernel.GetMock<IUserService>();
 
             // Act
             await sut.RemoveAdmin(userId);
@@ -41,7 +41,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
             var expectedAction = "Index";
             var expectedPage = 991;
             var expectedSearch = Guid.NewGuid().ToString();
-            var sut = this.Kernel.Get<UsersController>();
+            var sut = this.MockingKernel.Get<UsersController>();
 
             // Act
             var result = await sut.RemoveAdmin("sa", expectedPage, expectedPageSize, expectedSearch) as RedirectToRouteResult;

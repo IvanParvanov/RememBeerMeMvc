@@ -9,6 +9,7 @@ using Ninject.MockingKernel;
 
 using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
+using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Controllers.ManageControllerTests.Mocks;
 using RememBeer.Tests.MvcClient.Controllers.Ninject.Base;
 
@@ -18,14 +19,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
     {
         public override void Init()
         {
-            this.Kernel.Bind<ManageController>().ToSelf();
-            this.Kernel.Bind<MockedManageController>().ToSelf();
+            this.MockingKernel.Bind<ManageController>().ToSelf();
+            this.MockingKernel.Bind<MockedManageController>().ToSelf();
 
-            this.Kernel.Bind<IApplicationUserManager>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IApplicationSignInManager>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IAuthenticationManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IApplicationUserManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IApplicationSignInManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IAuthenticationManager>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IFollowerService>().ToMock().InSingletonScope();
 
-            this.Kernel.Bind<ManageController>().ToMethod(ctx =>
+            this.MockingKernel.Bind<ManageController>().ToMethod(ctx =>
                                                           {
                                                               var sut = ctx.Kernel.Get<ManageController>();
                                                               var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);

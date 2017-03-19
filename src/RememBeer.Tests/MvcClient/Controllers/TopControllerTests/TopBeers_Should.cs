@@ -21,8 +21,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.TopControllerTests
         public void Call_TopServiceGetTopBeersMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<TopController>();
-            var topService = this.Kernel.GetMock<ITopBeersService>();
+            var sut = this.MockingKernel.Get<TopController>();
+            var topService = this.MockingKernel.GetMock<ITopBeersService>();
             // Act
             sut.TopBeers();
             // Assert
@@ -33,9 +33,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.TopControllerTests
         public void Return_ViewResultWithCorrectModel()
         {
             // Arrange
-            var sut = this.Kernel.Get<TopController>();
+            var sut = this.MockingKernel.Get<TopController>();
             var expectedTopBeers = new List<IBeerRank>() { new Mock<IBeerRank>().Object};
-            var topService = this.Kernel.GetMock<ITopBeersService>();
+            var topService = this.MockingKernel.GetMock<ITopBeersService>();
             topService.Setup(s => s.GetTopBeers(It.IsAny<int>()))
                       .Returns(expectedTopBeers);
 

@@ -21,7 +21,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_AjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Types(It.IsAny<string>()), typeof(AjaxOnlyAttribute));
@@ -36,8 +36,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_BreweryServiceDeleteBeerMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
 
             // Act
             sut.DeleteBeer(expectedId);
@@ -50,7 +50,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Return_CorrectHttpStatusCodeResult()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var result = sut.DeleteBeer(It.IsAny<int>());

@@ -28,7 +28,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void HaveRequiredAttributes(Type attrType)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Login(default(LoginViewModel), default(string)), attrType);
@@ -41,7 +41,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectViewResult_WhenModelStateIsInvalid()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
             var viewModel = new LoginViewModel();
 
             // Act
@@ -60,8 +60,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Call_SignInManagerPasswordSignInAsyncMethodOnceWithCorrectParams(string expectedEmail, string expectedPass)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
             var viewModel = new LoginViewModel()
                             {
                                 Email = expectedEmail,
@@ -80,8 +80,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectRedirectResult_WhenUserLogsIn_WhenReturnUrlIsNull()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
             signInManager.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                          .Returns(Task.FromResult(SignInStatus.Success));
             var viewModel = new LoginViewModel();
@@ -100,8 +100,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         {
             // Arrange
             var expectedUrl = Guid.NewGuid().ToString();
-            var sut = this.Kernel.Get<AccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
             signInManager.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                          .Returns(Task.FromResult(SignInStatus.Success));
             var viewModel = new LoginViewModel();
@@ -118,8 +118,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectViewResult_WhenUserIsLockedOut()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
             signInManager.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                          .Returns(Task.FromResult(SignInStatus.LockedOut));
             var viewModel = new LoginViewModel();
@@ -138,8 +138,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectViewResult_InAnyOtherCase(SignInStatus status)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
             signInManager.Setup(s => s.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                          .Returns(Task.FromResult(status));
             var expected = new LoginViewModel();

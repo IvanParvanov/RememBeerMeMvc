@@ -26,7 +26,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Have_AjaxOnlyAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Types(It.IsAny<string>()), typeof(AjaxOnlyAttribute));
@@ -41,8 +41,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_BeerTypesServiceSearchMethodOnceWithCorrectParams(string search)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
-            var beerTypesService = this.Kernel.GetMock<IBeerTypesService>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
+            var beerTypesService = this.MockingKernel.GetMock<IBeerTypesService>();
 
             // Act
             sut.Types(search);
@@ -55,12 +55,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_IMapperMapMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var expectedTypes = new List<IBeerType>();
-            var beerTypesService = this.Kernel.GetMock<IBeerTypesService>();
+            var beerTypesService = this.MockingKernel.GetMock<IBeerTypesService>();
             beerTypesService.Setup(s => s.Search(It.IsAny<string>()))
                             .Returns(expectedTypes);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Types(It.IsAny<string>());
@@ -73,13 +73,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void ReturnCorrectResult()
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>();
+            var sut = this.MockingKernel.Get<BreweriesController>();
             var expectedTypes = new List<IBeerType>();
             var expectedDtos = new List<BeerTypeDto>();
-            var beerTypesService = this.Kernel.GetMock<IBeerTypesService>();
+            var beerTypesService = this.MockingKernel.GetMock<IBeerTypesService>();
             beerTypesService.Setup(s => s.Search(It.IsAny<string>()))
                             .Returns(expectedTypes);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeerType>, IEnumerable<BeerTypeDto>>(expectedTypes))
                   .Returns(expectedDtos);
 

@@ -18,13 +18,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
     {
         public override void Init()
         {
-            this.Kernel.Bind<ReviewsController>().ToSelf();
+            this.MockingKernel.Bind<ReviewsController>().ToSelf();
 
-            this.Kernel.Bind<IMapper>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
-            this.Kernel.Bind<IImageUploadService>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IMapper>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IImageUploadService>().ToMock().InSingletonScope();
 
-            this.Kernel.Bind<ReviewsController>().ToMethod(ctx =>
+            this.MockingKernel.Bind<ReviewsController>().ToMethod(ctx =>
                                                            {
                                                                var sut = ctx.Kernel.Get<ReviewsController>();
                                                                var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
@@ -35,7 +35,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
                 .Named(AjaxContextName)
                 .BindingConfiguration.IsImplicit = true;
 
-            this.Kernel.Bind<ReviewsController>().ToMethod(ctx =>
+            this.MockingKernel.Bind<ReviewsController>().ToMethod(ctx =>
                                                            {
                                                                var sut = ctx.Kernel.Get<ReviewsController>();
                                                                var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);

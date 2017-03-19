@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RememBeer.Models.Contracts.IApplicationUser>
+
+<div class="row">
+    <div class="card col s12 m8 offset-m2 l6 offset-l3">
+        <div class="card-content">
+            <div>
+                <h4>Subscribe to users: </h4>
+                <hr/>
+
+                @Html.Partial("_AddFollower")
+
+                <table class="bordered striped">
+                    <tr>
+                        <th>Username</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var following in Model)
+                    {
+                        <tr>
+                            <td>@following.UserName</td>
+                            <td>
+                                @using (Ajax.BeginForm("Unfollow", new AjaxOptions()
+                                                                   {
+                                                                       HttpMethod = "POST",
+                                                                       LoadingElementId = "loading",
+                                                                       UpdateTargetId = "content",
+                                                                       OnFailure = "handleAjaxError",
+                                                                       OnSuccess = "showSuccess('User has been unfollowed')"
+                                                                   }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="username" value="@following.UserName"/>
+
+                                    <button class="btn-floating red" type="submit"><i class="material-icons">&#xE872;</i></button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

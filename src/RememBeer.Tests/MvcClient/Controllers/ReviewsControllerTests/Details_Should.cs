@@ -24,7 +24,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void HaveAllowAnonymousAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(default(int)), typeof(AllowAnonymousAttribute));
@@ -38,8 +38,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Call_ReviewServiceGetByIdMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
             sut.Details(expectedId);
@@ -53,8 +53,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void ReturnNotFoundView_WhenReviewIsNotFound(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.GetById(expectedId))
                          .Returns((IBeerReview)null);
             // Act
@@ -69,12 +69,12 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Call_IMapperMapMethodOnceWithCorrectParams_WhenReviewIsFound()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var expectedBeerReview = new Mock<IBeerReview>();
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.GetById(It.IsAny<int>()))
                          .Returns(expectedBeerReview.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Details(It.IsAny<int>());
@@ -87,13 +87,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void ReturnValueFrom_IMapperMapMethod_WhenReviewIsFound()
         {
             // Arrange
-            var sut = this.Kernel.Get<ReviewsController>();
+            var sut = this.MockingKernel.Get<ReviewsController>();
             var beerReview = new Mock<IBeerReview>();
             var expectedViewModel = new SingleReviewViewModel();
-            var reviewService = this.Kernel.GetMock<IBeerReviewService>();
+            var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.GetById(It.IsAny<int>()))
                          .Returns(beerReview.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBeerReview, SingleReviewViewModel>(beerReview.Object))
                   .Returns(expectedViewModel);
 

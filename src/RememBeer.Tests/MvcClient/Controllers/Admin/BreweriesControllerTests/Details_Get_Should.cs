@@ -25,8 +25,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         public void Call_BreweryServiceGetByIdMethodOnceWithCorrectParams(int expectedId)
         {
             // Arrange
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
 
             // Act
             sut.Details(expectedId);
@@ -40,11 +40,11 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedBrewery = new Mock<IBrewery>();
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var breweryService = this.Kernel.GetMock<IBreweryService>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.GetById(It.IsAny<int>()))
                 .Returns(expectedBrewery.Object);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
             sut.Details(It.IsAny<int>());
@@ -58,8 +58,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedModel = new BreweryDetailsViewModel();
-            var sut = this.Kernel.Get<BreweriesController>(AjaxContextName);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
                   .Returns(expectedModel);
 
@@ -78,8 +78,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var expectedModel = new BreweryDetailsViewModel();
-            var sut = this.Kernel.Get<BreweriesController>(RegularContextName);
-            var mapper = this.Kernel.GetMock<IMapper>();
+            var sut = this.MockingKernel.Get<BreweriesController>(RegularContextName);
+            var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
                   .Returns(expectedModel);
 

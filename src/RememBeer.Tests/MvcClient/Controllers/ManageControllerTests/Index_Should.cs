@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -17,8 +20,6 @@ using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.Tests.MvcClient.Controllers.Ninject;
 
-using Constants = RememBeer.Common.Constants.Constants;
-
 namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
 {
     [TestFixture]
@@ -30,8 +31,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_UserManagerGetPhoneNumberAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             await sut.Index(null);
@@ -44,8 +45,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_UserManagerGetTwoFactorEnabledAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             await sut.Index(null);
@@ -58,8 +59,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_UserManagerGetLoginsAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             await sut.Index(null);
@@ -72,8 +73,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public async Task Call_AuthManagerAuthenticateAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
-            var authManager = this.Kernel.GetMock<IAuthenticationManager>();
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
+            var authManager = this.MockingKernel.GetMock<IAuthenticationManager>();
 
             // Act
             await sut.Index(null);
@@ -82,13 +83,41 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             authManager.Verify(m => m.AuthenticateAsync(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie), Times.Once);
         }
 
+        [Test]
+        public async Task Return_PartialViewResult_WhenRequestIsAjax()
+        {
+            // Arrange
+            var sut = this.MockingKernel.Get<ManageController>(AjaxContextName);
+
+            // Act
+            var result = await sut.Index(null) as PartialViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(string.Empty, result.ViewName);
+        }
+
+        [Test]
+        public async Task Return_ViewResult_WhenRequestIsNotAjax()
+        {
+            // Arrange
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
+
+            // Act
+            var result = await sut.Index(null) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual(string.Empty, result.ViewName);
+        }
+
         [TestCase(null, "")]
         [TestCase(ManageController.ManageMessageId.Error, "error has occurred")]
         [TestCase(ManageController.ManageMessageId.ChangePasswordSuccess, "password has been changed")]
         public async Task Set_ViewBagStatusMessageCorrectly(ManageController.ManageMessageId? msgId, string expected)
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>(RegularContextName);
+            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
 
             // Act
             await sut.Index(msgId);
@@ -101,24 +130,65 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         {
             base.Init();
 
-            this.Kernel.Bind<HttpContextBase>()
+            this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
                           {
+                              var request = new Mock<HttpRequestBase>();
+                              request.SetupGet(x => x.Headers)
+                                     .Returns(new WebHeaderCollection());
+
                               var identity = new Mock<ClaimsIdentity>();
                               identity.Setup(i => i.FindFirst(It.IsAny<string>()))
                                       .Returns(new Claim("sa", this.expectedUserId));
 
                               var mockedUser = new Mock<IPrincipal>();
                               mockedUser.Setup(u => u.Identity).Returns(identity.Object);
-                              mockedUser.Setup(u => u.IsInRole(Constants.AdminRole))
-                                        .Returns(false);
                               var context = new Mock<HttpContextBase>();
                               context.SetupGet(x => x.User).Returns(mockedUser.Object);
+                              context.SetupGet(x => x.Request)
+                                     .Returns(request.Object);
 
                               return context.Object;
                           })
                 .InSingletonScope()
                 .Named(RegularContextName);
+
+            this.MockingKernel.Bind<HttpContextBase>()
+                .ToMethod(ctx =>
+                          {
+                              var request = new Mock<HttpRequestBase>();
+                              request.SetupGet(x => x.Headers).Returns(
+                                                                       new WebHeaderCollection
+                                                                       {
+                                                                           { "X-Requested-With", "XMLHttpRequest" }
+                                                                       });
+
+                              var identity = new Mock<ClaimsIdentity>();
+                              identity.Setup(i => i.FindFirst(It.IsAny<string>()))
+                                      .Returns(new Claim("sa", this.expectedUserId));
+
+                              var mockedUser = new Mock<IPrincipal>();
+                              mockedUser.Setup(u => u.Identity).Returns(identity.Object);
+                              var context = new Mock<HttpContextBase>();
+                              context.SetupGet(x => x.User).Returns(mockedUser.Object);
+                              context.SetupGet(x => x.Request)
+                                     .Returns(request.Object);
+
+                              return context.Object;
+                          })
+                .InSingletonScope()
+                .Named(AjaxContextName);
+
+            this.MockingKernel.Bind<ManageController>().ToMethod(ctx =>
+                                                          {
+                                                              var sut = ctx.Kernel.Get<ManageController>();
+                                                              var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
+                                                              sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+
+                                                              return sut;
+                                                          })
+                .Named(AjaxContextName)
+                .BindingConfiguration.IsImplicit = true;
         }
     }
 }

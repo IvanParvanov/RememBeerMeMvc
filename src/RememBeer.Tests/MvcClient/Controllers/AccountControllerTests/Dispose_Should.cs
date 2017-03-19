@@ -16,16 +16,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public override void Init()
         {
             base.Init();
-            this.Kernel.Bind<MockedAccountController>().ToSelf();
+            this.MockingKernel.Bind<MockedAccountController>().ToSelf();
         }
 
         [Test]
         public void DoNothing_WhenDisposingIsFalse()
         {
             // Arrange
-            var sut = this.Kernel.Get<MockedAccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<MockedAccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
 
             // Act
             sut.Dispose(false);
@@ -39,8 +39,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Call_UserManagerDisposeMethodOnce_WhenDisposingIsTrue()
         {
             // Arrange
-            var sut = this.Kernel.Get<MockedAccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<MockedAccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
 
             // Act
             sut.Dispose(true);
@@ -53,8 +53,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void Call_SignInManagerDisposeMethodOnce_WhenDisposingIsTrue()
         {
             // Arrange
-            var sut = this.Kernel.Get<MockedAccountController>();
-            var signInManager = this.Kernel.GetMock<IApplicationSignInManager>();
+            var sut = this.MockingKernel.Get<MockedAccountController>();
+            var signInManager = this.MockingKernel.GetMock<IApplicationSignInManager>();
 
             // Act
             sut.Dispose(true);

@@ -15,6 +15,7 @@ namespace RememBeer.Models
         public ApplicationUser()
         {
             this.BeerReviews = new HashSet<BeerReview>();
+            this.Followers = new HashSet<ApplicationUser>();
         }
 
         public ApplicationUser(string userName)
@@ -24,6 +25,8 @@ namespace RememBeer.Models
         }
 
         public virtual ICollection<BeerReview> BeerReviews { get; set; }
+
+        public virtual ICollection<ApplicationUser> Followers { get; set; }
 
         public virtual ClaimsIdentity GenerateUserIdentity(IApplicationUserManager manager)
         {

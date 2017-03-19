@@ -23,7 +23,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public void HaveAllowAnonymousAttribute()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.ConfirmEmail(default(string), default(string)), typeof(AllowAnonymousAttribute));
@@ -38,7 +38,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_ErrorView_WhenUserOrCodeAreNull(string userId, string code)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
+            var sut = this.MockingKernel.Get<AccountController>();
 
             // Act
             var result = await sut.ConfirmEmail(userId, code);
@@ -53,8 +53,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Call_UserManagerConfirmEmailAsyncMethodOnceWithCorrectParams(string userId, string code)
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(x => x.ConfirmEmailAsync(userId, code))
                        .Returns(Task.FromResult(IdentityResult.Success));
 
@@ -69,8 +69,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_ConfirmEmailView_WhenConfirmationSucceeds()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Success));
 
@@ -85,8 +85,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_ErrorView_WhenConfirmationFails()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            var sut = this.MockingKernel.Get<AccountController>();
+            var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(x => x.ConfirmEmailAsync(It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Failed()));
 

@@ -110,6 +110,8 @@
     <Compile Include="BeerTypesService.cs" />
     <Compile Include="Contracts\IBeerService.cs" />
     <Compile Include="Contracts\IBeerTypesService.cs" />
+    <Compile Include="FollowerService.cs" />
+    <Compile Include="Contracts\IFollowerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BeerReviewService.cs" />
     <Compile Include="BreweryService.cs" />

@@ -13,7 +13,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
         public void ReturnCorrectView()
         {
             // Arrange
-            var sut = this.Kernel.Get<ManageController>();
+            var sut = this.MockingKernel.Get<ManageController>();
 
             // Act
             var result = sut.ChangePassword();

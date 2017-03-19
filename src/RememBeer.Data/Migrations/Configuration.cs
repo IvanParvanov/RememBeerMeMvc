@@ -13,7 +13,7 @@ namespace RememBeer.Data.Migrations
     {
         public Configuration()
         {
-            this.AutomaticMigrationDataLossAllowed = true;
+            //this.AutomaticMigrationDataLossAllowed = true;
             this.AutomaticMigrationsEnabled = true;
             this.ContextKey = "RememBeer.Data.DbContexts.RememBeerMeDbContext";
         }
