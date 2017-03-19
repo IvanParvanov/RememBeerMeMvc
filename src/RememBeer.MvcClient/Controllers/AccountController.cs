@@ -154,7 +154,7 @@ namespace RememBeer.MvcClient.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                string code = await this.userManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code = await this.userManager.GeneratePasswordResetTokenAsync(user.Id);
                 var protocol = this.Request.Url.Scheme;
                 var callbackUrl = this.Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol);
                 await this.userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");

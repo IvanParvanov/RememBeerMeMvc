@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +23,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
     [TestFixture]
     public class ForgotPassword_Post_Should : AccountControllerTestBase
     {
+        private const string ExpectedUri = "http://somesite.com/account/resetpassword";
+
         [TestCase(typeof(AllowAnonymousAttribute))]
         [TestCase(typeof(HttpPostAttribute))]
         [TestCase(typeof(ValidateAntiForgeryTokenAttribute))]
@@ -87,6 +88,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
             var userManager = this.Kernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(true));
+
             // Act
             var result = await sut.ForgotPassword(viewModel) as ViewResult;
 
@@ -99,26 +101,17 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public async Task Return_CorrectRedirect_WhenEverythingIsOk()
         {
             // Arrange
-            var sut = this.Kernel.Get<AccountController>();
-            var urlHelper = new Mock<UrlHelper>();
-            urlHelper.Setup(h => h.Action(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
-                     .Returns("asdas");
-            sut.Url = urlHelper.Object;
-            var url = new Uri("http://somesite.com/account/resetpassword");
-            var request = new Mock<HttpRequestBase>();
-            request.Setup(r => r.Url)
-                   .Returns(url);
-            var httpContext = new Mock<HttpContextBase>();
-            httpContext.Setup(c => c.Request)
-                       .Returns(request.Object);
-            sut.ControllerContext = new ControllerContext(httpContext.Object, new RouteData(), sut);
+            var sut = this.Kernel.Get<AccountController>(RegularContextName);
             var viewModel = new ForgotPasswordViewModel();
-            var user = new ApplicationUser();
+            var user = new Mock<ApplicationUser>();
+            user.Setup(u => u.Id)
+                .Returns(Guid.NewGuid().ToString);
             var userManager = this.Kernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
-                       .Returns(Task.FromResult(user));
+                       .Returns(Task.FromResult(user.Object));
             userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
                        .Returns(Task.FromResult(true));
+
             // Act
             var result = await sut.ForgotPassword(viewModel) as RedirectToRouteResult;
 
@@ -126,6 +119,80 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
             Assert.NotNull(result);
             Assert.AreEqual("ForgotPasswordConfirmation", result.RouteValues["action"]);
             Assert.AreEqual("Account", result.RouteValues["controller"]);
+        }
+
+        [Test]
+        public async Task Call_UserManagerGeneratePasswordResetTokenAsyncOnceWithCorrectParams_WhenOk()
+        {
+            // Arrange
+            var sut = this.Kernel.Get<AccountController>(RegularContextName);
+            var viewModel = new ForgotPasswordViewModel();
+            var user = new Mock<ApplicationUser>();
+            user.Setup(u => u.Id)
+                .Returns(Guid.NewGuid().ToString);
+            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
+                       .Returns(Task.FromResult(user.Object));
+            userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
+                       .Returns(Task.FromResult(true));
+
+            // Act
+            await sut.ForgotPassword(viewModel);
+
+            // Assert
+            userManager.Verify(m => m.GeneratePasswordResetTokenAsync(user.Object.Id), Times.Once);
+        }
+
+        [Test]
+        public async Task Call_UserManagerSendEmailAsyncOnceWithCorrectParams_WhenOk()
+        {
+            // Arrange
+            var sut = this.Kernel.Get<AccountController>(RegularContextName);
+            var viewModel = new ForgotPasswordViewModel();
+            var user = new Mock<ApplicationUser>();
+            user.Setup(u => u.Id)
+                .Returns(Guid.NewGuid().ToString);
+            var userManager = this.Kernel.GetMock<IApplicationUserManager>();
+            userManager.Setup(m => m.FindByNameAsync(It.IsAny<string>()))
+                       .Returns(Task.FromResult(user.Object));
+            userManager.Setup(m => m.IsEmailConfirmedAsync(It.IsAny<string>()))
+                       .Returns(Task.FromResult(true));
+
+            // Act
+            await sut.ForgotPassword(viewModel);
+
+            // Assert
+            userManager.Verify(m => m.SendEmailAsync(
+                                                     user.Object.Id,
+                                                     It.Is<string>(s => s.ToLower().Contains("reset password")),
+                                                     It.Is<string>(s => s.ToLower().Contains(ExpectedUri))),
+                               Times.Once);
+        }
+
+        public override void Init()
+        {
+            this.Kernel.Bind<AccountController>().ToMethod(ctx =>
+                                                           {
+                                                               var sut = ctx.Kernel.Get<AccountController>();
+                                                               var urlHelper = new Mock<UrlHelper>();
+                                                               urlHelper.Setup(h => h.Action(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
+                                                                        .Returns(ExpectedUri);
+                                                               sut.Url = urlHelper.Object;
+                                                               var url = new Uri(ExpectedUri);
+                                                               var request = new Mock<HttpRequestBase>();
+                                                               request.Setup(r => r.Url)
+                                                                      .Returns(url);
+                                                               var httpContext = new Mock<HttpContextBase>();
+                                                               httpContext.Setup(c => c.Request)
+                                                                          .Returns(request.Object);
+                                                               sut.ControllerContext = new ControllerContext(httpContext.Object, new RouteData(), sut);
+
+                                                               return sut;
+                                                           })
+                .Named(RegularContextName)
+                .BindingConfiguration.IsImplicit = true;
+
+            base.Init();
         }
     }
 }
