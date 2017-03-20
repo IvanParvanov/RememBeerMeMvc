@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 
 using Moq;
@@ -20,27 +21,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
     [TestFixture]
     public class Details_Post_Should : BreweriesControllerTestBase
     {
-        [Test]
-        public void Have_AjaxOnlyAttribute()
+        [TestCase(typeof(AjaxOnlyAttribute))]
+        [TestCase(typeof(HttpPostAttribute))]
+        [TestCase(typeof(ValidateAntiForgeryTokenAttribute))]
+        public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
             var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<CreateBeerBindingModel>()), typeof(AjaxOnlyAttribute));
-
-            // Assert
-            Assert.IsTrue(hasAttribute);
-        }
-
-        [Test]
-        public void Have_HttpPostAttribute()
-        {
-            // Arrange
-            var sut = this.MockingKernel.Get<BreweriesController>();
-
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<CreateBeerBindingModel>()), typeof(HttpPostAttribute));
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<CreateBeerBindingModel>()), attrType);
 
             // Assert
             Assert.IsTrue(hasAttribute);

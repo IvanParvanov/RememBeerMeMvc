@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 
 using AutoMapper;
@@ -24,27 +25,16 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
     [TestFixture]
     public class Details_Put_Should : BreweriesControllerTestBase
     {
-        [Test]
-        public void Have_AjaxOnlyAttribute()
+        [TestCase(typeof(AjaxOnlyAttribute))]
+        [TestCase(typeof(HttpPutAttribute))]
+        [TestCase(typeof(ValidateAntiForgeryTokenAttribute))]
+        public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
             var sut = this.MockingKernel.Get<BreweriesController>();
 
             // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<EditBreweryBindingModel>()), typeof(AjaxOnlyAttribute));
-
-            // Assert
-            Assert.IsTrue(hasAttribute);
-        }
-
-        [Test]
-        public void Have_HttpPutAttribute()
-        {
-            // Arrange
-            var sut = this.MockingKernel.Get<BreweriesController>();
-
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<EditBreweryBindingModel>()), typeof(HttpPutAttribute));
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Details(It.IsAny<EditBreweryBindingModel>()), attrType);
 
             // Assert
             Assert.IsTrue(hasAttribute);

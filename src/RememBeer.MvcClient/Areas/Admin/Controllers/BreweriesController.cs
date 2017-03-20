@@ -75,6 +75,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         // POST: Admin/Breweries/Details/5
         [HttpPost]
         [AjaxOnly]
+        [ValidateAntiForgeryToken]
         public ActionResult Details(CreateBeerBindingModel model)
         {
             var result = this.breweryService.AddNewBeer(model.Id, model.TypeId, model.BeerName);
@@ -88,6 +89,7 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
         // PUT: Admin/Breweries/Details/5
         [AjaxOnly]
+        [ValidateAntiForgeryToken]
         [HttpPut]
         public ActionResult Details(EditBreweryBindingModel model)
         {
@@ -115,8 +117,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK, "Beer has been deleted!");
         }
 
-        [AjaxOnly]
         // GET: Admin/Breweries/Types?name={name}
+        [AjaxOnly]
         public JsonResult Types(string name)
         {
             var result = this.beerTypesService.Search(name);

@@ -9,6 +9,7 @@
                                                          OnSuccess = "showSuccess('Brewery has been updated')"
                                                      }, new { }))
 {
+    @Html.AntiForgeryToken()
     <table class="bordered striped">
         <tr>
             <th>Id</th>

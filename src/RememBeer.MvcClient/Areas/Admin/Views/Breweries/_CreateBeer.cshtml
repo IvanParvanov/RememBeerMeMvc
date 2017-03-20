@@ -10,6 +10,7 @@
                                                          OnFailure = "handleAjaxError"
                                                      }, new { @class = "" }))
 {
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.Id)
     <div class="input-field col s12 m12 l5">
         @Html.LabelFor(x => x.BeerName)

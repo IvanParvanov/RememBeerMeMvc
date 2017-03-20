@@ -1,17 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-
-using Castle.Components.DictionaryAdapter.Xml;
+﻿using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 
 using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Ninject.Web.Common;
-
-using Owin;
 
 using RememBeer.Common.Cache;
 using RememBeer.Common.Constants;
