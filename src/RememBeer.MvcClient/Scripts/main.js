@@ -19,8 +19,9 @@ $(document).ready(function () {
     });
 
     signalR = $.connection.notificationsHub;
-    signalR.client.showSuccess = function (message) {
-        showSuccess(message);
+    signalR.client.showNotification = function (message, username) {
+        var text = "" + username + " says: <br />" + message;
+        showNotification(text);
     };
 
     signalR.client.onFollowerReviewCreated = function (id, user) {
@@ -29,12 +30,14 @@ $(document).ready(function () {
     }
 
     $.connection.hub.start().done(function() {
-
+        $(".btn").click(function(ev) {
+            signalR.server.sendMessage("i am a <script>alert()</script>");
+        });
     });
 });
 
 function showNotification(text) {
-    Materialize.toast(text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>", 10000000, 'blue-grey');
+    Materialize.toast(text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>", 10000000, 'blue-grey small');
 }
 
 function updateModal(_this) {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 using Bytes2you.Validation;
 
@@ -33,6 +34,17 @@ namespace RememBeer.MvcClient.Hubs
 
             var followerIds = followers.Select(f => f.Id).ToList();
             this.Clients.Users(followerIds).onFollowerReviewCreated(review.Id, review.User.UserName);
+        }
+
+        public async Task SendMessage(string message)
+        {
+            var userId = this.Context.User.Identity.GetUserId();
+            var username = this.Context.User.Identity.Name;
+            var followers = await this.followerService.GetFollowersForUserIdAsync(userId);
+            var followerIds = followers.Select(f => f.Id).ToList();
+            var encoded = HttpUtility.HtmlEncode(message);
+            this.Clients.Users(followerIds).showNotification(encoded, username);
+
         }
     }
 }
