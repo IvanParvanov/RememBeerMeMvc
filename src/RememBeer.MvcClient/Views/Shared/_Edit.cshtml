@@ -7,12 +7,11 @@
                 <div class="">
                     <img class="materialboxed responsive-img" src="@Model.ImgUrl" alt="Review image">
                     <p>
-                        Upload a new image:
+                        <label for="imgUpload">Upload a new image:</label>
                         @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(x => x.Id, new { id = "review-id" })
-
                             <input type="file" accept="image/*" id="imgUpload"/>
                         }
                     </p>
@@ -25,8 +24,8 @@
                                            HttpMethod = "PUT",
                                            UpdateTargetId = "review-" + Model.Id,
                                            LoadingElementId = "loading",
-                                           OnFailure = "handleAjaxError",
-                                           OnSuccess = "showSuccess('Review has been successfully updated!')",
+                                           OnFailure = "notifier.handleAjaxError",
+                                           OnSuccess = "notifier.showSuccess('Review has been successfully updated!')",
                                            InsertionMode = InsertionMode.Replace
                                        },
                                        new { enctype = "multipart/form-data", accept = "image/*" }))

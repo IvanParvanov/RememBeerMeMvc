@@ -28,18 +28,10 @@ $(document).ready(function() {
         });
 
     signalR = $.connection.notificationsHub;
-    $.connection.hub.logging = true;
-    $.connection.hub.error(function(err) {
-        console.log(err);
-    });
-
-    //signalR.error(function (error) {
-    //    console.log('SignalR error: ' + error)
-    //});
 
     signalR.client.showNotification = function(message, username) {
         var text = username + " says: <br />" + message;
-        showNotification(text);
+        notifier.showNotification(text);
     };
 
     signalR.client.onFollowerReviewCreated = function(id, user) {
@@ -48,7 +40,7 @@ $(document).ready(function() {
             "\">User <strong>" +
             user +
             "</strong> has posted a new review.</a>";
-        showNotification(text);
+        notifier.showNotification(text);
     }
 
     $.connection.hub.start().done(function() {
@@ -58,13 +50,6 @@ $(document).ready(function() {
         //});
     });
 });
-
-function showNotification(text) {
-    Materialize.toast(
-        text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>",
-        10000000,
-        'blue-grey small');
-}
 
 function updateModal(_this) {
     var id = $(_this).attr("data-id");
@@ -92,24 +77,44 @@ function initMaterialize() {
     $('.collapsible').collapsible();
 }
 
-function handleAjaxError(response) {
-    var message;
-    if (!response || !response.statusText || response.statusText.toLowerCase() === "error") {
-        message = 'There was a problem with your request. Please try again.';
-    } else {
-        message = response.statusText;
+var notifier = (function() {
+    function prepareText(text) {
+        return text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>";
     }
 
-    Materialize.toast(message, 5000, 'red');
-}
+    return {
+        showFailure: function(message) {
+            initMaterialize();
+            Materialize.toast(
+                prepareText(message),
+                5000,
+                'red');
+        },
+        showSuccess: function(message) {
+            initMaterialize();
+            Materialize.toast(
+                prepareText(message),
+                5000,
+                'green');
+        },
+        handleAjaxError: function(response) {
+            var message;
+            if (!response || !response.statusText || response.statusText.toLowerCase() === "error") {
+                message = 'There was a problem with your request. Please try again.';
+            } else {
+                message = response.statusText;
+            }
 
-function showSuccess(message) {
-    initMaterialize();
-    Materialize.toast(
-        message + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>",
-        5000,
-        'green');
-}
+            notifier.showFailure(message);
+        },
+        showNotification: function(message) {
+            Materialize.toast(
+                prepareText(message),
+                10000000,
+                'blue-grey small');
+        }
+    }
+})();
 
 var requester = {
     postJson: function(url, formData, success) {
@@ -143,18 +148,19 @@ var requester = {
 
 var eventManager = {
     notifyReviewCreated: function() {
+        initMaterialize();
         signalR.server.notifyReviewCreated();
     },
     sendMessage: function() {
         var $input = $('#message');
         var message = $input.val();
         signalR.server.sendMessage(message).fail(function(error) {
-                console.log('sendMessage error: ' + error);
+                notifier.showFailure('Message could not be sent! Try again...');
             })
             .done(function() {
                 $('#message').val('');
                 $('#notify').fadeOut();
-                showSuccess('Message has been sent!');
+                notifier.showSuccess('Message has been sent!');
             });
 
     },
@@ -184,7 +190,7 @@ var eventManager = {
                     var imgEl = $("<img>").addClass("materialboxed responsive-img").attr("src", response.url);
                     parent.prepend(imgEl);
 
-                    showSuccess('Image has been successfully updated!');
+                    notifier.showSuccess('Image has been successfully updated!');
                 });
         });
     },

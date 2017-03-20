@@ -11,8 +11,8 @@
                                HttpMethod = "POST",
                                UpdateTargetId = "content",
                                LoadingElementId = "loading",
-                               OnFailure = "handleAjaxError",
-                               OnSuccess = "showSuccess('Review has been successfully created!')",
+                               OnFailure = "notifier.handleAjaxError",
+                               OnSuccess = "notifier.showSuccess('Review has been successfully created!')",
                                InsertionMode = InsertionMode.Replace
                            },
                            new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content", id = "create-form" }))
@@ -23,8 +23,8 @@
             <h4>Create a new review</h4>
             <div class="col s12 l4 center-align">
                 <p>
-                    Upload a new image:
-                    <input type="file" accept="image/*" id="createImgUpload" name="image"/>
+                    <label for="imageUpload">Upload a new image:</label>
+                    <input type="file" accept="image/*" id="createImgUpload" name="image" id="imageUpload"/>
                 </p>
             </div>
             <div class="col s12 l8">

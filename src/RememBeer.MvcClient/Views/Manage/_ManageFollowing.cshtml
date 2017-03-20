@@ -20,13 +20,13 @@
                             <td>@following.UserName</td>
                             <td>
                                 @using (Ajax.BeginForm("Unfollow", new AjaxOptions()
-                                                                   {
-                                                                       HttpMethod = "POST",
-                                                                       LoadingElementId = "loading",
-                                                                       UpdateTargetId = "content",
-                                                                       OnFailure = "handleAjaxError",
-                                                                       OnSuccess = "showSuccess('User has been unfollowed')"
-                                                                   }))
+                                {
+                                    HttpMethod = "POST",
+                                    LoadingElementId = "loading",
+                                    UpdateTargetId = "content",
+                                    OnFailure = "notifier.handleAjaxError",
+                                    OnSuccess = "notifier.showSuccess('User has been unfollowed')"
+                                }))
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="username" value="@following.UserName"/>

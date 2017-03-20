@@ -24,8 +24,8 @@
             HttpMethod = "DELETE",
             InsertionMode = InsertionMode.Replace,
             LoadingElementId = "loading",
-            OnSuccess = "$('.modal').modal('close');showSuccess('Review has been deleted!')",
-            OnFailure = "handleAjaxError"
+            OnSuccess = "$('.modal').modal('close');notifier.showSuccess('Review has been deleted!')",
+            OnFailure = "notifier.handleAjaxError"
         }, new { }) )
         {
             @Html.AntiForgeryToken()

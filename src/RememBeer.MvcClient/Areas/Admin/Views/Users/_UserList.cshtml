@@ -40,8 +40,8 @@
                                                  InsertionMode = InsertionMode.Replace,
                                                  LoadingElementId = "loading",
                                                  UpdateTargetId = "content",
-                                                 OnSuccess = "showSuccess('User enabled')",
-                                                 OnFailure = "handleAjaxError"
+                                                 OnSuccess = "notifier.showSuccess('User enabled')",
+                                                 OnFailure = "notifier.handleAjaxError"
                                              },
                                              htmlAttributes: new { @class = "btn teal darken-1 waves-effect waves-light" })
                         }
@@ -54,8 +54,8 @@
                                                  InsertionMode = InsertionMode.Replace,
                                                  LoadingElementId = "loading",
                                                  UpdateTargetId = "content",
-                                                 OnSuccess = "showSuccess('User disabled.')",
-                                                 OnFailure = "handleAjaxError"
+                                                 OnSuccess = "notifier.showSuccess('User disabled.')",
+                                                 OnFailure = "notifier.handleAjaxError"
                                              },
                                              htmlAttributes: new { @class = "btn red waves-effect waves-light" })
                         }
@@ -73,8 +73,8 @@
                                                  InsertionMode = InsertionMode.Replace,
                                                  LoadingElementId = "loading",
                                                  UpdateTargetId = "content",
-                                                 OnSuccess = "showSuccess('User has been removed from the administrator role.')",
-                                                 OnFailure = "handleAjaxError"
+                                                 OnSuccess = "notifier.showSuccess('User has been removed from the administrator role.')",
+                                                 OnFailure = "notifier.handleAjaxError"
                                              },
                                              htmlAttributes: new { @class = "btn-floating red center-align waves-effect waves-light" })
                         }
@@ -87,8 +87,8 @@
                                                  InsertionMode = InsertionMode.Replace,
                                                  LoadingElementId = "loading",
                                                  UpdateTargetId = "content",
-                                                 OnSuccess = "showSuccess('User is now an administrator')",
-                                                 OnFailure = "handleAjaxError"
+                                                 OnSuccess = "notifier.showSuccess('User is now an administrator')",
+                                                 OnFailure = "notifier.handleAjaxError"
                                              },
                                              htmlAttributes: new { @class = "btn-floating teal darken-1 center-align waves-effect waves-light" })
                         }

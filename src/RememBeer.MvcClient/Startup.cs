@@ -21,13 +21,7 @@ namespace RememBeer.MvcClient
 
             var idProvider = new UserIdProvider();
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => idProvider);
-
-            var hubConfiguration = new HubConfiguration
-                                   {
-                                       EnableDetailedErrors = true
-                                   };
-
-            app.MapSignalR(hubConfiguration);
+            app.MapSignalR();
         }
     }
 }

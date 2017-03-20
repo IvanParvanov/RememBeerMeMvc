@@ -10,8 +10,8 @@
                 InsertionMode = InsertionMode.Replace,
                 LoadingElementId = "loading",
                 UpdateTargetId = "content",
-                OnSuccess = "showSuccess('User has been followed!')",
-                OnFailure = "handleAjaxError"
+                OnSuccess = "notifier.showSuccess('User has been followed!')",
+                OnFailure = "notifier.handleAjaxError"
             }, new { @class = "" }) )
             {
                 @Html.AntiForgeryToken()
