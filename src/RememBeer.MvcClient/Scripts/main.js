@@ -1,43 +1,69 @@
 ﻿var signalR;
 
-$(document).ready(function () {
+$(document).ready(function() {
     initMaterialize();
     $(".button-collapse").sideNav();
 
-    $(document).on('click', '#toast-container .toast .close', function () {
-        $(this).parent().fadeOut(function () {
-            $(this).remove();
+    $(document).on(
+        'click',
+        '#toast-container .toast .close, #notify .close',
+        function() {
+            var target = $(this).attr("data-target");
+            if (target) {
+                $(target).fadeOut();
+            } else {
+                $(this).parent().fadeOut();
+            }
         });
-    });
 
-    $("#content").on('click', '.pagination', function(ev) {
-        var $target = $(ev.target);
-        if ($target.is("a")) {
-            var href = $target.attr("href");
-            history.pushState({}, "", href);
-        }
-    });
+    $("#content").on(
+        'click',
+        '.pagination',
+        function(ev) {
+            var $target = $(ev.target);
+            if ($target.is("a")) {
+                var href = $target.attr("href");
+                history.pushState({}, "", href);
+            }
+        });
 
     signalR = $.connection.notificationsHub;
-    signalR.client.showNotification = function (message, username) {
-        var text = "" + username + " says: <br />" + message;
+    $.connection.hub.logging = true;
+    $.connection.hub.error(function(err) {
+        console.log(err);
+    });
+
+    //signalR.error(function (error) {
+    //    console.log('SignalR error: ' + error)
+    //});
+
+    signalR.client.showNotification = function(message, username) {
+        var text = username + " says: <br />" + message;
         showNotification(text);
     };
 
-    signalR.client.onFollowerReviewCreated = function (id, user) {
-        var text = "<a class=\"white-text\" target=\"_blank\" href=\"/reviews/details/" + id + "\">User <strong>" + user + "</strong> has posted a new review.</a>";
+    signalR.client.onFollowerReviewCreated = function(id, user) {
+        var text = "<a class=\"white-text\" target=\"_blank\" href=\"/reviews/details/" +
+            id +
+            "\">User <strong>" +
+            user +
+            "</strong> has posted a new review.</a>";
         showNotification(text);
     }
 
     $.connection.hub.start().done(function() {
-        $(".btn").click(function(ev) {
-            signalR.server.sendMessage("i am a <script>alert()</script>");
-        });
+        //$(".btn").click(function(ev) {
+        //    //signalR.server.sendMessage("Who wants to drink some beers? I'm at Thin red line!");
+        //    //signalR.server.notifyReviewCreated();
+        //});
     });
 });
 
 function showNotification(text) {
-    Materialize.toast(text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>", 10000000, 'blue-grey small');
+    Materialize.toast(
+        text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>",
+        10000000,
+        'blue-grey small');
 }
 
 function updateModal(_this) {
@@ -79,7 +105,10 @@ function handleAjaxError(response) {
 
 function showSuccess(message) {
     initMaterialize();
-    Materialize.toast(message, 5000, 'green');
+    Materialize.toast(
+        message + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>",
+        5000,
+        'green');
 }
 
 var requester = {
@@ -113,8 +142,21 @@ var requester = {
 };
 
 var eventManager = {
-    notifyReviewCreated: function () {
+    notifyReviewCreated: function() {
         signalR.server.notifyReviewCreated();
+    },
+    sendMessage: function() {
+        var $input = $('#message');
+        var message = $input.val();
+        signalR.server.sendMessage(message).fail(function(error) {
+                console.log('sendMessage error: ' + error);
+            })
+            .done(function() {
+                $('#message').val('');
+                $('#notify').fadeOut();
+                showSuccess('Message has been sent!');
+            });
+
     },
     attachImageUpload: function() {
         $("#imgUploadForm").change(function() {

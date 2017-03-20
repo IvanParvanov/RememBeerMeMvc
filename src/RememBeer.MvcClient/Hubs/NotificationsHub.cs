@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -29,22 +30,33 @@ namespace RememBeer.MvcClient.Hubs
         public async Task NotifyReviewCreated()
         {
             var userId = this.Context.User.Identity.GetUserId();
-            var followers = await this.followerService.GetFollowersForUserIdAsync(userId);
             var review = this.reviewService.GetLatestForUser(userId);
 
-            var followerIds = followers.Select(f => f.Id).ToList();
+            var followerIds = await this.GetFollowersForUser(userId);
             this.Clients.Users(followerIds).onFollowerReviewCreated(review.Id, review.User.UserName);
         }
 
         public async Task SendMessage(string message)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
             var userId = this.Context.User.Identity.GetUserId();
+            var followerIds = await this.GetFollowersForUser(userId);
+
             var username = this.Context.User.Identity.Name;
-            var followers = await this.followerService.GetFollowersForUserIdAsync(userId);
-            var followerIds = followers.Select(f => f.Id).ToList();
             var encoded = HttpUtility.HtmlEncode(message);
             this.Clients.Users(followerIds).showNotification(encoded, username);
+        }
 
+        private async Task<IList<string>> GetFollowersForUser(string userId)
+        {
+            var followers = await this.followerService.GetFollowersForUserIdAsync(userId);
+            var followerIds = followers.Select(f => f.Id).ToList();
+
+            return followerIds;
         }
     }
 }

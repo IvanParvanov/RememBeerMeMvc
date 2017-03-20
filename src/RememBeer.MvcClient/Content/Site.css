@@ -198,7 +198,7 @@ nav a.brand-logo > i.fa {
     opacity: 0;
 }
 
-#toast-container .toast .close {
+.close {
     cursor: pointer;
     color: #fff;
     float: right;
@@ -207,4 +207,12 @@ nav a.brand-logo > i.fa {
 
 #toast-container .small {
     max-width: 400px;
+}
+
+#notify {
+    display: none;
+    position: fixed;
+    right: 100px;
+    bottom: 50px;
+    z-index: 3;
 }

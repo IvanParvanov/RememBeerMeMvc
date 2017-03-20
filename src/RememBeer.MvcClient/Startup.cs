@@ -2,12 +2,14 @@
 
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+
 using Owin;
 
+using RememBeer.MvcClient;
 using RememBeer.MvcClient.App_Start;
 using RememBeer.MvcClient.Hubs.UserIdProvider;
 
-[assembly: OwinStartupAttribute(typeof(RememBeer.MvcClient.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 namespace RememBeer.MvcClient
 {
     [ExcludeFromCodeCoverage]
@@ -20,7 +22,12 @@ namespace RememBeer.MvcClient
             var idProvider = new UserIdProvider();
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => idProvider);
 
-            app.MapSignalR();
+            var hubConfiguration = new HubConfiguration
+                                   {
+                                       EnableDetailedErrors = true
+                                   };
+
+            app.MapSignalR(hubConfiguration);
         }
     }
 }

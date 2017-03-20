@@ -173,6 +173,30 @@
     @RenderBody()
 </main>
 
+    <div id="notify" class="valign-wrapper">
+        <div class="card horizontal fade-quick blue-grey">
+            <div class="row">
+                <div class="col s12 l12">
+                    <div class="card-content  white-text">
+                        <a class="close" data-target="#notify">
+                            <i class="fa fa-lg fa-times" aria-hidden="true"></i>
+                        </a>
+                        <div class="card-title">
+                            Send a message to your friends:
+                        </div>
+                        <div class="input-field">
+                            <label for="message">Message</label>
+                            <textarea data-val="true" data-val-required="Message is required" class="materialize-textarea" id="message"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="card-action">
+                        <button class="btn" onclick="eventManager.sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <footer class="page-footer blue-grey darken-2">
     <div class="footer-copyright">
         <div class="container">

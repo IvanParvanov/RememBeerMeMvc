@@ -11,6 +11,8 @@ using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
+using Owin;
+
 using RememBeer.Common.Cache;
 using RememBeer.Common.Constants;
 using RememBeer.Data.DbContexts;
@@ -25,68 +27,27 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
     [ExcludeFromCodeCoverage]
     public class DataNinjectModule : NinjectModule
     {
-        private static Func<IRequest, bool> WhenSignalRHubIsRequested => (req) =>
-                                                                         {
-                                                                             var type = req?.ParentRequest?.ParentRequest?.Service;
-                                                                             if (type == null)
-                                                                             {
-                                                                                 return false;
-                                                                             }
-
-                                                                             return typeof(IHub).IsAssignableFrom(type);
-                                                                         };
-
-        private static Func<IRequest, bool> AnyOtherCase => (req) =>
-                                                            {
-                                                                var type = req?.ParentRequest?.ParentRequest?.Service;
-                                                                if (type == null)
-                                                                {
-                                                                    return true;
-                                                                }
-
-                                                                return !typeof(IHub).IsAssignableFrom(type);
-                                                            };
-
         public override void Load()
         {
-            //this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InRequestScope();
-            //this.Rebind<IBeersDb>().To<RememBeerMeDbContext>().InRequestScope();
-            //this.Rebind<IUsersDb>().To<RememBeerMeDbContext>().InRequestScope();
-            this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>().InTransientScope();
-            this.Rebind<IBeersDb>().To<RememBeerMeDbContext>().InTransientScope();
-            this.Rebind<IUsersDb>().To<RememBeerMeDbContext>().InTransientScope();
+            this.Bind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>()
+                .When(HasAncestorAssignableFrom<Hub>)
+                .InTransientScope();
+            this.Bind<IBeersDb>().To<RememBeerMeDbContext>()
+                .When(HasAncestorAssignableFrom<Hub>)
+                .InTransientScope();
+            this.Bind<IUsersDb>().To<RememBeerMeDbContext>()
+                .When(HasAncestorAssignableFrom<Hub>)
+                .InTransientScope();
 
-            //this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>()
-            //    .When(WhenSignalRHubIsRequested)
-            //    .InScope(ctx =>
-            //             {
-            //                 var a = ctx.Request.ParentRequest.ParentRequest.Service;
-            //                 return GlobalHost.ConnectionManager.GetHubContext(a.Name);
-            //             });
-            //this.Bind<IBeersDb>().To<RememBeerMeDbContext>()
-            //    .When(WhenSignalRHubIsRequested)
-            //    .InScope(ctx =>
-            //             {
-            //                 var a = ctx.Request.ParentRequest.ParentRequest.Service;
-            //                 return GlobalHost.ConnectionManager.GetHubContext(a.Name);
-            //             });
-            //this.Bind<IUsersDb>().To<RememBeerMeDbContext>()
-            //    .When(WhenSignalRHubIsRequested)
-            //    .InScope(ctx =>
-            //             {
-            //                 var a = ctx.Request.ParentRequest.ParentRequest.Service;
-            //                 return GlobalHost.ConnectionManager.GetHubContext(a.Name);
-            //             });
-
-            //this.Rebind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>()
-            //    .When(AnyOtherCase)
-            //    .InRequestScope();
-            //this.Bind<IBeersDb>().To<RememBeerMeDbContext>()
-            //    .When(AnyOtherCase)
-            //    .InRequestScope();
-            //this.Bind<IUsersDb>().To<RememBeerMeDbContext>()
-            //    .When(AnyOtherCase)
-            //    .InRequestScope();
+            this.Bind<IRememBeerMeDbContext>().To<RememBeerMeDbContext>()
+                .When(DoesNotHaveAncestorAssignableFrom<Hub>)
+                .InRequestScope();
+            this.Bind<IBeersDb>().To<RememBeerMeDbContext>()
+                .When(DoesNotHaveAncestorAssignableFrom<Hub>)
+                .InRequestScope();
+            this.Bind<IUsersDb>().To<RememBeerMeDbContext>()
+                .When(DoesNotHaveAncestorAssignableFrom<Hub>)
+                .InRequestScope();
 
             this.Rebind<IModelFactory>().To<ModelFactory>().InSingletonScope();
             this.Bind<IRankFactory>().To<ModelFactory>().InSingletonScope();
@@ -96,6 +57,29 @@ namespace RememBeer.MvcClient.Ninject.NinjectModules
             this.Rebind<ICacheManager>()
                 .ToMethod(context => new CacheManager(Constants.DefaultCacheDurationInMinutes))
                 .InSingletonScope();
+        }
+
+        private static bool HasAncestorAssignableFrom<T>(IRequest request)
+        {
+            while (true)
+            {
+                if (request == null)
+                {
+                    return false;
+                }
+
+                if (typeof(T).IsAssignableFrom(request.Service))
+                {
+                    return true;
+                }
+
+                request = request.ParentRequest;
+            }
+        }
+
+        private static bool DoesNotHaveAncestorAssignableFrom<T>(IRequest request)
+        {
+            return !HasAncestorAssignableFrom<T>(request);
         }
     }
 }

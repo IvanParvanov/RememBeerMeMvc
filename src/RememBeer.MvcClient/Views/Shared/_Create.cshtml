@@ -6,16 +6,16 @@
 
 <div id="createModal" class="modal">
     @using (Ajax.BeginForm("Index", "Reviews", null,
-                                           new AjaxOptions()
-                                           {
-                                               HttpMethod = "POST",
-                                               UpdateTargetId = "content",
-                                               LoadingElementId = "loading",
-                                               OnFailure = "handleAjaxError",
-                                               OnSuccess = "showSuccess('Review has been successfully created!')",
-                                               InsertionMode = InsertionMode.Replace
-                                           },
-                                           new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content", id="create-form" }) )
+                           new AjaxOptions()
+                           {
+                               HttpMethod = "POST",
+                               UpdateTargetId = "content",
+                               LoadingElementId = "loading",
+                               OnFailure = "handleAjaxError",
+                               OnSuccess = "showSuccess('Review has been successfully created!')",
+                               InsertionMode = InsertionMode.Replace
+                           },
+                           new { enctype = "multipart/form-data", accept = "image/*", @class = "modal-content", id = "create-form" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.BeerId, new { id = "hiddenBeerId" })
@@ -24,7 +24,7 @@
             <div class="col s12 l4 center-align">
                 <p>
                     Upload a new image:
-                    <input type="file" accept="image/*" id="createImgUpload" name="image" />
+                    <input type="file" accept="image/*" id="createImgUpload" name="image"/>
                 </p>
             </div>
             <div class="col s12 l8">
@@ -43,10 +43,20 @@
     </script>
 </div>
 
-
 <div class="fixed-action-btn below">
-    <a class="btn-floating btn-large waves-effect waves-light modal-trigger green" href="#createModal">
-        <i class="large material-icons">add</i>
+    <a class="btn-floating btn-large teal darken-2">
+        <i class="large material-icons">mode_edit</i>
     </a>
+    <ul>
+        <li>
+            <a class="btn-floating waves-effect waves-light modal-trigger green" href="#createModal">
+                <i class="material-icons large">&#xE145;</i>
+            </a>
+        </li>
+        <li>
+            <a class="btn-floating amber darken-1" onclick="$('#notify').fadeIn()">
+                <i class="material-icons large">&#xE163;</i>
+            </a>
+        </li>
+    </ul>
 </div>
-
