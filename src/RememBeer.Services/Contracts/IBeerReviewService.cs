@@ -20,5 +20,7 @@ namespace RememBeer.Services.Contracts
         IDataModifiedResult DeleteReview(object id);
 
         IBeerReview GetById(object id);
+
+        IBeerReview GetLatestForUser(string userId);
     }
 }

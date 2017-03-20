@@ -43,9 +43,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
             // Arrange
             var sut = this.MockingKernel.Get<AccountController>();
             var viewModel = new LoginViewModel();
+            sut.InvalidateViewModel();
 
             // Act
-            sut.ValidateViewModel(viewModel);
             var result = await sut.Login(viewModel, It.IsAny<string>()) as ViewResult;
 
             // Assert

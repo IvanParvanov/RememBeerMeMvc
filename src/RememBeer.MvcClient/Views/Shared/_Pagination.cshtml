@@ -95,16 +95,4 @@
             }
         </ul>
     }
-
-    <script>
-        $(".pagination").on(
-            "click",
-            function(ev) {
-                var $target = $(ev.target);
-                if ($target.is("a")) {
-                    var href = $target.attr("href");
-                    history.pushState({}, "", href);
-                }
-            });
-    </script>
 </div>

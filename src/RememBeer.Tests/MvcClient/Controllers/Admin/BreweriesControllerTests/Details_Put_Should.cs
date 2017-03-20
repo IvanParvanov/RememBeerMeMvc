@@ -55,10 +55,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var sut = this.MockingKernel.Get<BreweriesController>();
-            var invalidModel = new EditBreweryBindingModel();
+            sut.InvalidateViewModel();
 
             // Act
-            sut.ValidateViewModel(invalidModel);
             var result = sut.Details(It.IsAny<EditBreweryBindingModel>()) as HttpStatusCodeResult;
 
             // Assert

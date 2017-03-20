@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+using Bytes2you.Validation;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
@@ -10,15 +13,26 @@ namespace RememBeer.MvcClient.Hubs
     [Authorize]
     public class NotificationsHub : Hub
     {
-        public NotificationsHub(IBeerReviewService service)
+        private readonly IFollowerService followerService;
+        private readonly IBeerReviewService reviewService;
+
+        public NotificationsHub(IFollowerService followerService, IBeerReviewService reviewService)
         {
+            Guard.WhenArgument(followerService, nameof(followerService)).IsNull().Throw();
+            Guard.WhenArgument(reviewService, nameof(reviewService)).IsNull().Throw();
+
+            this.followerService = followerService;
+            this.reviewService = reviewService;
         }
 
-        public void Send(string name)
+        public async Task NotifyReviewCreated()
         {
             var userId = this.Context.User.Identity.GetUserId();
+            var followers = await this.followerService.GetFollowersForUserIdAsync(userId);
+            var review = this.reviewService.GetLatestForUser(userId);
 
-            this.Clients.User(userId).showSuccess(name + Guid.NewGuid());
+            var followerIds = followers.Select(f => f.Id).ToList();
+            this.Clients.Users(followerIds).onFollowerReviewCreated(review.Id, review.User.UserName);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace RememBeer.Data.DbContexts
         public RememBeerMeDbContext()
             : base("name=RememBeerMeDbContext")
         {
-            this.Configuration.LazyLoadingEnabled = true;
             this.Database.CreateIfNotExists();
         }
 

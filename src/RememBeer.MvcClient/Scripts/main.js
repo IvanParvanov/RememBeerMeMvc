@@ -1,22 +1,41 @@
-﻿$(document).ready(function() {
+﻿var signalR;
+
+$(document).ready(function () {
     initMaterialize();
     $(".button-collapse").sideNav();
 
-    // Reference the auto-generated proxy for the hub.
-    var chat = $.connection.notificationsHub;
-    // Create a function that the hub can call back to display messages.
-    chat.client.showSuccess = function(message) {
+    $(document).on('click', '#toast-container .toast .close', function () {
+        $(this).parent().fadeOut(function () {
+            $(this).remove();
+        });
+    });
+
+    $("#content").on('click', '.pagination', function(ev) {
+        var $target = $(ev.target);
+        if ($target.is("a")) {
+            var href = $target.attr("href");
+            history.pushState({}, "", href);
+        }
+    });
+
+    signalR = $.connection.notificationsHub;
+    signalR.client.showSuccess = function (message) {
         showSuccess(message);
     };
 
-    // Start the connection.
+    signalR.client.onFollowerReviewCreated = function (id, user) {
+        var text = "<a class=\"white-text\" target=\"_blank\" href=\"/reviews/details/" + id + "\">User <strong>" + user + "</strong> has posted a new review.</a>";
+        showNotification(text);
+    }
+
     $.connection.hub.start().done(function() {
-        $('.btn').click(function() {
-            // Call the Send method on the hub.
-            chat.server.send("pesho");
-        });
+
     });
 });
+
+function showNotification(text) {
+    Materialize.toast(text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>", 10000000, 'blue-grey');
+}
 
 function updateModal(_this) {
     var id = $(_this).attr("data-id");
@@ -91,6 +110,9 @@ var requester = {
 };
 
 var eventManager = {
+    notifyReviewCreated: function () {
+        signalR.server.notifyReviewCreated();
+    },
     attachImageUpload: function() {
         $("#imgUploadForm").change(function() {
             var formData = new FormData();
@@ -138,7 +160,7 @@ var eventManager = {
                         $("#loading").hide();
                         $('.modal').modal('close');
                         $("#content").html(response);
-                        showSuccess('Review has been created!');
+                        eventManager.notifyReviewCreated();
                     });
             }
         });

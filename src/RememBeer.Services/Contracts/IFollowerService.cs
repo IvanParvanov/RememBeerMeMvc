@@ -10,7 +10,7 @@ namespace RememBeer.Services.Contracts
     {
         //Task<IEnumerable<IApplicationUser>> GetFollowersForUsername(string username);
 
-        //Task<IEnumerable<IApplicationUser>> GetFollowersForUserIdAsync(string userId);
+        Task<IEnumerable<IApplicationUser>> GetFollowersForUserIdAsync(string userId);
 
         Task<IDataModifiedResult> AddFollowerAsync(string userId, string usernameToFollow);
 

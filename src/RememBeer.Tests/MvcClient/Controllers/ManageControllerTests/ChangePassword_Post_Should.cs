@@ -48,9 +48,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             // Arrange
             var sut = this.MockingKernel.Get<ManageController>();
             var expected = new ChangePasswordViewModel();
+            sut.InvalidateViewModel();
 
             // Act
-            sut.ValidateViewModel(expected);
             var result = await sut.ChangePassword(expected) as ViewResult;
 
             // Assert

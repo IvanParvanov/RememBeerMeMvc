@@ -197,3 +197,10 @@ nav a.brand-logo > i.fa {
 .opaque {
     opacity: 0;
 }
+
+#toast-container .toast .close {
+    cursor: pointer;
+    color: #fff;
+    float: right;
+    padding-left: 1rem;
+}

@@ -79,9 +79,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             // Arrange
             var sut = this.MockingKernel.Get<ReviewsController>();
             var invalidModel = new CreateReviewBindingModel();
+            sut.InvalidateViewModel();
 
             // Act
-            sut.ValidateViewModel(invalidModel);
             var result = sut.Index(invalidModel) as HttpStatusCodeResult;
 
             // Assert

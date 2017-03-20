@@ -34,13 +34,13 @@ namespace RememBeer.Services
         //    return user?.Followers;
         //}
 
-        //public async Task<IEnumerable<IApplicationUser>> GetFollowersForUserIdAsync(string userId)
-        //{
-        //    var user = await this.db.Users.Include(u => u.Followers)
-        //                         .FirstOrDefaultAsync(u => u.Id == userId);
+        public async Task<IEnumerable<IApplicationUser>> GetFollowersForUserIdAsync(string userId)
+        {
+            var user = await this.db.Users.Include(u => u.Followers)
+                                 .FirstOrDefaultAsync(u => u.Id == userId);
 
-        //    return user?.Followers;
-        //}
+            return user?.Followers;
+        }
 
         public IEnumerable<IApplicationUser> GetFollowingForUserId(string userId)
         {

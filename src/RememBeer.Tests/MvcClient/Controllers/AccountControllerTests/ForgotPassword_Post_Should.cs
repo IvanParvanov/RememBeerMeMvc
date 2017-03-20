@@ -41,14 +41,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         }
 
         [Test]
-        public async Task Return_View_ModelStateIsInvalid()
+        public async Task Return_View_WhenModelStateIsInvalid()
         {
             // Arrange
             var sut = this.MockingKernel.Get<AccountController>();
             var expected = new ForgotPasswordViewModel();
+            sut.InvalidateViewModel();
 
             // Act
-            sut.ValidateViewModel(expected);
             var result = await sut.ForgotPassword(expected) as ViewResult;
 
             // Assert

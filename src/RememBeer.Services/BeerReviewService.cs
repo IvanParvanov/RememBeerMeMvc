@@ -71,5 +71,10 @@ namespace RememBeer.Services
         {
             return this.repository.GetById(id);
         }
+
+        public IBeerReview GetLatestForUser(string userId)
+        {
+            return this.repository.All.Where(r => r.ApplicationUserId == userId).OrderByDescending(x => x.CreatedAt).FirstOrDefault();
+        }
     }
 }
