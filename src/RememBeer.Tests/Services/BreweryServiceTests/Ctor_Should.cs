@@ -17,7 +17,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         public void ThrowArgumentNullException_WhenBreweryRepositoryIsNull()
         {
             // Arrange
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new BreweryService(null, beerRepo.Object));
@@ -27,7 +27,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         public void ThrowArgumentNullException_WhenBeerRepositoryIsNull()
         {
             // Arrange
-            var breweryRepo = new Mock<IRepository<Brewery>>();
+            var breweryRepo = new Mock<IEfRepository<Brewery>>();
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new BreweryService(breweryRepo.Object, null));

@@ -120,8 +120,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\Repository.cs" />
-    <Compile Include="Repositories\Base\IRepository.cs" />
+    <Compile Include="Repositories\Base\EfRepository.cs" />
+    <Compile Include="Repositories\Base\IEfRepository.cs" />
     <Compile Include="Repositories\DataModifiedResult.cs" />
     <Compile Include="Repositories\Enums\SortOrder.cs" />
     <Compile Include="Repositories\IDataModifiedResultFactory.cs" />

@@ -13,9 +13,9 @@ namespace RememBeer.Services
 {
     public class BeerReviewService : IBeerReviewService
     {
-        private readonly IRepository<BeerReview> repository;
+        private readonly IEfRepository<BeerReview> repository;
 
-        public BeerReviewService(IRepository<BeerReview> repository)
+        public BeerReviewService(IEfRepository<BeerReview> repository)
         {
             if (repository == null)
             {

@@ -24,8 +24,8 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
                            {
                                IsDeleted = false
                            };
-            var repository = new Mock<IRepository<Brewery>>();
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
             beerRepo.Setup(r => r.GetById(id))
                                   .Returns(expected);
             var service = new BreweryService(repository.Object, beerRepo.Object);
@@ -46,8 +46,8 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             {
                 IsDeleted = false
             };
-            var repository = new Mock<IRepository<Brewery>>();
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
             beerRepo.Setup(r => r.GetById(id))
                                   .Returns(expected);
             var service = new BreweryService(repository.Object, beerRepo.Object);
@@ -66,8 +66,8 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var id = this.Fixture.Create<int>();
             var beer = new Beer();
             var expected = new Mock<IDataModifiedResult>();
-            var repository = new Mock<IRepository<Brewery>>();
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
             beerRepo.Setup(r => r.GetById(id))
                                   .Returns(beer);
             beerRepo.Setup(r => r.SaveChanges())

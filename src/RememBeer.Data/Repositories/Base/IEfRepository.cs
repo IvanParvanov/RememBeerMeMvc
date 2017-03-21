@@ -7,7 +7,7 @@ using RememBeer.Data.Repositories.Enums;
 
 namespace RememBeer.Data.Repositories.Base
 {
-    public interface IRepository<T> where T : class
+    public interface IEfRepository<T> where T : class
     {
         T GetById(object id);
 

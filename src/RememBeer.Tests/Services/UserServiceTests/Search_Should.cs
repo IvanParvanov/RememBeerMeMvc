@@ -59,10 +59,10 @@ namespace RememBeer.Tests.Services.UserServiceTests
             }
 
             var queryableBreweries = breweries.AsQueryable();
-            var repository = new Mock<IRepository<Brewery>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
             repository.Setup(r => r.All)
                       .Returns(queryableBreweries);
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 

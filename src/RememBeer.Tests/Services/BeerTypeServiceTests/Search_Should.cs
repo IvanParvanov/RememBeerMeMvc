@@ -37,7 +37,7 @@ namespace RememBeer.Tests.Services.BeerTypeServiceTests
                 allTypes.Add(new BeerType() { Type = beerTypeName });
             }
 
-            var repository = new Mock<IRepository<BeerType>>();
+            var repository = new Mock<IEfRepository<BeerType>>();
             repository.Setup(r => r.All)
                       .Returns(allTypes.AsQueryable);
             var sut = new BeerTypesService(repository.Object);

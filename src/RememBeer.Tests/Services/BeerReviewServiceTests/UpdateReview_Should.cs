@@ -21,7 +21,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
             // Arrange
             var id = this.Fixture.Create<string>();
             var review = new BeerReview();
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.Setup(r => r.GetById(id))
                       .Returns(review);
             var reviewService = new BeerReviewService(repository.Object);
@@ -39,7 +39,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
             // Arrange
             var expected = new Mock<IDataModifiedResult>();
             var review = new BeerReview();
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.Setup(r => r.SaveChanges())
                       .Returns(expected.Object);
             var reviewService = new BeerReviewService(repository.Object);

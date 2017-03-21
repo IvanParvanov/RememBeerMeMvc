@@ -14,10 +14,10 @@ namespace RememBeer.Services
 {
     public class TopBeersService : ITopBeersService
     {
-        private readonly IRepository<BeerReview> reviewsRepository;
+        private readonly IEfRepository<BeerReview> reviewsRepository;
         private readonly IRankCalculationStrategy strategy;
 
-        public TopBeersService(IRepository<BeerReview> reviewsRepository, IRankCalculationStrategy strategy)
+        public TopBeersService(IEfRepository<BeerReview> reviewsRepository, IRankCalculationStrategy strategy)
         {
             if (reviewsRepository == null)
             {

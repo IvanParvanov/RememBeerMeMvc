@@ -13,11 +13,11 @@ using RememBeer.Data.Repositories.Enums;
 
 namespace RememBeer.Data.Repositories.Base
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class EfRepository<T> : IEfRepository<T> where T : class
     {
         private readonly IDataModifiedResultFactory resultFactory;
 
-        public Repository(IRememBeerMeDbContext context, IDataModifiedResultFactory resultFactory)
+        public EfRepository(IRememBeerMeDbContext context, IDataModifiedResultFactory resultFactory)
         {
             if (context == null)
             {

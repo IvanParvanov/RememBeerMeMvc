@@ -23,10 +23,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         {
             // Arrange
             var expectedBeers = new List<Brewery>() { new Brewery(), new Brewery() };
-            var breweryRepository = new Mock<IRepository<Brewery>>();
+            var breweryRepository = new Mock<IEfRepository<Brewery>>();
             breweryRepository.Setup(r => r.All)
                              .Returns(expectedBeers.AsQueryable());
-            var beerRepository = new Mock<IRepository<Beer>>();
+            var beerRepository = new Mock<IEfRepository<Beer>>();
 
             var sut = new BreweryService(breweryRepository.Object, beerRepository.Object);
 
@@ -52,10 +52,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
                                     new Brewery { Name = searchPattern + this.Fixture.Create<string>() },
                                 };
 
-            var breweryRepository = new Mock<IRepository<Brewery>>();
+            var breweryRepository = new Mock<IEfRepository<Brewery>>();
             breweryRepository.Setup(r => r.All)
                              .Returns(allBeers.AsQueryable());
-            var beerRepository = new Mock<IRepository<Beer>>();
+            var beerRepository = new Mock<IEfRepository<Beer>>();
 
             var sut = new BreweryService(breweryRepository.Object, beerRepository.Object);
 

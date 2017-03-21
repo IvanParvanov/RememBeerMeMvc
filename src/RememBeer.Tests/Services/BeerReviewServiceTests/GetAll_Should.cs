@@ -11,7 +11,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
         //public void Call_RepositoryGetAllMethodWithCorrectParams_WhenNotPaginated()
         //{
         //    var expectedUserId = this.Fixture.Create<string>();
-        //    var mockedRepository = new Mock<IRepository<BeerReview>>();
+        //    var mockedRepository = new Mock<IEfRepository<BeerReview>>();
         //    var reviewService = new BeerReviewService(mockedRepository.Object);
 
         //    Expression<Func<BeerReview, bool>> b = ( x => x.IsDeleted == false && x.ApplicationUserId == expectedUserId );

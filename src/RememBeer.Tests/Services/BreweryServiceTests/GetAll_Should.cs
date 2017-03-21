@@ -23,8 +23,8 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         public void CallRepositoryGetAllMethodOnce()
         {
             // Arrange
-            var repository = new Mock<IRepository<Brewery>>();
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
@@ -40,10 +40,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         {
             // Arrange
             var expected = new List<Brewery>();
-            var repository = new Mock<IRepository<Brewery>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
             repository.Setup(r => r.GetAll())
                       .Returns(expected);
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
@@ -76,10 +76,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             }
 
             var queryableBreweries = breweries.AsQueryable();
-            var repository = new Mock<IRepository<Brewery>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
             repository.Setup(r => r.All)
                       .Returns(queryableBreweries);
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 
@@ -125,10 +125,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             }
 
             var queryableBreweries = breweries.AsQueryable();
-            var repository = new Mock<IRepository<Brewery>>();
+            var repository = new Mock<IEfRepository<Brewery>>();
             repository.Setup(r => r.All)
                       .Returns(queryableBreweries);
-            var beerRepo = new Mock<IRepository<Beer>>();
+            var beerRepo = new Mock<IEfRepository<Beer>>();
 
             var service = new BreweryService(repository.Object, beerRepo.Object);
 

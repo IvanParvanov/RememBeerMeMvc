@@ -36,7 +36,7 @@ namespace RememBeer.MvcClient.Hubs
             this.Clients.Users(followerIds).onFollowerReviewCreated(review.Id, review.User.UserName);
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendMessage(string message, string lat, string lon)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -47,8 +47,7 @@ namespace RememBeer.MvcClient.Hubs
             var followerIds = await this.GetFollowersForUser(userId);
 
             var username = this.Context.User.Identity.Name;
-            var encoded = HttpUtility.HtmlEncode(message);
-            this.Clients.Users(followerIds).showNotification(encoded, username);
+            this.Clients.Users(followerIds).showNotification(message, username, lat, lon);
         }
 
         private async Task<IList<string>> GetFollowersForUser(string userId)

@@ -57,7 +57,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
                 reviewRankingList.Add(rank.Object);
             }
 
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.SetupGet(r => r.All)
                       .Returns(reviews.AsQueryable());
 

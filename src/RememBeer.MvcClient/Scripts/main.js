@@ -29,8 +29,16 @@ $(document).ready(function() {
 
     signalR = $.connection.notificationsHub;
 
-    signalR.client.showNotification = function(message, username) {
-        var text = username + " says: <br />" + message;
+    signalR.client.showNotification = function (message, username, lat, lon) {
+        message = htmlEncode(message);
+        lat = htmlEncode(lat);
+        lon = htmlEncode(lon);
+        var text = "<p><strong>" + username + "</strong> says: <br />" + message;
+        if (lat && lon) {
+            text += "<br /><a class=\"white-text\" target=\"_blank\" href=\"https://www.google.com/maps/dir//" + lat + "," + lon + "\"><i class=\"fa fa-2x fa-map-marker\"></i></a>";
+        }
+
+        text = text + "</p>";
         notifier.showNotification(text);
     };
 
@@ -146,22 +154,58 @@ var requester = {
     }
 };
 
+function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+}
+
 var eventManager = {
     notifyReviewCreated: function() {
         initMaterialize();
         signalR.server.notifyReviewCreated();
     },
     sendMessage: function() {
+        function processMessage(message, lat, lon) {
+            if (message && message.replace(/\s/g, "").length > 0) {
+                signalR.server.sendMessage(message, lat, lon).fail(function(error) {
+                        notifier.showFailure('Message could not be sent! Try again...');
+                    })
+                    .done(function() {
+                        $('#message').val('');
+                        $('#notify').fadeOut();
+                        notifier.showSuccess('Message has been sent!');
+                    });
+            }
+        }
+
+        function handleGeoError(message) {
+            $("#lbl-location").html("Geolocation is not supported by this browser.");
+            var $cb = $("#cb-location");
+            $cb.prop("checked", "");
+            if ($cb.is("disabled")) {
+                processMessage(message, null, null);
+            } else {
+                $cb.attr("disabled", "disabled");
+            }
+        }
+
         var $input = $('#message');
         var message = $input.val();
-        signalR.server.sendMessage(message).fail(function(error) {
-                notifier.showFailure('Message could not be sent! Try again...');
-            })
-            .done(function() {
-                $('#message').val('');
-                $('#notify').fadeOut();
-                notifier.showSuccess('Message has been sent!');
-            });
+        
+        if ($('#cb-location').is(':checked')) {
+            if (!navigator.geolocation) {
+                handleGeoError(message);
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    processMessage(message, position.coords.latitude, position.coords.longitude);
+                },
+                function(error) {
+                    handleGeoError(message);
+                });
+        } else {
+            processMessage(message, null, null);
+        }
 
     },
     attachImageUpload: function() {

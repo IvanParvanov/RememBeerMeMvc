@@ -12,9 +12,9 @@ namespace RememBeer.Services
 {
     public class BeerTypesService : IBeerTypesService
     {
-        private readonly IRepository<BeerType> typesRepository;
+        private readonly IEfRepository<BeerType> typesRepository;
 
-        public BeerTypesService(IRepository<BeerType> typesRepository)
+        public BeerTypesService(IEfRepository<BeerType> typesRepository)
         {
             Guard.WhenArgument(typesRepository, nameof(typesRepository)).IsNull().Throw();
 

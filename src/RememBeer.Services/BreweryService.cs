@@ -12,10 +12,10 @@ namespace RememBeer.Services
 {
     public class BreweryService : IBreweryService
     {
-        private readonly IRepository<Brewery> breweryRepository;
-        private readonly IRepository<Beer> beerRepository;
+        private readonly IEfRepository<Brewery> breweryRepository;
+        private readonly IEfRepository<Beer> beerRepository;
 
-        public BreweryService(IRepository<Brewery> breweryRepository, IRepository<Beer> beerRepository)
+        public BreweryService(IEfRepository<Brewery> breweryRepository, IEfRepository<Beer> beerRepository)
         {
             if (breweryRepository == null)
             {

@@ -28,7 +28,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
         public void ThrowArgumentNullException_WhenStrategyIsNull()
         {
             // Arrange
-            var repo = new Mock<IRepository<BeerReview>>();
+            var repo = new Mock<IEfRepository<BeerReview>>();
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => new TopBeersService(repo.Object, null));

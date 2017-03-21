@@ -22,8 +22,8 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var expectedBreweryId = this.Fixture.Create<int>();
             var expectedTypeId = this.Fixture.Create<int>();
             var expectedName = this.Fixture.Create<string>();
-            var beerRepository = new Mock<IRepository<Beer>>();
-            var breweryRepository = new Mock<IRepository<Brewery>>();
+            var beerRepository = new Mock<IEfRepository<Beer>>();
+            var breweryRepository = new Mock<IEfRepository<Brewery>>();
             var service = new BreweryService(breweryRepository.Object, beerRepository.Object);
 
             // Act
@@ -46,10 +46,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             var expectedTypeId = this.Fixture.Create<int>();
             var expectedName = this.Fixture.Create<string>();
             var expectedResult = new Mock<IDataModifiedResult>();
-            var beerRepository = new Mock<IRepository<Beer>>();
+            var beerRepository = new Mock<IEfRepository<Beer>>();
             beerRepository.Setup(x => x.SaveChanges())
                           .Returns(expectedResult.Object);
-            var breweryRepository = new Mock<IRepository<Brewery>>();
+            var breweryRepository = new Mock<IEfRepository<Brewery>>();
             var service = new BreweryService(breweryRepository.Object, beerRepository.Object);
 
             // Act

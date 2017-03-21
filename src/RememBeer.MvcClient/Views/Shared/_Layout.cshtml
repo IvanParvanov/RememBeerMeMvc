@@ -174,11 +174,11 @@
 </main>
 
     <div id="notify" class="valign-wrapper">
-        <div class="card horizontal fade-quick blue-grey">
+        <div class="card horizontal fade-quick blue-grey lighten-5">
             <div class="row">
                 <div class="col s12 l12">
-                    <div class="card-content  white-text">
-                        <a class="close" data-target="#notify">
+                    <div class="card-content">
+                        <a class="close black-text" data-target="#notify">
                             <i class="fa fa-lg fa-times" aria-hidden="true"></i>
                         </a>
                         <div class="card-title">
@@ -188,10 +188,14 @@
                             <label for="message">Message</label>
                             <textarea data-val="true" data-val-required="Message is required" class="materialize-textarea" id="message"></textarea>
                         </div>
+                        <div class="checkbox">
+                            <input id="cb-location" name="location" value="true" type="checkbox">
+                            <label for="cb-location" id="lbl-location">Include location?</label>
+                        </div>
 
                     </div>
                     <div class="card-action">
-                        <button class="btn" onclick="eventManager.sendMessage()">Send</button>
+                        <button class="btn waves-effect waves-light" onclick="eventManager.sendMessage()">Send</button>
                     </div>
                 </div>
             </div>

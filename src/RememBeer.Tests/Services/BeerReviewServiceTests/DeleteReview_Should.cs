@@ -21,7 +21,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
             // Arrange
             var id = this.Fixture.Create<string>();
             var review = new BeerReview();
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.Setup(r => r.GetById(id))
                       .Returns(review);
 
@@ -44,7 +44,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                              IsDeleted = false
                          };
 
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.Setup(r => r.GetById(id))
                       .Returns(review);
 
@@ -68,7 +68,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                              IsDeleted = false
                          };
 
-            var repository = new Mock<IRepository<BeerReview>>();
+            var repository = new Mock<IEfRepository<BeerReview>>();
             repository.Setup(r => r.GetById(id))
                       .Returns(review);
             repository.Setup(r => r.SaveChanges())

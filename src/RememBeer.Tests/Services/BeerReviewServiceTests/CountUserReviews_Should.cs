@@ -59,7 +59,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
                 allReviews.Add(userReview);
             }
 
-            var mockedRepository = new Mock<IRepository<BeerReview>>();
+            var mockedRepository = new Mock<IEfRepository<BeerReview>>();
             mockedRepository.Setup(r => r.All)
                             .Returns(allReviews.AsQueryable);
             var beerReviewService = new BeerReviewService(mockedRepository.Object);
