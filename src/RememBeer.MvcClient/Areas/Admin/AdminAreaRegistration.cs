@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 
 namespace RememBeer.MvcClient.Areas.Admin
 {
+    [ExcludeFromCodeCoverage]
     public class AdminAreaRegistration : AreaRegistration 
     {
         public override string AreaName 

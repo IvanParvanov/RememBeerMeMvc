@@ -12,7 +12,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <meta name="description" content="The description of my page"/>
+    <meta name="description" content="Your personal beer diary!"/>
 </head>
 <body>
 @Scripts.Render("~/bundles/vendor")
@@ -30,14 +30,13 @@
         @if (!Request.IsAuthenticated)
         {
             <li class="active teal darken-1 z-depth-2">
-                
                 <a class="subheader white-text"><i class="material-icons left white-text">&#xE7FD;</i> User</a>
             </li>
             <li class="@Html.IsSelected("Register", "Account")">
-                @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })
+                @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: null)
             </li>
             <li class="@Html.IsSelected("Login", "Account")">
-                @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })
+                @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: null)
         </li>
         }
         else
@@ -96,7 +95,7 @@
 
 <nav class="hide-on-med-and-down">
     <div class="nav-wrapper teal darken-1">
-        <a class="brand-logo center" runat="server" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
+        <a class="brand-logo center" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
         <ul id="nav-mobile" class="left">
             <li class="@Html.IsSelected("TopBeers,TopBreweries", "Top")">
                 <a class="dropdown-button" data-activates="topDropdown"><i class="fa fa-trophy"></i> Top<i class="material-icons right">arrow_drop_down</i></a>
@@ -134,10 +133,10 @@
         {
             <ul id="nav-mobile-right" class="right">
                 <li class="@Html.IsSelected("Register", "Account")">
-                    @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })
+                    @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: null)
                 </li>
                 <li class="@Html.IsSelected("Login", "Account")">
-                    @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })
+                    @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: null)
                 </li>
             </ul>
         }
