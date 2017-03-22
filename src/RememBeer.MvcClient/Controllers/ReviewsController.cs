@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 using AutoMapper;
@@ -160,7 +161,7 @@ namespace RememBeer.MvcClient.Controllers
         [HttpPost]
         [AjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeImage(ChangeImageBindingModel model)
+        public async Task<ActionResult> ChangeImage(ChangeImageBindingModel model)
         {
             var img = model.Image;
             var id = model.Id;
@@ -173,7 +174,7 @@ namespace RememBeer.MvcClient.Controllers
                 return this.Unauthorized();
             }
 
-            var url = this.imageUpload.UploadImage(imgArray, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+            var url = await this.imageUpload.UploadImageAsync(imgArray, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
             if (url == null)
             {
                 return this.ImageUploadFailure();
@@ -193,7 +194,7 @@ namespace RememBeer.MvcClient.Controllers
         [HttpPost]
         [AjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(CreateReviewBindingModel m)
+        public async Task<ActionResult> Index(CreateReviewBindingModel m)
         {
             if (!this.ModelState.IsValid)
             {
@@ -205,7 +206,7 @@ namespace RememBeer.MvcClient.Controllers
             {
                 var stream = m.Image.InputStream;
                 var image = this.StreamToArray(stream);
-                imgUrl = this.imageUpload.UploadImage(image, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+                imgUrl = await this.imageUpload.UploadImageAsync(image, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
                 if (imgUrl == null)
                 {
                     return this.ImageUploadFailure();

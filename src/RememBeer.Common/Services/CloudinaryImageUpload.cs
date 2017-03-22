@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -22,7 +23,7 @@ namespace RememBeer.Common.Services
             this.cloud = new Cloudinary(account);
         }
 
-        public string UploadImage(byte[] image, int width, int height)
+        public async Task<string> UploadImageAsync(byte[] image, int width, int height)
         {
             if (image == null)
             {
@@ -45,7 +46,7 @@ namespace RememBeer.Common.Services
             ImageUploadResult result = null;
             try
             {
-                result = this.cloud.Upload(imageUploadParams);
+                result = await this.cloud.UploadAsync(imageUploadParams);
             }
             catch (Exception)
             {

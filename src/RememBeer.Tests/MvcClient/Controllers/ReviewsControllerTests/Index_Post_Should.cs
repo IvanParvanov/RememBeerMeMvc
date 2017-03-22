@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,47 +35,23 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
     {
         private readonly string expectedUserId = Guid.NewGuid().ToString();
 
-        [Test]
-        public void HaveValidateAntiForgeryTokenAttribute()
+        [TestCase(typeof(ValidateAntiForgeryTokenAttribute))]
+        [TestCase(typeof(HttpPostAttribute))]
+        [TestCase(typeof(AjaxOnlyAttribute))]
+        public void Have_RequiredAttributes(Type attrType)
         {
             // Arrange
             var sut = this.MockingKernel.Get<ReviewsController>();
 
             // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(ValidateAntiForgeryTokenAttribute));
+            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), attrType);
 
             // Assert
             Assert.IsTrue(hasAttribute);
         }
 
         [Test]
-        public void HaveAjaxOnlyAttribute()
-        {
-            // Arrange
-            var sut = this.MockingKernel.Get<ReviewsController>();
-
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(AjaxOnlyAttribute));
-
-            // Assert
-            Assert.IsTrue(hasAttribute);
-        }
-
-        [Test]
-        public void HaveHttpPostAttribute()
-        {
-            // Arrange
-            var sut = this.MockingKernel.Get<ReviewsController>();
-
-            // Act
-            var hasAttribute = AttributeTester.MethodHasAttribute(() => sut.Index(default(CreateReviewBindingModel)), typeof(HttpPostAttribute));
-
-            // Assert
-            Assert.IsTrue(hasAttribute);
-        }
-
-        [Test]
-        public void Return_CorrectHttpStatusCodeResult_WhenModelValidationFails()
+        public async Task Return_CorrectHttpStatusCodeResult_WhenModelValidationFails()
         {
             // Arrange
             var sut = this.MockingKernel.Get<ReviewsController>();
@@ -82,7 +59,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             sut.InvalidateViewModel();
 
             // Act
-            var result = sut.Index(invalidModel) as HttpStatusCodeResult;
+            var result = await sut.Index(invalidModel) as HttpStatusCodeResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -91,7 +68,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         }
 
         [Test]
-        public void Call_ReviewServiceCreateReviewMethodOnceWithCorrectParams()
+        public async Task Call_ReviewServiceCreateReviewMethodOnceWithCorrectParams()
         {
             // Arrange
             var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
@@ -106,14 +83,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             reviewService.Setup(r => r.CreateReview(expectedReview))
                          .Returns(new Mock<IDataModifiedResult>().Object);
             // Act
-            sut.Index(bindingModel);
+            await sut.Index(bindingModel);
 
             // Assert
             reviewService.Verify(s => s.CreateReview(expectedReview), Times.Once);
         }
 
         [Test]
-        public void Call_IMapperMapMethodOnceWithCorrectParams()
+        public async Task Call_IMapperMapMethodOnceWithCorrectParams()
         {
             // Arrange
             var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
@@ -128,14 +105,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             reviewService.Setup(r => r.CreateReview(It.IsAny<IBeerReview>()))
                          .Returns(new Mock<IDataModifiedResult>().Object);
             // Act
-            sut.Index(bindingModel);
+            await sut.Index(bindingModel);
 
             // Assert
             mapper.Verify(m => m.Map(bindingModel, It.IsAny<BeerReview>()), Times.Once());
         }
 
         [Test]
-        public void Return_CorrectHttpStatusCodeResult_WhenReviewCreationFails()
+        public async Task Return_CorrectHttpStatusCodeResult_WhenReviewCreationFails()
         {
             // Arrange
             var expectedErrors = new[] { "error1", "error2" };
@@ -158,7 +135,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             reviewService.Setup(r => r.CreateReview(expectedReview))
                          .Returns(updateResult.Object);
             // Act
-            var result = sut.Index(bindingModel) as HttpStatusCodeResult;
+            var result = await sut.Index(bindingModel) as HttpStatusCodeResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -167,7 +144,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         }
 
         [Test]
-        public void Return_CorrectResult_WhenReviewCreationSucceeds()
+        public async Task Return_CorrectResult_WhenReviewCreationSucceeds()
         {
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
@@ -184,7 +161,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                          .Returns(updateResult.Object);
 
             // Act
-            var result = sut.Index(bindingModel) as RedirectToRouteResult;
+            var result = await sut.Index(bindingModel) as RedirectToRouteResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -193,7 +170,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         }
 
         [Test]
-        public void Call_ImageServiceUploadImageMethodOnceWithCorrectParams_WhenImageIsNotNull()
+        public async Task Call_ImageServiceUploadImageMethodOnceWithCorrectParams_WhenImageIsNotNull()
         {
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
@@ -216,14 +193,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var imgUploadService = this.MockingKernel.GetMock<IImageUploadService>();
 
             // Act
-            sut.Index(bindingModel);
+            await sut.Index(bindingModel);
 
             // Assert
-            imgUploadService.Verify(s => s.UploadImage(It.Is<byte[]>(b => b.Length == 50), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
+            imgUploadService.Verify(s => s.UploadImageAsync(It.Is<byte[]>(b => b.Length == 50), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
         }
 
         [Test]
-        public void NotCall_ImageServiceUploadImageMethodOnceWithCorrectParams_WhenImageIsNull()
+        public async Task NotCall_ImageServiceUploadImageMethodOnceWithCorrectParams_WhenImageIsNull()
         {
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
@@ -244,14 +221,14 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var imgUploadService = this.MockingKernel.GetMock<IImageUploadService>();
 
             // Act
-            sut.Index(bindingModel);
+            await sut.Index(bindingModel);
 
             // Assert
-            imgUploadService.Verify(s => s.UploadImage(It.IsAny<byte[]>(), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Never);
+            imgUploadService.Verify(s => s.UploadImageAsync(It.IsAny<byte[]>(), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Never);
         }
 
         [Test]
-        public void Return_CorrectHttpStatusCodeResult_WhenImageUploadFails()
+        public async Task Return_CorrectHttpStatusCodeResult_WhenImageUploadFails()
         {
             // Arrange
             var updateResult = new Mock<IDataModifiedResult>();
@@ -277,7 +254,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                   .Returns(expectedReview);
 
             // Act
-            var result = sut.Index(bindingModel) as HttpStatusCodeResult;
+            var result = await sut.Index(bindingModel) as HttpStatusCodeResult;
 
             // Assert
             Assert.IsNotNull(result);

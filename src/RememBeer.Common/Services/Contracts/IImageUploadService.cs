@@ -1,7 +1,9 @@
-﻿namespace RememBeer.Common.Services.Contracts
+﻿using System.Threading.Tasks;
+
+namespace RememBeer.Common.Services.Contracts
 {
     public interface IImageUploadService
     {
-        string UploadImage(byte[] image, int width, int height);
+        Task<string> UploadImageAsync(byte[] image, int width, int height);
     }
 }
