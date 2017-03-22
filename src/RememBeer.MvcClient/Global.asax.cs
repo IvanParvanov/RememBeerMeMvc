@@ -21,8 +21,16 @@ namespace RememBeer.MvcClient
             AutoMapConfig.RegisterMappings();
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
+            MvcHandler.DisableMvcResponseHeader = true;
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<RememBeerMeDbContext, Data.Migrations.Configuration>());
+        }
+
+        protected void Application_PreSendRequestHeaders()
+        {
+            this.Response.Headers.Remove("Server");
+            this.Response.Headers.Remove("X-AspNet-Version");
+            this.Response.Headers.Remove("X-AspNetMvc-Version");
         }
     }
 }
