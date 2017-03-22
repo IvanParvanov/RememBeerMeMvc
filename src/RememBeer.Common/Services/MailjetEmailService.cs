@@ -26,13 +26,14 @@ namespace RememBeer.Common.Services
             this.password = password;
         }
 
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            var client = new MailJetClient(this.userName, this.password);
-            var mailMessage = new MailMessage(this.senderEmail, message.Destination, message.Subject, message.Body);
-            client.SendMessage(mailMessage);
-
-            return Task.FromResult(1);
+            await Task.Run(() =>
+                     {
+                         var client = new MailJetClient(this.userName, this.password);
+                         var mailMessage = new MailMessage(this.senderEmail, message.Destination, message.Subject, message.Body);
+                         client.SendMessage(mailMessage);
+                     });
         }
     }
 }
