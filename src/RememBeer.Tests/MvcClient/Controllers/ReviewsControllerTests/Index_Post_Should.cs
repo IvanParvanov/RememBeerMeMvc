@@ -176,8 +176,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var updateResult = new Mock<IDataModifiedResult>();
             updateResult.Setup(r => r.Successful).Returns(true);
 
-            var expectedByteArray = new byte[50];
-            var expectedStream = new MemoryStream(expectedByteArray);
+            var expectedStream = new MemoryStream();
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(expectedStream);
@@ -196,7 +195,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             await sut.Index(bindingModel);
 
             // Assert
-            imgUploadService.Verify(s => s.UploadImageAsync(It.Is<byte[]>(b => b.Length == 50), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
+            imgUploadService.Verify(s => s.UploadImageAsync(expectedStream, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
         }
 
         [Test]
@@ -224,7 +223,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             await sut.Index(bindingModel);
 
             // Assert
-            imgUploadService.Verify(s => s.UploadImageAsync(It.IsAny<byte[]>(), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Never);
+            imgUploadService.Verify(s => s.UploadImageAsync(It.IsAny<Stream>(), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Never);
         }
 
         [Test]

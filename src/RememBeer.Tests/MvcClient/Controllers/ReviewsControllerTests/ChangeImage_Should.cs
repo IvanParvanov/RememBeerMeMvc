@@ -110,8 +110,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public async Task Call_ImageUploadUploadImageMethodOnceWithCorrectParams_WhenUserIsTheOwnerOfTheFoundReview()
         {
             // Arrange
-            var expectedByteArray = new byte[50];
-            var expectedStream = new MemoryStream(expectedByteArray);
+            var expectedStream = new MemoryStream();
             var fileMock = new Mock<HttpPostedFileBase>();
             fileMock.Setup(m => m.InputStream)
                     .Returns(expectedStream);
@@ -132,7 +131,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             await sut.ChangeImage(bindingModel);
 
             // Assert
-            imgUploadServie.Verify(s => s.UploadImageAsync(It.Is<byte[]>(b => b.Length == 50), Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
+            imgUploadServie.Verify(s => s.UploadImageAsync(expectedStream, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx), Times.Once);
         }
 
         [Test]
@@ -187,7 +186,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                          .Returns(updateResult.Object);
             var mockedReview = this.MockingKernel.GetMock<IBeerReview>();
             var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
-            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
+            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<Stream>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(Task.FromResult(expectedUrl));
             // Act
             await sut.ChangeImage(bindingModel);
@@ -220,7 +219,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             reviewService.Setup(r => r.UpdateReview(beerReview))
                          .Returns(updateResult.Object);
             var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
-            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
+            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<Stream>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(Task.FromResult(expectedUrl));
             // Act
             var result = await sut.ChangeImage(bindingModel) as HttpStatusCodeResult;
@@ -256,7 +255,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             reviewService.Setup(r => r.UpdateReview(beerReview))
                          .Returns(updateResult.Object);
             var imgUpload = this.MockingKernel.GetMock<IImageUploadService>();
-            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
+            imgUpload.Setup(i => i.UploadImageAsync(It.IsAny<Stream>(), It.IsAny<int>(), It.IsAny<int>()))
                      .Returns(Task.FromResult(expectedUrl));
             // Act
             var result = await sut.ChangeImage(bindingModel) as JsonResult;

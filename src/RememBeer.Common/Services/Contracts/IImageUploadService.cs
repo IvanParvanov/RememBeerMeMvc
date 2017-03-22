@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace RememBeer.Common.Services.Contracts
 {
     public interface IImageUploadService
     {
-        Task<string> UploadImageAsync(byte[] image, int width, int height);
+        Task<string> UploadImageAsync(Stream image, int width, int height);
     }
 }

@@ -165,7 +165,6 @@ namespace RememBeer.MvcClient.Controllers
         {
             var img = model.Image;
             var id = model.Id;
-            var imgArray = this.StreamToArray(img.InputStream);
 
             var review = this.reviewService.GetById(id);
             var userId = this.User?.Identity.GetUserId();
@@ -174,7 +173,7 @@ namespace RememBeer.MvcClient.Controllers
                 return this.Unauthorized();
             }
 
-            var url = await this.imageUpload.UploadImageAsync(imgArray, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+            var url = await this.imageUpload.UploadImageAsync(img.InputStream, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
             if (url == null)
             {
                 return this.ImageUploadFailure();
@@ -205,8 +204,7 @@ namespace RememBeer.MvcClient.Controllers
             if (m.Image != null)
             {
                 var stream = m.Image.InputStream;
-                var image = this.StreamToArray(stream);
-                imgUrl = await this.imageUpload.UploadImageAsync(image, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
+                imgUrl = await this.imageUpload.UploadImageAsync(stream, Constants.DefaultImageSizePx, Constants.DefaultImageSizePx);
                 if (imgUrl == null)
                 {
                     return this.ImageUploadFailure();
@@ -240,15 +238,6 @@ namespace RememBeer.MvcClient.Controllers
         private HttpStatusCodeResult Unauthorized()
         {
             return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You cannot edit other people's reviews!");
-        }
-
-        private byte[] StreamToArray(Stream stream)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                stream.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
         }
     }
 }

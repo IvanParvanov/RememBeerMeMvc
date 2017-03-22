@@ -23,18 +23,17 @@ namespace RememBeer.Common.Services
             this.cloud = new Cloudinary(account);
         }
 
-        public async Task<string> UploadImageAsync(byte[] image, int width, int height)
+        public async Task<string> UploadImageAsync(Stream image, int width, int height)
         {
             if (image == null)
             {
                 throw new ArgumentNullException(nameof(image));
             }
 
-            Stream stream = new MemoryStream(image);
             var id = Guid.NewGuid().ToString();
             var imageUploadParams = new ImageUploadParams
                                     {
-                                        File = new FileDescription(id, stream),
+                                        File = new FileDescription(id, image),
                                         Transformation = new Transformation()
                                             .Width(width)
                                             .Height(height)
