@@ -76,7 +76,6 @@ function initMaterialize() {
         alignment: 'right'
     });
     Materialize.updateTextFields();
-    $('select').material_select();
     $.validator.unobtrusive.parse($("form"));
     $('.modal').modal();
     $('.materialboxed').materialbox();
