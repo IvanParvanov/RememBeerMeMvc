@@ -74,13 +74,9 @@ ul.pagination li a { padding: 0 10px; }
     animation-iteration-count: 1;
 }
 
-.fade {
-    animation: fadeIn 1s;
-}
+.fade { animation: fadeIn 1s; }
 
-.fade-quick {
-    animation: fadeIn 0.5s;
-}
+.fade-quick { animation: fadeIn 0.5s; }
 
 @-webkit-keyframes fadeIn {
     from { opacity: 0; }
@@ -194,9 +190,7 @@ nav a.brand-logo > i.fa {
 
 .td { display: table-cell; }
 
-.opaque {
-    opacity: 0;
-}
+.opaque { opacity: 0; }
 
 .close {
     cursor: pointer;
@@ -205,9 +199,7 @@ nav a.brand-logo > i.fa {
     padding-left: 1rem;
 }
 
-#toast-container .small {
-    max-width: 800px;
-}
+#toast-container .small { max-width: 800px; }
 
 #notify {
     display: none;
@@ -215,4 +207,22 @@ nav a.brand-logo > i.fa {
     right: 100px;
     bottom: 50px;
     z-index: 3;
+}
+
+#createModal .dropdown-content li > a, .dropdown-content li > span { padding: 10px 16px; }
+
+select {
+    color: #000;
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    display: inline;
+}
+
+.selects label { position: initial; }
+
+select option {
+    padding: 10px 16px;
 }
