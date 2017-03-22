@@ -240,11 +240,14 @@
     <Compile Include="MvcClient\Controllers\TopControllerTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Controllers\TopControllerTests\TopBeers_Should.cs" />
     <Compile Include="MvcClient\Controllers\TopControllerTests\TopBreweries_Should.cs" />
+    <Compile Include="MvcClient\Filters\AdminOnlyAttributeTests.cs" />
+    <Compile Include="MvcClient\Filters\AjaxOnlyAttributeTests.cs" />
     <Compile Include="MvcClient\Helpers\AjaxHelperExtensionsTests\PageRefreshActionLink_Should.cs" />
     <Compile Include="MvcClient\Hubs\NotificationsHubTests\Base\NotificationsHubNinjectTestBase.cs" />
     <Compile Include="MvcClient\Hubs\NotificationsHubTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\Hubs\NotificationsHubTests\NotifyReviewCreated_Should.cs" />
     <Compile Include="MvcClient\Hubs\NotificationsHubTests\SendMessage_Should.cs" />
+    <Compile Include="MvcClient\Hubs\UserIdProviderTests\GetUserId_Should.cs" />
     <Compile Include="MvcClient\Models\Account\ExternalLoginConfirmationViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Account\ExternalLoginListViewModelTests.cs" />
     <Compile Include="MvcClient\Models\Account\ForgotPasswordViewModelTests.cs" />

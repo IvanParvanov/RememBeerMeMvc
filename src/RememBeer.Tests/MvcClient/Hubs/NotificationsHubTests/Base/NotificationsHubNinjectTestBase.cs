@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Principal;
 
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -15,6 +14,7 @@ using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Hubs;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Controllers.Ninject.Base;
+// ReSharper disable InconsistentNaming
 
 namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base
 {
@@ -31,50 +31,47 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base
 
         public override void Init()
         {
-            this.MockingKernel.Bind<NotificationsHub>()
-                .ToSelf()
-                .Named(LoggedInContextName)
-                .BindingConfiguration.IsImplicit = true;
-
-            this.MockingKernel.Bind<NotificationsHub>().ToMethod(ctx =>
-                                                                 {
-                                                                     var sut = this.MockingKernel.Get<NotificationsHub>(LoggedInContextName);
-                                                                     var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
-                                                                     var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
-                                                                     clients.Setup(c => c.Users(It.IsAny<IList<string>>()))
-                                                                            .Returns(mockDynamic.Object);
-                                                                     sut.Clients = clients.Object;
-                                                                     var request = this.MockingKernel.GetMock<IRequest>();
-                                                                     var context = this.MockingKernel.GetMock<HubCallerContext>();
-                                                                     context.Setup(c => c.Request)
-                                                                            .Returns(request.Object);
-                                                                     sut.Context = context.Object;
-
-                                                                     return sut;
-                                                                 });
-
-            this.MockingKernel.Bind<HubCallerContext>()
-                .ToMethod(ctx =>
-                          {
-                              var identity = this.MockingKernel.Get<ClaimsIdentity>();
-                              var mockedUser = new Mock<IPrincipal>();
-                              mockedUser.Setup(u => u.Identity).Returns(identity);
-                              var context = new Mock<HubCallerContext>();
-
-                              context.Setup(c => c.User)
-                                     .Returns(mockedUser.Object);
-                              return context.Object;
-                          })
-                .InSingletonScope();
-
             this.MockingKernel.Bind<IDynamicNotified>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IHubCallerConnectionContext<object>>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IRequest>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IFollowerService>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
+
+            this.MockingKernel.Bind<NotificationsHub>()
+                .ToSelf()
+                .Named(LoggedInContextName)
+                .BindingConfiguration.IsImplicit = true;
+
+            this.MockingKernel.Bind<NotificationsHub>()
+                .ToMethod(ctx =>
+                          {
+                              var sut = this.MockingKernel.Get<NotificationsHub>(LoggedInContextName);
+
+                              var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
+                              var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
+                              clients.Setup(c => c.Users(It.IsAny<IList<string>>()))
+                                     .Returns(mockDynamic.Object);
+                              sut.Clients = clients.Object;
+
+                              var context = this.MockingKernel.GetMock<HubCallerContext>();
+                              sut.Context = context.Object;
+
+                              return sut;
+                          });
+
+            this.MockingKernel.Bind<HubCallerContext>()
+                .ToMethod(ctx =>
+                          {
+                              var identity = this.MockingKernel.Get<ClaimsIdentity>();
+                              var context = new Mock<HubCallerContext>();
+                              context.SetupGet(c => c.User.Identity).Returns(identity);
+
+                              return context.Object;
+                          })
+                .InSingletonScope();
         }
 
-        protected IEnumerable<IApplicationUser> GetMockedUsers(int count = 1)
+        protected IEnumerable<IApplicationUser> GetMockedUsers(int count)
         {
             var result = new List<IApplicationUser>();
             for (var i = 0; i < count; i++)

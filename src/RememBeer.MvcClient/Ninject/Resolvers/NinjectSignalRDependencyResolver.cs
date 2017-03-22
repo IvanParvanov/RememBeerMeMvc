@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Bytes2you.Validation;
@@ -10,6 +11,7 @@ using Ninject;
 
 namespace RememBeer.MvcClient.Ninject.Resolvers
 {
+    [ExcludeFromCodeCoverage]
     public class NinjectSignalRDependencyResolver : DefaultDependencyResolver
     {
         private readonly IKernel kernel;
