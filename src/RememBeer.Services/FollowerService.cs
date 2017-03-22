@@ -44,9 +44,9 @@ namespace RememBeer.Services
 
         public IEnumerable<IApplicationUser> GetFollowingForUserId(string userId)
         {
-            var users = this.db.Users.Where(u => u.Followers.Select(f => f.Id).Contains(userId));
+            var users = this.db.Users.Where(u => u.Followers.Any(f => f.Id == userId));
 
-            return users;
+            return users.ToList();
         }
 
         public async Task<IDataModifiedResult> AddFollowerAsync(string userId, string usernameToFollow)

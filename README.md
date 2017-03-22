@@ -2,12 +2,12 @@
 
 ![RememBeerMe Logo](docs/img/remembeerme-logo.PNG)
 
-<p>So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having an ice-cold pint of <br> <em>&lt;insert beer with a complicated name&gt;</em>. You really like it. 
+So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having an ice-cold pint of <em>&lt;insert beer with a complicated name&gt;</em>. You really like it. 
            You would like to try it again on your next visit.
-       </p>
 <p>The sad part is you would never remember it for so long...</p>
        
-#### Until now.
+
+### Until now.
 
 <hr/>
 
@@ -27,19 +27,25 @@
                 <add key="UserLockoutEnabledByDefault" value="true" />
                 <add key="DefaultAccountLockoutTimeSpan" value="5" />
                 <add key="MaxFailedAccessAttemptsBeforeLockout" value="5" />
-                <!-- Cloudinary - Affects only creating reviews with an image -->
-                <add key="ImageUploadName" value="YourCloundinaryName" />
-                <add key="ImageUploadApiKey" value="YourCloundinaryApiKey" />
-                <add key="ImageUploadApiSecret" value="YourCloundinaryApiSecret" />
+
+                <!-- Cloudinary -->
+                <add key="ImageUploadName" value="" />
+                <add key="ImageUploadApiKey" value="" />
+                <add key="ImageUploadApiSecret" value="" />
+
+                <!-- MailJet -->
+                <add key="MailSenderEmailAddress" value="" />
+                <add key="MailUsername" value="" />
+                <add key="MailPassword" value="" />
             </appSettings>
             
-* Optionally run RemembeerMeDbSeed.sql to import brewery and beer data.
 * Start the application.
+* Optionally run RemembeerMeDbSeed.sql to import brewery and beer data.
 
-###Temporarily hosted on:
+### Temporarily hosted on:
 - [My ASP](http://j0hnybg-001-site1.dtempurl.com/)
  
-###Youtube demo:
+### Youtube demo:
  - [Youtube](https://youtu.be/RHeR_bxmJQQ)
  
 ### Public Section
@@ -48,7 +54,9 @@
  
 ### Private Section
  
- Registered users can create and edit their own beer reviews.
+
+  Users can subscribe to their friends to recieve new review notifications and messages.
+ They can also create and edit their own beer reviews and send messages to their followers.
  
 ### Administrative Section
  

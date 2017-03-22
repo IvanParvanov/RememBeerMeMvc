@@ -253,7 +253,16 @@
     <Compile Include="Services\BeerTypeServiceTests\Ctor_Should.cs" />
     <Compile Include="Services\BeerTypeServiceTests\Search_Should.cs" />
     <Compile Include="Services\BreweryServiceTests\CountAll_Should.cs" />
+    <Compile Include="Services\FollowerServiceTests\AddFollowerAsync_Should.cs" />
+    <Compile Include="Services\FollowerServiceTests\Base\FollowerServiceNinjectBase.cs" />
+    <Compile Include="Services\FollowerServiceTests\Ctor_Should.cs" />
+    <Compile Include="Services\FollowerServiceTests\GetFollowersForUserIdAsync_Should.cs" />
+    <Compile Include="Services\FollowerServiceTests\GetFollowingForUserId_Should.cs" />
+    <Compile Include="Services\FollowerServiceTests\RemoveFollowerAsync_Should.cs" />
     <Compile Include="Utils\AttributeTester.cs" />
+    <Compile Include="Utils\MockedClasses\IDbSetMocks\TestDbAsyncEnumerable.cs" />
+    <Compile Include="Utils\MockedClasses\IDbSetMocks\TestDbAsyncEnumerator.cs" />
+    <Compile Include="Utils\MockedClasses\IDbSetMocks\TestDbAsyncQueryProvider.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUser.cs" />
     <Compile Include="Utils\MockedClasses\MockedApplicationUserManager.cs" />
     <Compile Include="Utils\MockedClasses\IDisposablePresenter.cs" />

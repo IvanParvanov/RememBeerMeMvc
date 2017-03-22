@@ -1,13 +1,13 @@
 ﻿var signalR;
 
-$(document).ready(function() {
+$(document).ready(function () {
     initMaterialize();
     $(".button-collapse").sideNav();
 
     $(document).on(
         'click',
         '#toast-container .toast .close, #notify .close',
-        function() {
+        function () {
             var target = $(this).attr("data-target");
             if (target) {
                 $(target).fadeOut();
@@ -19,7 +19,7 @@ $(document).ready(function() {
     $("#content").on(
         'click',
         '.pagination',
-        function(ev) {
+        function (ev) {
             var $target = $(ev.target);
             if ($target.is("a")) {
                 var href = $target.attr("href");
@@ -31,18 +31,19 @@ $(document).ready(function() {
 
     signalR.client.showNotification = function (message, username, lat, lon) {
         message = htmlEncode(message);
-        lat = htmlEncode(lat);
-        lon = htmlEncode(lon);
-        var text = "<p><strong>" + username + "</strong> says: <br />" + message;
+        var text = '<p>';
         if (lat && lon) {
-            text += "<br /><a class=\"white-text\" target=\"_blank\" href=\"https://www.google.com/maps/dir//" + lat + "," + lon + "\"><i class=\"fa fa-2x fa-map-marker\"></i></a>";
+            lat = encodeURIComponent(lat);
+            lon = encodeURIComponent(lon);
+            text += "<a class=\"white-text\" target=\"_blank\" href=\"https://www.google.com/maps/dir//" + lat + "," + lon + "\"><i class=\"fa fa-2x fa-map-marker\"></i> </a>";
         }
+        text += "<strong>" + username + "</strong> says: <br />" + message;
 
         text = text + "</p>";
         notifier.showNotification(text);
     };
 
-    signalR.client.onFollowerReviewCreated = function(id, user) {
+    signalR.client.onFollowerReviewCreated = function (id, user) {
         var text = "<a class=\"white-text\" target=\"_blank\" href=\"/reviews/details/" +
             id +
             "\">User <strong>" +
@@ -51,7 +52,7 @@ $(document).ready(function() {
         notifier.showNotification(text);
     }
 
-    $.connection.hub.start().done(function() {
+    $.connection.hub.start().done(function () {
         //$(".btn").click(function(ev) {
         //    //signalR.server.sendMessage("Who wants to drink some beers? I'm at Thin red line!");
         //    //signalR.server.notifyReviewCreated();
@@ -85,27 +86,27 @@ function initMaterialize() {
     $('.collapsible').collapsible();
 }
 
-var notifier = (function() {
+var notifier = (function () {
     function prepareText(text) {
         return text + "<a class='close'><i class=\"fa fa-lg fa-times\" aria-hidden=\"true\"></i></a>";
     }
 
     return {
-        showFailure: function(message) {
+        showFailure: function (message) {
             initMaterialize();
             Materialize.toast(
                 prepareText(message),
                 5000,
                 'red');
         },
-        showSuccess: function(message) {
+        showSuccess: function (message) {
             initMaterialize();
             Materialize.toast(
                 prepareText(message),
                 5000,
                 'green');
         },
-        handleAjaxError: function(response) {
+        handleAjaxError: function (response) {
             var message;
             if (!response || !response.statusText || response.statusText.toLowerCase() === "error") {
                 message = 'There was a problem with your request. Please try again.';
@@ -115,7 +116,7 @@ var notifier = (function() {
 
             notifier.showFailure(message);
         },
-        showNotification: function(message) {
+        showNotification: function (message) {
             Materialize.toast(
                 prepareText(message),
                 10000000,
@@ -125,7 +126,7 @@ var notifier = (function() {
 })();
 
 var requester = {
-    postJson: function(url, formData, success) {
+    postJson: function (url, formData, success) {
         $.ajax({
             type: "POST",
             url: url,
@@ -134,12 +135,12 @@ var requester = {
             contentType: false,
             processData: false,
             success: success,
-            error: function(error) {
+            error: function (error) {
                 handleAjaxError(error);
             }
         });
     },
-    post: function(url, formData, success) {
+    post: function (url, formData, success) {
         $.ajax({
             type: "POST",
             url: url,
@@ -147,7 +148,7 @@ var requester = {
             contentType: false,
             processData: false,
             success: success,
-            error: function(error) {
+            error: function (error) {
                 handleAjaxError(error);
             }
         });
@@ -159,17 +160,17 @@ function htmlEncode(value) {
 }
 
 var eventManager = {
-    notifyReviewCreated: function() {
+    notifyReviewCreated: function () {
         initMaterialize();
         signalR.server.notifyReviewCreated();
     },
-    sendMessage: function() {
+    sendMessage: function () {
         function processMessage(message, lat, lon) {
             if (message && message.replace(/\s/g, "").length > 0) {
-                signalR.server.sendMessage(message, lat, lon).fail(function(error) {
-                        notifier.showFailure('Message could not be sent! Try again...');
-                    })
-                    .done(function() {
+                signalR.server.sendMessage(message, lat, lon).fail(function (error) {
+                    notifier.showFailure('Message could not be sent! Try again...');
+                })
+                    .done(function () {
                         $('#message').val('');
                         $('#notify').fadeOut();
                         notifier.showSuccess('Message has been sent!');
@@ -190,17 +191,17 @@ var eventManager = {
 
         var $input = $('#message');
         var message = $input.val();
-        
+
         if ($('#cb-location').is(':checked')) {
             if (!navigator.geolocation) {
                 handleGeoError(message);
             }
 
             navigator.geolocation.getCurrentPosition(
-                function(position) {
+                function (position) {
                     processMessage(message, position.coords.latitude, position.coords.longitude);
                 },
-                function(error) {
+                function (error) {
                     handleGeoError(message);
                 });
         } else {
@@ -208,8 +209,8 @@ var eventManager = {
         }
 
     },
-    attachImageUpload: function() {
-        $("#imgUploadForm").change(function() {
+    attachImageUpload: function () {
+        $("#imgUploadForm").change(function () {
             var formData = new FormData();
             var input = document.getElementById("imgUpload");
             var totalFiles = input.files.length;
@@ -226,7 +227,7 @@ var eventManager = {
             requester.postJson(
                 '/reviews/changeimage',
                 formData,
-                function(response) {
+                function (response) {
                     var $this = $("#imgUploadForm");
                     var parent = $this.parent();
                     parent.empty();
@@ -238,8 +239,8 @@ var eventManager = {
                 });
         });
     },
-    attachCreateReview: function() {
-        $("#create-form").submit(function(ev) {
+    attachCreateReview: function () {
+        $("#create-form").submit(function (ev) {
             ev.preventDefault();
             ev.stopPropagation();
             var $form = $(this);
@@ -251,7 +252,7 @@ var eventManager = {
                 requester.post(
                     '/reviews',
                     formData,
-                    function(response) {
+                    function (response) {
                         $("#loading").hide();
                         $('.modal').modal('close');
                         $("#content").html(response);
@@ -260,18 +261,18 @@ var eventManager = {
             }
         });
     },
-    attachBeerTypeAutocomplete: function() {
+    attachBeerTypeAutocomplete: function () {
         $(".type-autocomplete")
             .autocomplete({
                 serviceUrl: "/breweries/types",
                 paramName: "name",
                 dataType: "json",
                 showNoSuggestionNotice: true,
-                transformResult: function(response) {
+                transformResult: function (response) {
                     return {
                         suggestions: $.map(
                             response.data,
-                            function(dataItem) {
+                            function (dataItem) {
                                 return {
                                     value: dataItem.Type,
                                     data: dataItem.Id
@@ -279,23 +280,23 @@ var eventManager = {
                             })
                     };
                 },
-                onSelect: function(suggestion) {
+                onSelect: function (suggestion) {
                     $("#TypeId").val(suggestion.data);
                 }
             });
     },
-    attachBeerAutocomplete: function() {
+    attachBeerAutocomplete: function () {
         $(".beer-autocomplete")
             .autocomplete({
                 serviceUrl: "/Beers",
                 paramName: "name",
                 dataType: "json",
                 showNoSuggestionNotice: true,
-                transformResult: function(response) {
+                transformResult: function (response) {
                     return {
                         suggestions: $.map(
                             response,
-                            function(dataItem) {
+                            function (dataItem) {
                                 return {
                                     value: dataItem.Name + ", " + dataItem.BreweryName,
                                     data: dataItem.Id
@@ -303,7 +304,7 @@ var eventManager = {
                             })
                     };
                 },
-                onSelect: function(suggestion) {
+                onSelect: function (suggestion) {
                     $("#hiddenBeerId").val(suggestion.data);
                 }
             });
