@@ -32,7 +32,8 @@ namespace RememBeer.MvcClient.Hubs
             var review = this.reviewService.GetLatestForUser(userId);
 
             var followerIds = await this.GetFollowersForUser(userId);
-            this.Clients.Users(followerIds).onFollowerReviewCreated(review.Id, review.User.UserName);
+            var users = this.Clients.Users(followerIds);
+            users.onFollowerReviewCreated(review.Id, review.User.UserName);
         }
 
         public async Task SendMessage(string message, string lat, string lon)
