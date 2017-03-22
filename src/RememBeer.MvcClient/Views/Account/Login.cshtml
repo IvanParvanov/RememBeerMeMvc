@@ -7,45 +7,35 @@
     <div class="card col s12 m8 offset-m2 l6 offset-l3">
         <div class="card-content">
             <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null))
                 {
                     @Html.AntiForgeryToken()
                     <h4>Log in</h4>
                     <hr/>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email, "")
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password, "")
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" value="true" type="checkbox">
-                                <label for="RememberMe">Remember me?</label>
-                            </div>
-                        </div>
+                    <div class="checkbox">
+                        <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" value="true" type="checkbox">
+                        <label for="RememberMe">Remember me?</label>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-default"/>
-                        </div>
+                    <div class="input-field">
+                        <input type="submit" value="Log in" class="btn btn-default"/>
                     </div>
                     <p>
                         @Html.ActionLink("Register as a new user", "Register")
                     </p>
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>
                 }
             </section>
         </div>

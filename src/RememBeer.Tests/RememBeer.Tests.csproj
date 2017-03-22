@@ -307,9 +307,6 @@
     <Compile Include="Services\UserServiceTests\RemoveAdmin_Should.cs" />
     <Compile Include="Services\UserServiceTests\Search_Should.cs" />
     <Compile Include="Services\UserServiceTests\UpdateUser_Should.cs" />
-    <Compile Include="Utils\MockedClasses\MockedHttpContextBase.cs" />
-    <Compile Include="Utils\MockedClasses\MockedHttpRequest.cs" />
-    <Compile Include="Utils\MockedClasses\MockedHttpResponse.cs" />
     <Compile Include="Utils\TestClassBase.cs" />
     <Compile Include="Services\BreweryServiceTests\Ctor_Should.cs" />
     <Compile Include="Services\BreweryServiceTests\GetAll_Should.cs" />

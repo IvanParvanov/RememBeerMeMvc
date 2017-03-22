@@ -53,38 +53,38 @@
                                 @Html.ValidationMessageFor(m => m.Description)
                             </div>
                         </p>
-                        <ul class="list-inline flow-text">
+                        <ul class="list-inline selects">
                             <li>
-                                <strong>
-                                    <div class="input-field col s3">
+                                <div class="input-field col s3">
+                                    @Html.LabelFor(m => m.Overall)
+                                    <div>
                                         @Html.DropDownListFor(m => m.Overall, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                        @Html.LabelFor(m => m.Overall)
                                     </div>
-                                </strong>
+                                </div>
                             </li>
                             <li>
-                                <strong>
-                                    <div class="input-field col s3">
+                                <div class="input-field col s3">
+                                    @Html.LabelFor(m => m.Taste)
+                                    <div>
                                         @Html.DropDownListFor(m => m.Taste, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                        @Html.LabelFor(m => m.Taste)
                                     </div>
-                                </strong>
+                                </div>
                             </li>
                             <li>
-                                <strong>
-                                    <div class="input-field col s3">
+                                <div class="input-field col s3">
+                                    @Html.LabelFor(m => m.Look)
+                                    <div>
                                         @Html.DropDownListFor(m => m.Look, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                        @Html.LabelFor(m => m.Look)
                                     </div>
-                                </strong>
+                                </div>
                             </li>
                             <li>
-                                <strong>
-                                    <div class="input-field col s3">
+                                <div class="input-field col s3">
+                                    @Html.LabelFor(m => m.Smell)
+                                    <div>
                                         @Html.DropDownListFor(m => m.Smell, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                        @Html.LabelFor(m => m.Smell)
                                     </div>
-                                </strong>
+                                </div>
                             </li>
                         </ul>
                     </div>
