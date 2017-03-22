@@ -53,10 +53,7 @@ $(document).ready(function () {
     }
 
     $.connection.hub.start().done(function () {
-        //$(".btn").click(function(ev) {
-        //    //signalR.server.sendMessage("Who wants to drink some beers? I'm at Thin red line!");
-        //    //signalR.server.notifyReviewCreated();
-        //});
+        $("#btn-send-message").click(eventManager.sendMessage);
     });
 });
 
