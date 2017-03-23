@@ -7,12 +7,13 @@ using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 
+using RememBeer.MvcClient.Hubs.Contracts;
 using RememBeer.Services.Contracts;
 
 namespace RememBeer.MvcClient.Hubs
 {
     [Authorize]
-    public class NotificationsHub : Hub
+    public class NotificationsHub : Hub<INotificationsClient>
     {
         private readonly IFollowerService followerService;
         private readonly IBeerReviewService reviewService;
@@ -33,7 +34,7 @@ namespace RememBeer.MvcClient.Hubs
 
             var followerIds = await this.GetFollowersForUser(userId);
             var users = this.Clients.Users(followerIds);
-            users.onFollowerReviewCreated(review.Id, review.User.UserName);
+            users.OnFollowerReviewCreated(review.Id, review.User.UserName);
         }
 
         public async Task SendMessage(string message, string lat, string lon)
@@ -47,7 +48,7 @@ namespace RememBeer.MvcClient.Hubs
             var followerIds = await this.GetFollowersForUser(userId);
 
             var username = this.Context.User.Identity.Name;
-            this.Clients.Users(followerIds).showNotification(message, username, lat, lon);
+            this.Clients.Users(followerIds).ShowNotification(message, username, lat, lon);
         }
 
         private async Task<IList<string>> GetFollowersForUser(string userId)

@@ -14,6 +14,7 @@ using NUnit.Framework;
 
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Hubs;
+using RememBeer.MvcClient.Hubs.Contracts;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base;
 
@@ -68,7 +69,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
         {
             // Arrange
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
+            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
 
             var review = new Mock<IBeerReview>();
             review.SetupGet(r => r.User.UserName)
@@ -98,7 +99,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             const string expectedUsername = "peshooasjklasdjkasdas";
 
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
+            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
 
             var review = new Mock<IBeerReview>();
             review.SetupGet(r => r.User.UserName)
@@ -113,7 +114,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             await sut.NotifyReviewCreated();
 
             // Assert
-            mockDynamic.Verify(m => m.onFollowerReviewCreated(expectedId, expectedUsername), Times.Once);
+            mockDynamic.Verify(m => m.OnFollowerReviewCreated(expectedId, expectedUsername), Times.Once);
         }
 
         public override void Init()

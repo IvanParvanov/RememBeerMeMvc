@@ -284,6 +284,7 @@
     </Compile>
     <Compile Include="Helpers\AjaxHelperExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Hubs\Contracts\INotificationsClient.cs" />
     <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="Hubs\UserIdProvider\UserIdProvider.cs" />
     <Compile Include="Models\Account\ExternalLoginConfirmationViewModel.cs" />

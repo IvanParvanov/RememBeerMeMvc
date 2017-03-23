@@ -12,6 +12,7 @@ using Ninject.MockingKernel;
 
 using RememBeer.Models.Contracts;
 using RememBeer.MvcClient.Hubs;
+using RememBeer.MvcClient.Hubs.Contracts;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Controllers.Ninject.Base;
 // ReSharper disable InconsistentNaming
@@ -47,8 +48,8 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base
                           {
                               var sut = this.MockingKernel.Get<NotificationsHub>(LoggedInContextName);
 
-                              var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
-                              var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
+                              var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
+                              var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
                               clients.Setup(c => c.Users(It.IsAny<IList<string>>()))
                                      .Returns(mockDynamic.Object);
                               sut.Clients = clients.Object;

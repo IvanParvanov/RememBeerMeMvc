@@ -13,6 +13,7 @@ using Ninject;
 using NUnit.Framework;
 
 using RememBeer.MvcClient.Hubs;
+using RememBeer.MvcClient.Hubs.Contracts;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base;
 
@@ -46,8 +47,8 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             // Arrange
             var sut = this.MockingKernel.Get<NotificationsHub>();
             var followerService = this.MockingKernel.GetMock<IFollowerService>();
-            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
-            var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
+            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
+            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
 
             // Act
             await sut.SendMessage(emptyMessage, null, null);
@@ -55,7 +56,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             // Assert
             followerService.Verify(f => f.GetFollowersForUserIdAsync(this.expectedUserId), Times.Never);
             clients.Verify(c => c.Users(It.IsAny<IList<string>>()), Times.Never);
-            mockDynamic.Verify(m => m.showNotification(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            mockDynamic.Verify(m => m.ShowNotification(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -63,7 +64,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
         {
             // Arrange
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<object>>();
+            var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
 
             var foundUsers = this.GetMockedUsers(5);
             var followerService = this.MockingKernel.GetMock<IFollowerService>();
@@ -87,13 +88,13 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             const string expectedLat= "peshooasjklasdjk23125asdas";
 
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var mockDynamic = this.MockingKernel.GetMock<IDynamicNotified>();
+            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
 
             // Act
             await sut.SendMessage(expectedMessage, expectedLat, expectedLon);
 
             // Assert
-            mockDynamic.Verify(m => m.showNotification(expectedMessage, this.expectedUserName, expectedLat, expectedLon), Times.Once);
+            mockDynamic.Verify(m => m.ShowNotification(expectedMessage, this.expectedUserName, expectedLat, expectedLon), Times.Once);
         }
 
         public override void Init()
