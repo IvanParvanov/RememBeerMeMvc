@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using Bytes2you.Validation;
+
 namespace RememBeer.MvcClient.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
@@ -13,6 +15,8 @@ namespace RememBeer.MvcClient.Attributes
 
         public FileTypeAttribute(string fileExtensions)
         {
+            Guard.WhenArgument(fileExtensions, nameof(fileExtensions)).IsNullOrWhiteSpace().Throw();
+
             this.AllowedExtensions = fileExtensions.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 

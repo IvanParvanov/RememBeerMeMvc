@@ -54,7 +54,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             await sut.SendMessage(emptyMessage, null, null);
 
             // Assert
-            followerService.Verify(f => f.GetFollowersForUserIdAsync(this.expectedUserId), Times.Never);
+            followerService.Verify(f => f.GetFollowersForUserIdAsync(It.IsAny<string>()), Times.Never);
             clients.Verify(c => c.Users(It.IsAny<IList<string>>()), Times.Never);
             mockDynamic.Verify(m => m.ShowNotification(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }

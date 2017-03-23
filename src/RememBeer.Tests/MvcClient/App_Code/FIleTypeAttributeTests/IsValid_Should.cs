@@ -18,7 +18,6 @@ namespace RememBeer.Tests.MvcClient.App_Code.FIleTypeAttributeTests
         [TestCase(".png,.jpg,.pesho", ".pesho", true)]
         [TestCase(".png,.jpg,.gif", ".pesho", false)]
         [TestCase(".png, .jpg, .gif", ".pesho", false)]
-        [TestCase("", ".pesho", false)]
         public void ReturnExpectedResult_WhenValueIsHttpPostedFileBase(string allowedExtensions, string actualExtension, bool expected)
         {
             // Arrange
@@ -40,7 +39,7 @@ namespace RememBeer.Tests.MvcClient.App_Code.FIleTypeAttributeTests
         public void ReturnTrue_WhenValueIsNotHttpPostedFileBase(object value)
         {
             // Arrange
-            var sut = new FileTypeAttribute(string.Empty);
+            var sut = new FileTypeAttribute(".gif");
 
             // Act
             var result = sut.IsValid(value);

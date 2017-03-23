@@ -178,6 +178,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="MvcClient\App_Code\FIleTypeAttributeTests\Ctor_Should.cs" />
     <Compile Include="MvcClient\App_Code\FIleTypeAttributeTests\IsValid_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\ConfirmEmail_Should.cs" />
     <Compile Include="MvcClient\Controllers\AccountControllerTests\Ctor_Should.cs" />

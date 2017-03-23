@@ -15,25 +15,17 @@ using RememBeer.MvcClient.Hubs;
 using RememBeer.MvcClient.Hubs.Contracts;
 using RememBeer.Services.Contracts;
 using RememBeer.Tests.MvcClient.Controllers.Ninject.Base;
-// ReSharper disable InconsistentNaming
 
 namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base
 {
-    public interface IDynamicNotified
-    {
-        void onFollowerReviewCreated(int id, string username);
-
-        void showNotification(string message, string username, string lat, string lon);
-    }
-
     public class NotificationsHubNinjectTestBase : NinjectTestBase
     {
         public const string LoggedInContextName = "LoggedIn";
 
         public override void Init()
         {
-            this.MockingKernel.Bind<IDynamicNotified>().ToMock().InSingletonScope();
-            this.MockingKernel.Bind<IHubCallerConnectionContext<object>>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<INotificationsClient>().ToMock().InSingletonScope();
+            this.MockingKernel.Bind<IHubCallerConnectionContext<INotificationsClient>>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IRequest>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IFollowerService>().ToMock().InSingletonScope();
             this.MockingKernel.Bind<IBeerReviewService>().ToMock().InSingletonScope();
