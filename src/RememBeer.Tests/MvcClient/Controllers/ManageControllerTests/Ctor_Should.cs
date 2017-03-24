@@ -35,7 +35,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(null, signInManager.Object, authManager.Object, followerService.Object));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(null, signInManager.Object, followerService.Object));
         }
 
         [Test]
@@ -47,19 +47,18 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, null, authManager.Object, followerService.Object));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, null, followerService.Object));
         }
 
         [Test]
-        public void ThrowArgumentNullException_WhenIAuthenticationManagerIsNull()
+        public void ThrowArgumentNullException_WhenIFollowerServiceIsNull()
         {
             // Arrange
             var userManager = new Mock<IApplicationUserManager>();
             var signInManager = new Mock<IApplicationSignInManager>();
-            var followerService = new Mock<IFollowerService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, signInManager.Object, null, followerService.Object));
+            Assert.Throws<ArgumentNullException>(() => new ManageController(userManager.Object, signInManager.Object, null));
         }
     }
 }

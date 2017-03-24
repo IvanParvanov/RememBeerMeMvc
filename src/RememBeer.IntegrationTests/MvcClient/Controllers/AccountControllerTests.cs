@@ -1,12 +1,4 @@
-﻿using Ninject;
-
-using NUnit.Framework;
-
-using RememBeer.MvcClient.Controllers;
-
-using Xania.AspNet.Simulator;
-
-namespace RememBeer.IntegrationTests.MvcClient.Controllers
+﻿namespace RememBeer.IntegrationTests.MvcClient.Controllers
 {
     //[TestFixture]
     //public class AccountControllerTests

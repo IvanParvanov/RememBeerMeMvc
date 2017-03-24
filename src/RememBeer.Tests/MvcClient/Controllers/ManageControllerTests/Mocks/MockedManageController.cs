@@ -1,6 +1,4 @@
-﻿using Microsoft.Owin.Security;
-
-using RememBeer.Models.Identity.Contracts;
+﻿using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Controllers;
 using RememBeer.Services.Contracts;
 
@@ -10,9 +8,8 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests.Mocks
     {
         public MockedManageController(IApplicationUserManager userManager,
                                       IApplicationSignInManager signInManager,
-                                      IAuthenticationManager authenticationManager,
                                       IFollowerService followerService)
-            : base(userManager, signInManager, authenticationManager, followerService)
+            : base(userManager, signInManager, followerService)
         {
         }
 

@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Bytes2you.Validation;
 
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 
 using RememBeer.Models.Identity.Contracts;
 using RememBeer.MvcClient.Filters;
@@ -19,22 +18,18 @@ namespace RememBeer.MvcClient.Controllers
     {
         private IApplicationUserManager userManager;
         private readonly IApplicationSignInManager signInManager;
-        private readonly IAuthenticationManager authenticationManager;
         private readonly IFollowerService followerService;
 
         public ManageController(IApplicationUserManager userManager,
                                 IApplicationSignInManager signInManager,
-                                IAuthenticationManager authenticationManager,
                                 IFollowerService followerService)
         {
             Guard.WhenArgument(userManager, nameof(userManager)).IsNull().Throw();
             Guard.WhenArgument(signInManager, nameof(signInManager)).IsNull().Throw();
-            Guard.WhenArgument(authenticationManager, nameof(authenticationManager)).IsNull().Throw();
             Guard.WhenArgument(followerService, nameof(followerService)).IsNull().Throw();
 
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.authenticationManager = authenticationManager;
             this.followerService = followerService;
         }
 
@@ -54,7 +49,6 @@ namespace RememBeer.MvcClient.Controllers
                             PhoneNumber = await this.userManager.GetPhoneNumberAsync(userId),
                             TwoFactor = await this.userManager.GetTwoFactorEnabledAsync(userId),
                             Logins = await this.userManager.GetLoginsAsync(userId),
-                            BrowserRemembered = await this.authenticationManager.TwoFactorBrowserRememberedAsync(userId)
                         };
 
             if (this.Request.IsAjaxRequest())

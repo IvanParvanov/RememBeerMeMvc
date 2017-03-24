@@ -7,9 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-
 using Moq;
 
 using Ninject;
@@ -67,20 +64,6 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
 
             // Assert
             userManager.Verify(m => m.GetLoginsAsync(this.expectedUserId), Times.Once);
-        }
-
-        [Test]
-        public async Task Call_AuthManagerAuthenticateAsyncMethodOnceWithCorrectParams()
-        {
-            // Arrange
-            var sut = this.MockingKernel.Get<ManageController>(RegularContextName);
-            var authManager = this.MockingKernel.GetMock<IAuthenticationManager>();
-
-            // Act
-            await sut.Index(null);
-
-            // Assert
-            authManager.Verify(m => m.AuthenticateAsync(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie), Times.Once);
         }
 
         [Test]
