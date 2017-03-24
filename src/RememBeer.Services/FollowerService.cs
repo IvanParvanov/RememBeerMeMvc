@@ -26,14 +26,6 @@ namespace RememBeer.Services
             this.resultFactory = resultFactory;
         }
 
-        //public async Task<IEnumerable<IApplicationUser>> GetFollowersForUsername(string username)
-        //{
-        //    var user = await this.db.Users.Include(u => u.Followers)
-        //                         .FirstOrDefaultAsync(u => u.UserName == username);
-
-        //    return user?.Followers;
-        //}
-
         public async Task<IEnumerable<IApplicationUser>> GetFollowersForUserIdAsync(string userId)
         {
             var user = await this.db.Users.Include(u => u.Followers)
