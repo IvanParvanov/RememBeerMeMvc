@@ -10,6 +10,9 @@
                         <label for="imgUpload">Upload a new image:</label>
                         @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
                         {
+                            <div class="image-loader fade-quick">
+                                <i class="fa fa-cog fa-3x fa-spin" aria-hidden="true"></i>
+                            </div>
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(x => x.Id, new { id = "review-id" })
                             <input type="file" accept="image/*" id="imgUpload"/>

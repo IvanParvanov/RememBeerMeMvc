@@ -231,3 +231,7 @@ select {
 .selects label { position: initial; }
 
 select option { padding: 10px 16px; }
+
+.image-loader {
+    display: none;
+}

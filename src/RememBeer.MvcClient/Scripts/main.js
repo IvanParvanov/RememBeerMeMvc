@@ -207,6 +207,9 @@ var eventManager = {
     },
     attachImageUpload: function () {
         $("#imgUploadForm").change(function () {
+            var $this = $(this);
+            var $imageLoader = $this.find(".image-loader");
+            $imageLoader.show();
             var formData = new FormData();
             var input = document.getElementById("imgUpload");
             var totalFiles = input.files.length;
@@ -227,6 +230,7 @@ var eventManager = {
                     var $this = $("#imgUploadForm");
                     var parent = $this.parent();
                     parent.empty();
+                    $imageLoader.hide();
 
                     var imgEl = $("<img>").addClass("materialboxed responsive-img").attr("src", response.url);
                     parent.prepend(imgEl);
