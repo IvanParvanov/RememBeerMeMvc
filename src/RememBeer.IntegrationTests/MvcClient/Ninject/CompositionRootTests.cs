@@ -23,6 +23,9 @@ namespace RememBeer.IntegrationTests.MvcClient.Ninject
     [TestFixture]
     public class CompositionRootTests
     {
+        private const string IdentityOwinPrefix = "AspNet.Identity.Owin:";
+        private const string OwinEnvironmentKey = "owin.Environment";
+
         [Test]
         public void CompositionRoot_ShouldBeAbleToBuildAllRootTypes()
         {
@@ -38,10 +41,10 @@ namespace RememBeer.IntegrationTests.MvcClient.Ninject
 
             var owinEnv = new Dictionary<string, object>
                           {
-                              { "AspNet.Identity.Owin:" + typeof(IApplicationUserManager).AssemblyQualifiedName, new Mock<IApplicationUserManager>().Object },
-                              { "AspNet.Identity.Owin:" + typeof(IApplicationSignInManager).AssemblyQualifiedName, new Mock<IApplicationSignInManager>().Object }
+                              {  $"{IdentityOwinPrefix}{typeof(IApplicationUserManager).AssemblyQualifiedName}", new Mock<IApplicationUserManager>().Object },
+                              {  $"{IdentityOwinPrefix}{typeof(IApplicationSignInManager).AssemblyQualifiedName}", new Mock<IApplicationSignInManager>().Object }
                           };
-            httpContext.Items["owin.Environment"] = owinEnv;
+            httpContext.Items[OwinEnvironmentKey] = owinEnv;
 
             var mvcAssembly = typeof(HomeController).Assembly;
             var rootTypes = mvcAssembly.GetExportedTypes()
