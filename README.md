@@ -72,6 +72,6 @@ So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having a
 ![Coverage](docs/img/coverage.PNG)
     
 ### Screenshots
-![home](docs/img/home-screen.PNG)
-![beer review](docs/img/review.PNG)
-![brewery editing](docs/img/brewery-details.PNG)
+![home](docs/img/home-screen1.PNG)
+![beer review](docs/img/review1.PNG)
+![brewery editing](docs/img/brewery-details1.PNG)
