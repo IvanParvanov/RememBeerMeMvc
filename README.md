@@ -73,5 +73,5 @@ So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having a
     
 ### Screenshots
 ![home](docs/img/home-screen1.PNG)
-![beer review](docs/img/review1.PNG)
+![beer review](docs/img/review2.PNG)
 ![brewery editing](docs/img/brewery-details1.PNG)
