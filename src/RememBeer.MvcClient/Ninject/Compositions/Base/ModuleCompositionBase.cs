@@ -23,7 +23,7 @@ namespace RememBeer.MvcClient.Ninject.Compositions.Base
         {
             kernel.Bind(x => x.FromAssembliesMatching("RememBeer.*")
                               .SelectAllClasses()
-                              .BindDefaultInterface());
+                              .BindDefaultInterfaces());
         }
     }
 }

@@ -69,7 +69,7 @@ So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having a
      Administrators can change brewery information, add new beers to a brewery and delete old ones if needed.
      
 ### Unit Test Coverage
-![Coverage](docs/img/coverage.PNG)
+![Coverage](docs/img/coverage-all.PNG)
     
 ### Screenshots
 ![home](docs/img/home-screen1.PNG)
