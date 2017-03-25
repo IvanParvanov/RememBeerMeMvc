@@ -20,20 +20,20 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
     [TestFixture]
     public class Reviews_Should : UsersControllerTestBase
     {
-        [TestCase("", 0, 0)]
-        [TestCase(null, 0, 0)]
-        [TestCase("sakkasjdkljasdklj2930281908ASD*()as8d", 17, 991)]
-        public void Call_GetReviewsForUserMethodOnceWithCorrectParams(string expectedUserId, int expectedPage, int expectedPageSize)
+        [TestCase("", 0, 0, "")]
+        [TestCase(null, 0, 0, null)]
+        [TestCase("sakkasjdkljasdklj2930281908ASD*()as8d", 17, 991, "asjkhjkasdhqio89AS*(D&*(&(AS78y7123")]
+        public void Call_GetReviewsForUserMethodOnceWithCorrectParams(string expectedUserId, int expectedPage, int expectedPageSize, string expectedSearch)
         {
             // Arrange
             var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
-            sut.Reviews(expectedUserId, expectedPage, expectedPageSize);
+            sut.Reviews(expectedUserId, expectedPage, expectedPageSize, expectedSearch);
 
             // Assert
-            reviewService.Verify(s => s.GetReviewsForUser(expectedUserId, expectedPage * expectedPageSize, expectedPageSize), Times.Once);
+            reviewService.Verify(s => s.GetReviewsForUser(expectedUserId, expectedPage * expectedPageSize, expectedPageSize, expectedSearch), Times.Once);
         }
 
         [TestCase(-1, -1)]
@@ -51,23 +51,23 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
             sut.Reviews(It.IsAny<string>(), page, pageSize);
 
             // Assert
-            reviewService.Verify(s => s.GetReviewsForUser(It.IsAny<string>(), expectedPage * expectedPageSize, expectedPageSize), Times.Once);
+            reviewService.Verify(s => s.GetReviewsForUser(It.IsAny<string>(), expectedPage * expectedPageSize, expectedPageSize, It.IsAny<string>()), Times.Once);
         }
 
-        [TestCase("")]
-        [TestCase(null)]
-        [TestCase("sakkasjdkljasdklj2930281908ASD*()as8d")]
-        public void Call_CountUserReviewsWithCorrectParamsOnce(string expectedUserId)
+        [TestCase("", "")]
+        [TestCase(null, null)]
+        [TestCase("sakkasjdkljasdklj2930281908ASD*()as8d", "sdakjh23kjhjkhk23423423")]
+        public void Call_CountUserReviewsWithCorrectParamsOnce(string expectedUserId, string expectedSearch)
         {
             // Arrange
             var sut = this.MockingKernel.Get<UsersController>(AjaxContextName);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
-            sut.Reviews(expectedUserId);
+            sut.Reviews(expectedUserId, searchPattern: expectedSearch);
 
             // Assert
-            reviewService.Verify(s => s.CountUserReviews(expectedUserId), Times.Once);
+            reviewService.Verify(s => s.CountUserReviews(expectedUserId, expectedSearch), Times.Once);
         }
 
         [Test]

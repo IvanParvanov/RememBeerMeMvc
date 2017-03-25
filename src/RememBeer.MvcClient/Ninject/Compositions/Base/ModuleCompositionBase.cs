@@ -24,21 +24,9 @@ namespace RememBeer.MvcClient.Ninject.Compositions.Base
 
         private static void BindDefaultInterfaces(IBindingRoot kernel)
         {
-            kernel.Bind(x =>
-                        {
-                            var assemblies = AppDomain.CurrentDomain
-                                                      .GetAssemblies()
-                                                      .Where(a => a.FullName.StartsWith("RememBeer."));
-
-                            foreach (var assembly in assemblies)
-                            {
-                                var assemblyLocation = assembly.Location;
-                                var directoryPath = Path.GetDirectoryName(assemblyLocation);
-                                x.FromAssembliesInPath(directoryPath)
-                                 .SelectAllClasses()
-                                 .BindDefaultInterface();
-                            }
-                        });
+            kernel.Bind(x => x.FromAssembliesMatching("RememBeer.*")
+                              .SelectAllClasses()
+                              .BindDefaultInterface());
         }
     }
 }

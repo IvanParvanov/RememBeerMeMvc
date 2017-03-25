@@ -32,18 +32,36 @@ namespace RememBeer.Services
                                           SortOrder.Descending);
         }
 
-        public IEnumerable<IBeerReview> GetReviewsForUser(string userId, int skip, int pageSize)
+        public IEnumerable<IBeerReview> GetReviewsForUser(string userId, int skip, int pageSize, string searchPattern = null)
         {
-            return this.repository.GetAll(x => x.IsDeleted == false && x.ApplicationUserId == userId,
-                                          x => x.CreatedAt,
-                                          SortOrder.Descending)
-                       .Skip(skip)
-                       .Take(pageSize);
+            var result = this.repository.All;
+            if (string.IsNullOrEmpty(searchPattern))
+            {
+                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId);
+            }
+            else
+            {
+                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId && ( x.Beer.Name.Contains(searchPattern) || x.Beer.Brewery.Name.Contains(searchPattern) || x.Place.Contains(searchPattern) ));
+            }
+
+            return result.OrderByDescending(x => x.CreatedAt)
+                         .Skip(skip)
+                         .Take(pageSize)
+                         .ToList();
         }
 
-        public int CountUserReviews(string userId)
+        public int CountUserReviews(string userId, string searchPattern = null)
         {
-            return this.repository.All.Count(x => x.ApplicationUserId == userId && x.IsDeleted == false);
+            if (string.IsNullOrEmpty(searchPattern))
+            {
+                return this.repository.All.Count(x => x.ApplicationUserId == userId && x.IsDeleted == false);
+            }
+
+            return this.repository.All.Count(x => x.ApplicationUserId == userId
+                                                  && x.IsDeleted == false
+                                                  && (x.Beer.Name.Contains(searchPattern)
+                                                      || x.Beer.Brewery.Name.Contains(searchPattern)
+                                                      || x.Place.Contains(searchPattern)));
         }
 
         public IDataModifiedResult UpdateReview(IBeerReview review)

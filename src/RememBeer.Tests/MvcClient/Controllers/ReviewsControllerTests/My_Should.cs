@@ -26,24 +26,24 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
     {
         private readonly string expectedUserId = Guid.NewGuid().ToString();
 
-        [TestCase(0, 0)]
-        [TestCase(1, 50)]
-        [TestCase(500, 17)]
-        public void Call_GetReviewsForUserOnceWithCorrectParams(int page, int pageSize)
+        [TestCase(0, 0, "")]
+        [TestCase(1, 50, null)]
+        [TestCase(500, 17, "asdjkh12kj3789y6as8791236545sd465as465dasas123423gyuyjuyio")]
+        public void Call_GetReviewsForUserOnceWithCorrectParams(int page, int pageSize, string search)
         {
             // Arrange
             var expected = new List<IBeerReview>();
             var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
 
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.GetReviewsForUser(this.expectedUserId, page * pageSize, pageSize))
+            reviewService.Setup(r => r.GetReviewsForUser(this.expectedUserId, page * pageSize, pageSize, search))
                          .Returns(expected);
 
             // Act
-            sut.My(page, pageSize);
+            sut.My(page, pageSize, search);
 
             // Assert
-            reviewService.Verify(s => s.GetReviewsForUser(this.expectedUserId, page * pageSize, pageSize), Times.Once);
+            reviewService.Verify(s => s.GetReviewsForUser(this.expectedUserId, page * pageSize, pageSize, search), Times.Once);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var mapper = this.MockingKernel.GetMock<IMapper>();
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.GetReviewsForUser(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+            reviewService.Setup(r => r.GetReviewsForUser(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                          .Returns(expected);
 
             // Act
@@ -69,14 +69,15 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
         public void Call_CountUserReviewsrOnceWithCorrectParams()
         {
             // Arrange
+            var expectedSearch = Guid.NewGuid().ToString();
             var sut = this.MockingKernel.Get<ReviewsController>(AjaxContextName);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
 
             // Act
-            sut.My();
+            sut.My(searchPattern: expectedSearch);
 
             // Assert
-            reviewService.Verify(s => s.CountUserReviews(this.expectedUserId), Times.Once);
+            reviewService.Verify(s => s.CountUserReviews(this.expectedUserId, expectedSearch), Times.Once);
         }
 
         [Test]
@@ -92,7 +93,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
+            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>(), It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
 
             // Act
@@ -121,7 +122,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
+            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>(), It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
 
             // Act
@@ -150,7 +151,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
+            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>(), It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
 
             // Act
@@ -179,7 +180,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             mapper.Setup(m => m.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(It.IsAny<IEnumerable<IBeerReview>>()))
                   .Returns(expectedReviews);
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
-            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>()))
+            reviewService.Setup(r => r.CountUserReviews(It.IsAny<string>(), It.IsAny<string>()))
                          .Returns(expectedReviews.Count);
 
             // Act

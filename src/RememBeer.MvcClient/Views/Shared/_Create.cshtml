@@ -1,8 +1,6 @@
 @model RememBeer.MvcClient.Models.Reviews.CreateReviewBindingModel
 
-<div class="center-align hide-on-med-and-down">
-    <a class="waves-effect waves-light btn btn-large modal-trigger green " href="#createModal">Create a new review</a>
-</div>
+
 
 <div id="createModal" class="modal">
     @using (Ajax.BeginForm("Index", "Reviews", null,

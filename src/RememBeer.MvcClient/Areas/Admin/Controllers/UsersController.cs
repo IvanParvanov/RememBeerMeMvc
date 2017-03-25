@@ -58,13 +58,13 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         }
 
         // GET: Admin/Users/Reviews/id
-        public ActionResult Reviews(string id, int page = 0, int pageSize = Constants.DefaultPageSize)
+        public ActionResult Reviews(string id, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             page = page < 0 ? 0 : page;
             pageSize = pageSize < 0 ? 1 : pageSize;
             var skip = page * pageSize;
-            var reviews = this.reviewService.GetReviewsForUser(id, skip, pageSize);
-            var totalCount = this.reviewService.CountUserReviews(id);
+            var reviews = this.reviewService.GetReviewsForUser(id, skip, pageSize, searchPattern);
+            var totalCount = this.reviewService.CountUserReviews(id, searchPattern);
 
             var mappedReviews = this.mapper.Map<IEnumerable<IBeerReview>, IEnumerable<SingleReviewViewModel>>(reviews);
             foreach (var singleReviewViewModel in mappedReviews)
