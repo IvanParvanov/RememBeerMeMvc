@@ -41,7 +41,7 @@ namespace RememBeer.Services
             }
             else
             {
-                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId && ( x.Beer.Name.Contains(searchPattern) || x.Beer.Brewery.Name.Contains(searchPattern) || x.Place.Contains(searchPattern) ));
+                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId && (x.Beer.Name.Contains(searchPattern) || x.Beer.Brewery.Name.Contains(searchPattern) || x.Place.Contains(searchPattern) ));
             }
 
             return result.OrderByDescending(x => x.CreatedAt)
