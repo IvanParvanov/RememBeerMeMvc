@@ -54,11 +54,11 @@ namespace RememBeer.Tests.Services.FollowerServiceTests
             var expectedId = "dsajihsadjkhjkasdasdds";
             var follower = new Mock<ApplicationUser>();
             follower.Setup(u => u.Id)
-                .Returns(expectedId);
+                    .Returns(expectedId);
             var followers = new List<ApplicationUser>()
-                                    {
-                                        follower.Object
-                                    };
+                            {
+                                follower.Object
+                            };
             var foundUser = new Mock<ApplicationUser>();
             foundUser.Setup(u => u.Followers)
                      .Returns(followers);

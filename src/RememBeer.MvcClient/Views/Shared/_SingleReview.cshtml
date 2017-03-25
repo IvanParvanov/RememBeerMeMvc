@@ -79,7 +79,7 @@
                                  new { @class = "btn amber darken-2 white-text waves-effect waves-light" })
 
                 <a class="btn deep-orange darken-2 white-text waves-effect waves-light modal-trigger " href="#deleteModal" onclick="updateModal(this)" data-id="@Model.Id">Delete</a>
-                <a class="right" href="@Url.Action("Details", "Reviews", new { area = "", id=Model.Id })">Share Link</a>
+                <a class="right" href="@Url.Action("Details", "Reviews", new { area = "", id = Model.Id })">Share Link</a>
                 <div class="clearfix"></div>
             </div>
         }

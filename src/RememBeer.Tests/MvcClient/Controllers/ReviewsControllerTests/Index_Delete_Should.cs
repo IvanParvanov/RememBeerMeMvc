@@ -141,30 +141,29 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             Assert.IsNotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
             StringAssert.Contains("deleted successfully", result.StatusDescription);
-
         }
 
         public override void Init()
         {
             this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
-                {
-                    var request = new Mock<HttpRequestBase>();
-                    request.SetupGet(x => x.Headers).Returns(
-                                                             new WebHeaderCollection
-                                                             {
+                          {
+                              var request = new Mock<HttpRequestBase>();
+                              request.SetupGet(x => x.Headers).Returns(
+                                                                       new WebHeaderCollection
+                                                                       {
                                                                            { "X-Requested-With", "XMLHttpRequest" }
-                                                             });
+                                                                       });
 
-                    var identity = new Mock<ClaimsIdentity>();
-                    identity.Setup(i => i.FindFirst(It.IsAny<string>()))
-                            .Returns(new Claim("sa", this.expectedUserId));
-                    var context = new Mock<HttpContextBase>();
-                    context.SetupGet(x => x.Request).Returns(request.Object);
-                    context.SetupGet(x => x.User.Identity).Returns(identity.Object);
+                              var identity = new Mock<ClaimsIdentity>();
+                              identity.Setup(i => i.FindFirst(It.IsAny<string>()))
+                                      .Returns(new Claim("sa", this.expectedUserId));
+                              var context = new Mock<HttpContextBase>();
+                              context.SetupGet(x => x.Request).Returns(request.Object);
+                              context.SetupGet(x => x.User.Identity).Returns(identity.Object);
 
-                    return context.Object;
-                })
+                              return context.Object;
+                          })
                 .InSingletonScope()
                 .Named(AjaxContextName);
 

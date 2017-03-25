@@ -19,7 +19,7 @@ namespace RememBeer.Tests.Models
 
             // Act
             var beer = new BeerType()
-            {
+                       {
                            Id = expectedId,
                            Type = expectedType,
                            Beers = beers

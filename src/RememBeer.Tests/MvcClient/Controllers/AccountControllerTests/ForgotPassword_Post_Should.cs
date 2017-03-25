@@ -172,23 +172,23 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
         public override void Init()
         {
             this.MockingKernel.Bind<AccountController>().ToMethod(ctx =>
-                                                           {
-                                                               var sut = ctx.Kernel.Get<AccountController>();
-                                                               var urlHelper = new Mock<UrlHelper>();
-                                                               urlHelper.Setup(h => h.Action(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
-                                                                        .Returns(ExpectedUri);
-                                                               sut.Url = urlHelper.Object;
-                                                               var url = new Uri(ExpectedUri);
-                                                               var request = new Mock<HttpRequestBase>();
-                                                               request.Setup(r => r.Url)
-                                                                      .Returns(url);
-                                                               var httpContext = new Mock<HttpContextBase>();
-                                                               httpContext.Setup(c => c.Request)
-                                                                          .Returns(request.Object);
-                                                               sut.ControllerContext = new ControllerContext(httpContext.Object, new RouteData(), sut);
+                                                                  {
+                                                                      var sut = ctx.Kernel.Get<AccountController>();
+                                                                      var urlHelper = new Mock<UrlHelper>();
+                                                                      urlHelper.Setup(h => h.Action(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>(), It.IsAny<string>()))
+                                                                               .Returns(ExpectedUri);
+                                                                      sut.Url = urlHelper.Object;
+                                                                      var url = new Uri(ExpectedUri);
+                                                                      var request = new Mock<HttpRequestBase>();
+                                                                      request.Setup(r => r.Url)
+                                                                             .Returns(url);
+                                                                      var httpContext = new Mock<HttpContextBase>();
+                                                                      httpContext.Setup(c => c.Request)
+                                                                                 .Returns(request.Object);
+                                                                      sut.ControllerContext = new ControllerContext(httpContext.Object, new RouteData(), sut);
 
-                                                               return sut;
-                                                           })
+                                                                      return sut;
+                                                                  })
                 .Named(RegularContextName)
                 .BindingConfiguration.IsImplicit = true;
 

@@ -143,9 +143,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
                     .Returns(new MemoryStream());
             var sut = this.MockingKernel.Get<ReviewsController>();
             var bindingModel = new ChangeImageBindingModel
-            {
-                Image = fileMock.Object
-            };
+                               {
+                                   Image = fileMock.Object
+                               };
             var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
             var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
@@ -173,9 +173,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var sut = this.MockingKernel.Get<ReviewsController>();
             var updateResult = new Mock<IDataModifiedResult>();
             var bindingModel = new ChangeImageBindingModel
-            {
-                Image = fileMock.Object
-            };
+                               {
+                                   Image = fileMock.Object
+                               };
             var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
             var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
@@ -207,9 +207,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var sut = this.MockingKernel.Get<ReviewsController>();
             var updateResult = new Mock<IDataModifiedResult>();
             var bindingModel = new ChangeImageBindingModel
-            {
-                Image = fileMock.Object
-            };
+                               {
+                                   Image = fileMock.Object
+                               };
             var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
             var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
@@ -243,9 +243,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             updateResult.Setup(r => r.Successful)
                         .Returns(true);
             var bindingModel = new ChangeImageBindingModel
-            {
-                Image = fileMock.Object
-            };
+                               {
+                                   Image = fileMock.Object
+                               };
             var beerReview = this.MockingKernel.Get<IBeerReview>(ForCurrentUser);
             var context = this.MockingKernel.Get<HttpContextBase>();
             sut.ControllerContext = new ControllerContext(context, new RouteData(), sut);
@@ -272,13 +272,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             base.Init();
 
             this.MockingKernel.Bind<IBeerReview>().ToMethod(ctx =>
-                                                     {
-                                                         var review = new Mock<IBeerReview>();
-                                                         review.Setup(r => r.ApplicationUserId)
-                                                               .Returns(this.expectedUserId);
+                                                            {
+                                                                var review = new Mock<IBeerReview>();
+                                                                review.Setup(r => r.ApplicationUserId)
+                                                                      .Returns(this.expectedUserId);
 
-                                                         return review.Object;
-                                                     })
+                                                                return review.Object;
+                                                            })
                 .InSingletonScope()
                 .Named(ForCurrentUser);
 

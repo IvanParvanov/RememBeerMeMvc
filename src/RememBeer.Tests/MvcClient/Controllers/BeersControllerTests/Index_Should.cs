@@ -63,7 +63,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
             var expected = new List<BeerDto>();
             var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IEnumerable<IBeer>, IEnumerable<BeerDto>>(It.IsAny<IEnumerable<IBeer>>()))
-                .Returns(expected);
+                  .Returns(expected);
 
             // Act
             var result = sut.Index("");
@@ -72,7 +72,6 @@ namespace RememBeer.Tests.MvcClient.Controllers.BeersControllerTests
             var actual = result.Data as IEnumerable<BeerDto>;
             Assert.AreSame(expected, actual);
             Assert.AreEqual(JsonRequestBehavior.AllowGet, result.JsonRequestBehavior);
-
         }
 
         public override void Init()

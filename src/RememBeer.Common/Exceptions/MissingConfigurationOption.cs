@@ -11,7 +11,7 @@ namespace RememBeer.Common.Exceptions
         {
         }
 
-        public MissingConfigurationOption(string settingName) 
+        public MissingConfigurationOption(string settingName)
             : base(string.Format(MessageFormat, settingName))
         {
         }

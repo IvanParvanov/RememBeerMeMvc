@@ -36,7 +36,7 @@ namespace RememBeer.Tests.Services.BeerReviewServiceTests
             var allReviews = new List<BeerReview>();
 
             // Add random reviews which should not be counted
-            for (var i = 0; i < expectedCountForUser * 2; i++ )
+            for (var i = 0; i < expectedCountForUser * 2; i++)
             {
                 var review = this.Fixture.Create<BeerReview>();
                 allReviews.Add(review);

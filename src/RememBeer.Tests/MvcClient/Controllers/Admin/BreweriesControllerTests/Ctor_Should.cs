@@ -41,7 +41,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
             var beerTypesService = new Mock<IBeerTypesService>();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new BreweriesController(mapper.Object,null, beerTypesService.Object));
+            Assert.Throws<ArgumentNullException>(() => new BreweriesController(mapper.Object, null, beerTypesService.Object));
         }
 
         [Test]

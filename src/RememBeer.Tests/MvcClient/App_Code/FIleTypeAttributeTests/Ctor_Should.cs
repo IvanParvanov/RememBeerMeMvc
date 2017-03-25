@@ -25,4 +25,3 @@ namespace RememBeer.Tests.MvcClient.App_Code.FIleTypeAttributeTests
         }
     }
 }
-

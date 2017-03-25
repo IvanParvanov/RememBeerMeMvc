@@ -39,7 +39,7 @@ namespace RememBeer.MvcClient.Models.Reviews
                 for (int i = 1; i < 11; i++)
                 {
                     var value = i.ToString();
-                    items.Add(new SelectListItem() {Value = value, Text = value});
+                    items.Add(new SelectListItem() { Value = value, Text = value });
                 }
 
                 return items;

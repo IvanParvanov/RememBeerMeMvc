@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace RememBeer.Data.Migrations
 {
     using System.Data.Entity.Migrations;
-    
+
     [ExcludeFromCodeCoverage]
     public partial class UserChanges : DbMigration
     {
@@ -14,7 +14,7 @@ namespace RememBeer.Data.Migrations
             this.RenameIndex(table: "dbo.BeerReviews", name: "IX_UserId", newName: "IX_ApplicationUserId");
             this.DropColumn("dbo.AspNetUsers", "Discriminator");
         }
-        
+
         public override void Down()
         {
             this.AddColumn("dbo.AspNetUsers", "Discriminator", c => c.String(nullable: false, maxLength: 128));

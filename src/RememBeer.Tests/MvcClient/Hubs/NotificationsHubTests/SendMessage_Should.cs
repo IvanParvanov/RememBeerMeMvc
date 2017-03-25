@@ -85,7 +85,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             // Arrange
             const string expectedMessage = "peshooasjklasdaasdjkasdas";
             const string expectedLon = "pesh123ooasjklasdjkasdas";
-            const string expectedLat= "peshooasjklasdjk23125asdas";
+            const string expectedLat = "peshooasjklasdjk23125asdas";
 
             var sut = this.MockingKernel.Get<NotificationsHub>();
             var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
@@ -103,15 +103,15 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
 
             this.MockingKernel.Bind<ClaimsIdentity>()
                 .ToMethod(ctx =>
-                {
-                    var identity = new Mock<ClaimsIdentity>();
-                    identity.Setup(i => i.FindFirst(It.IsAny<string>()))
-                            .Returns(new Claim("sa", this.expectedUserId));
-                    identity.SetupGet(i => i.Name)
-                            .Returns(this.expectedUserName);
+                          {
+                              var identity = new Mock<ClaimsIdentity>();
+                              identity.Setup(i => i.FindFirst(It.IsAny<string>()))
+                                      .Returns(new Claim("sa", this.expectedUserId));
+                              identity.SetupGet(i => i.Name)
+                                      .Returns(this.expectedUserName);
 
-                    return identity.Object;
-                });
+                              return identity.Object;
+                          });
         }
     }
 }

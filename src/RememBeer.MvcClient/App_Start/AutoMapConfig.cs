@@ -31,7 +31,6 @@ namespace RememBeer.MvcClient
                                   breweryDetailsMap.ForMember(model => model.EditModel, opt => opt.MapFrom(x => x));
                                   breweryDetailsMap.ForMember(model => model.CreateModel, opt => opt.MapFrom(x => x));
                               });
-
         }
     }
 }

@@ -90,7 +90,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
             breweryService.Setup(s => s.AddNewBeer(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
             // Act
-            var result = sut.Details(new CreateBeerBindingModel() {Id=15}) as RedirectToRouteResult;
+            var result = sut.Details(new CreateBeerBindingModel() { Id = 15 }) as RedirectToRouteResult;
 
             // Assert
             Assert.IsNotNull(result);

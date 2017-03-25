@@ -243,7 +243,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ReviewsControllerTests
             var bindingModel = new CreateReviewBindingModel()
                                {
                                    Image = fileMock.Object
-            };
+                               };
 
             var reviewService = this.MockingKernel.GetMock<IBeerReviewService>();
             reviewService.Setup(s => s.CreateReview(It.IsAny<IBeerReview>()))

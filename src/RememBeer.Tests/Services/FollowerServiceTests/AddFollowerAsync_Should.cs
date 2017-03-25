@@ -106,9 +106,9 @@ namespace RememBeer.Tests.Services.FollowerServiceTests
 
             var userToFollow = new Mock<ApplicationUser>();
             userToFollow.Setup(u => u.Followers)
-                     .Returns(expectedFollowers);
+                        .Returns(expectedFollowers);
             userToFollow.Setup(u => u.UserName)
-                     .Returns(userToFollowName);
+                        .Returns(userToFollowName);
             var users = new List<ApplicationUser>
                         {
                             new Mock<ApplicationUser>().Object,
@@ -151,9 +151,9 @@ namespace RememBeer.Tests.Services.FollowerServiceTests
 
             var userToFollow = new Mock<ApplicationUser>();
             userToFollow.Setup(u => u.Followers)
-                     .Returns(expectedFollowers);
+                        .Returns(expectedFollowers);
             userToFollow.Setup(u => u.UserName)
-                     .Returns(userToFollowName);
+                        .Returns(userToFollowName);
             var users = new List<ApplicationUser>
                         {
                             new Mock<ApplicationUser>().Object,

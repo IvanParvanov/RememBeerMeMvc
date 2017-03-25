@@ -1,13 +1,13 @@
 ﻿@model RememBeer.MvcClient.Areas.Admin.Models.EditBreweryBindingModel
 @using (Ajax.BeginForm("Details", "Breweries", null, new AjaxOptions()
-{
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "content",
-    LoadingElementId = "loading",
-    HttpMethod = "PUT",
-    OnFailure = "notifier.handleAjaxError",
-    OnSuccess = "notifier.showSuccess('Brewery has been updated')"
-}, new { }))
+                                                     {
+                                                         InsertionMode = InsertionMode.Replace,
+                                                         UpdateTargetId = "content",
+                                                         LoadingElementId = "loading",
+                                                         HttpMethod = "PUT",
+                                                         OnFailure = "notifier.handleAjaxError",
+                                                         OnSuccess = "notifier.showSuccess('Brewery has been updated')"
+                                                     }, new { }))
 {
     @Html.AntiForgeryToken()
     <table class="bordered striped">

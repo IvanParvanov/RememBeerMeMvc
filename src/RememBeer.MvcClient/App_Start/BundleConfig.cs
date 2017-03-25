@@ -21,7 +21,7 @@ namespace RememBeer.MvcClient
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                                                                        "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                                                                      "~/Scripts/main.js"));

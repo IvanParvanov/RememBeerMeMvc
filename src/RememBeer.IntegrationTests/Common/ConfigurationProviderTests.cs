@@ -70,4 +70,3 @@ namespace RememBeer.IntegrationTests.Common
         }
     }
 }
-

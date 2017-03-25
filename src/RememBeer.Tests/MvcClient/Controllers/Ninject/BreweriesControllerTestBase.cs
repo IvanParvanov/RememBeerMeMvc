@@ -26,24 +26,24 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
             this.MockingKernel.Bind<IBeerTypesService>().ToMock().InSingletonScope();
 
             this.MockingKernel.Bind<BreweriesController>().ToMethod(ctx =>
-                                                             {
-                                                                 var sut = ctx.Kernel.Get<BreweriesController>();
-                                                                 var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
-                                                                 sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+                                                                    {
+                                                                        var sut = ctx.Kernel.Get<BreweriesController>();
+                                                                        var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
+                                                                        sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
-                                                                 return sut;
-                                                             })
+                                                                        return sut;
+                                                                    })
                 .Named(AjaxContextName)
                 .BindingConfiguration.IsImplicit = true;
 
             this.MockingKernel.Bind<BreweriesController>().ToMethod(ctx =>
-                                                             {
-                                                                 var sut = ctx.Kernel.Get<BreweriesController>();
-                                                                 var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);
-                                                                 sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+                                                                    {
+                                                                        var sut = ctx.Kernel.Get<BreweriesController>();
+                                                                        var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);
+                                                                        sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
-                                                                 return sut;
-                                                             })
+                                                                        return sut;
+                                                                    })
                 .Named(RegularContextName)
                 .BindingConfiguration.IsImplicit = true;
 

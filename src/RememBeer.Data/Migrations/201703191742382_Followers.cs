@@ -17,12 +17,12 @@ namespace RememBeer.Data.Migrations
             this.DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             this.DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             this.CreateTable(
-                "dbo.Followers",
-                c => new
-                    {
-                        FirstUserId = c.String(nullable: false, maxLength: 128),
-                        SecondUserId = c.String(nullable: false, maxLength: 128),
-                    })
+                             "dbo.Followers",
+                             c => new
+                                  {
+                                      FirstUserId = c.String(nullable: false, maxLength: 128),
+                                      SecondUserId = c.String(nullable: false, maxLength: 128),
+                                  })
                 .PrimaryKey(t => new { t.FirstUserId, t.SecondUserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.FirstUserId)
                 .ForeignKey("dbo.AspNetUsers", t => t.SecondUserId)
@@ -38,7 +38,7 @@ namespace RememBeer.Data.Migrations
             this.AddForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers", "Id");
             this.AddForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles", "Id");
         }
-        
+
         public override void Down()
         {
             this.DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");

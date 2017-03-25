@@ -69,7 +69,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
                       .Returns(new List<string>() { err1, err2 });
             var followerService = this.MockingKernel.GetMock<IFollowerService>();
             followerService.Setup(s => s.RemoveFollowerAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(Task.FromResult(dataResult.Object));
+                           .Returns(Task.FromResult(dataResult.Object));
 
             // Act
             var result = await sut.Unfollow("pesho") as HttpStatusCodeResult;
@@ -91,7 +91,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
                       .Returns(true);
             var followerService = this.MockingKernel.GetMock<IFollowerService>();
             followerService.Setup(s => s.RemoveFollowerAsync(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(Task.FromResult(dataResult.Object));
+                           .Returns(Task.FromResult(dataResult.Object));
 
             // Act
             var result = await sut.Unfollow("pesho") as RedirectToRouteResult;
@@ -102,31 +102,30 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             Assert.IsNull(result.RouteValues["controller"]);
         }
 
-
         public override void Init()
         {
             base.Init();
 
             this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
-                {
-                    var request = new Mock<HttpRequestBase>();
-                    var identity = new Mock<ClaimsIdentity>();
-                    identity.Setup(i => i.FindFirst(It.IsAny<string>()))
-                            .Returns(new Claim("sa", this.expectedUserId));
+                          {
+                              var request = new Mock<HttpRequestBase>();
+                              var identity = new Mock<ClaimsIdentity>();
+                              identity.Setup(i => i.FindFirst(It.IsAny<string>()))
+                                      .Returns(new Claim("sa", this.expectedUserId));
 
-                    var mockedUser = new Mock<IPrincipal>();
-                    mockedUser.Setup(u => u.Identity)
-                              .Returns(identity.Object);
+                              var mockedUser = new Mock<IPrincipal>();
+                              mockedUser.Setup(u => u.Identity)
+                                        .Returns(identity.Object);
 
-                    var context = new Mock<HttpContextBase>();
-                    context.SetupGet(x => x.User)
-                           .Returns(mockedUser.Object);
-                    context.SetupGet(x => x.Request)
-                           .Returns(request.Object);
+                              var context = new Mock<HttpContextBase>();
+                              context.SetupGet(x => x.User)
+                                     .Returns(mockedUser.Object);
+                              context.SetupGet(x => x.Request)
+                                     .Returns(request.Object);
 
-                    return context.Object;
-                })
+                              return context.Object;
+                          })
                 .InSingletonScope()
                 .Named(RegularContextName);
         }

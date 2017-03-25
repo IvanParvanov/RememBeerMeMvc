@@ -61,7 +61,7 @@ namespace RememBeer.Tests.Services.TopBeerServiceTests
             topBeersService.GetTopBeers(10);
 
             // Assert
-            foreach (var expectedGroup in enumeratedGroups )
+            foreach (var expectedGroup in enumeratedGroups)
             {
                 strategy.Verify(s => s.GetBeerRank(expectedGroup, expectedGroup.Key), Times.Once);
             }

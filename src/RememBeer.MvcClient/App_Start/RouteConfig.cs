@@ -6,7 +6,7 @@ namespace RememBeer.MvcClient
 {
     public class RouteConfig
     {
-    [ExcludeFromCodeCoverage]
+        [ExcludeFromCodeCoverage]
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.LowercaseUrls = true;

@@ -28,13 +28,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.Ninject
             this.MockingKernel.Bind<IFollowerService>().ToMock().InSingletonScope();
 
             this.MockingKernel.Bind<ManageController>().ToMethod(ctx =>
-                                                          {
-                                                              var sut = ctx.Kernel.Get<ManageController>();
-                                                              var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);
-                                                              sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+                                                                 {
+                                                                     var sut = ctx.Kernel.Get<ManageController>();
+                                                                     var httpContext = ctx.Kernel.Get<HttpContextBase>(RegularContextName);
+                                                                     sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
-                                                              return sut;
-                                                          })
+                                                                     return sut;
+                                                                 })
                 .Named(RegularContextName)
                 .BindingConfiguration.IsImplicit = true;
         }

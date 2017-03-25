@@ -46,9 +46,9 @@ namespace RememBeer.Services
             }
 
             return result.OrderBy(order)
-                       .Skip(skip)
-                       .Take(pageSize)
-                       .ToList();
+                         .Skip(skip)
+                         .Take(pageSize)
+                         .ToList();
         }
 
         public int CountAll()

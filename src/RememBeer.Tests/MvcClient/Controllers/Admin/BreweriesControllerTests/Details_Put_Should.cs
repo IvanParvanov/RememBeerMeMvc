@@ -109,7 +109,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
         {
             // Arrange
             var sut = this.MockingKernel.Get<BreweriesController>();
-            var model = new EditBreweryBindingModel() {Id = expectedId};
+            var model = new EditBreweryBindingModel() { Id = expectedId };
             var dataResult = new Mock<IDataModifiedResult>();
             dataResult.Setup(r => r.Successful)
                       .Returns(true);
@@ -138,7 +138,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
             breweryService.Setup(s => s.UpdateBrewery(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
             breweryService.Setup(s => s.GetById(It.IsAny<int>()))
-                .Returns(expectedBrewery.Object);
+                          .Returns(expectedBrewery.Object);
             var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act
@@ -163,7 +163,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
                           .Returns(dataResult.Object);
             var mapper = this.MockingKernel.GetMock<IMapper>();
             mapper.Setup(m => m.Map<IBrewery, BreweryDetailsViewModel>(It.IsAny<IBrewery>()))
-                .Returns(expected);
+                  .Returns(expected);
 
             // Act
             var result = sut.Details(model) as PartialViewResult;

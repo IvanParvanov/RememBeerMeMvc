@@ -1,14 +1,14 @@
 ﻿@model RememBeer.MvcClient.Areas.Admin.Models.CreateBeerBindingModel
 
 @using (Ajax.BeginForm("Details", "Breweries", null, new AjaxOptions()
-{
-    HttpMethod = "POST",
-    InsertionMode = InsertionMode.Replace,
-    LoadingElementId = "loading",
-    UpdateTargetId = "content",
-    OnSuccess = "notifier.showSuccess('Beer created successfuly!')",
-    OnFailure = "notifier.handleAjaxError"
-}, new { @class = "" }))
+                                                     {
+                                                         HttpMethod = "POST",
+                                                         InsertionMode = InsertionMode.Replace,
+                                                         LoadingElementId = "loading",
+                                                         UpdateTargetId = "content",
+                                                         OnSuccess = "notifier.showSuccess('Beer created successfuly!')",
+                                                         OnFailure = "notifier.handleAjaxError"
+                                                     }, new { @class = "" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.Id)

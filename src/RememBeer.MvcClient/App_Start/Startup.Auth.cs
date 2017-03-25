@@ -41,23 +41,22 @@ namespace RememBeer.MvcClient
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
             var onValidateIdentity = SecurityStampValidator
-                                                        .OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                                                                                                  validateInterval: TimeSpan.FromMinutes(30),
-                                                                                                  regenerateIdentity: (manager, user) =>
-                                                                                                                        user.GenerateUserIdentityAsync(manager));
+                .OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                                                                             validateInterval: TimeSpan.FromMinutes(30),
+                                                                             regenerateIdentity: (manager, user) =>
+                                                                                                     user.GenerateUserIdentityAsync(manager));
 
             var cookieAuthProvider = new CookieAuthenticationProvider
-            {
-                OnValidateIdentity = onValidateIdentity
-
-            };
+                                     {
+                                         OnValidateIdentity = onValidateIdentity
+                                     };
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                Provider = cookieAuthProvider
-            });
+                                        {
+                                            AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                                            LoginPath = new PathString("/Account/Login"),
+                                            Provider = cookieAuthProvider
+                                        });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 

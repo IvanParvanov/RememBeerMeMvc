@@ -21,7 +21,7 @@ namespace RememBeer.Tests.Models
 
             // Act
             var brewery = new Brewery()
-            {
+                          {
                               Id = expectedId,
                               Country = expectedCountry,
                               Description = expectedDescription,

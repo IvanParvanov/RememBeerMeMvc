@@ -43,7 +43,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
             var sut = this.MockingKernel.Get<BreweriesController>(AjaxContextName);
             var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.GetById(It.IsAny<int>()))
-                .Returns(expectedBrewery.Object);
+                          .Returns(expectedBrewery.Object);
             var mapper = this.MockingKernel.GetMock<IMapper>();
 
             // Act

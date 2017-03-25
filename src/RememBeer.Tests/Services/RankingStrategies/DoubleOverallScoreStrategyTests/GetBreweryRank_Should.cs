@@ -78,10 +78,11 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
                           .Returns(mockedBeer.Object);
                 beerRanks.Add(mockedRank.Object);
             }
+
             var expectedTotalScore = beerRanks.Sum(s => s.CompositeScore) / totalRankCount;
             var expectedTotalReviews = beerRanks.Sum(b => b.Beer.Reviews.Count);
             factory.Setup(f => f.CreateBreweryRank(expectedTotalScore, expectedTotalReviews, expectedName))
-                .Returns(expectedBreweryRank.Object);
+                   .Returns(expectedBreweryRank.Object);
             var strategy = new DoubleOverallScoreStrategy(factory.Object);
 
             // Act

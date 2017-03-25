@@ -115,7 +115,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.AccountControllerTests
                                  m => m.SignInAsync(
                                                     It.Is<ApplicationUser>(u => u.UserName == expectedUsername
                                                                                 && u.Email == expectedEmail),
-                                                    false, 
+                                                    false,
                                                     false),
                                  Times.Once);
         }

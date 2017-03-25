@@ -28,10 +28,10 @@ namespace RememBeer.Tests.Services.BeerTypeServiceTests
             for (var i = 0; i < expectedCount; i++)
             {
                 var beerTypeName = this.Fixture.Create<string>() + searchPattern + this.Fixture.Create<string>();
-                allTypes.Add(new BeerType() {Type = beerTypeName});
+                allTypes.Add(new BeerType() { Type = beerTypeName });
             }
 
-            for ( var i = 0; i < expectedCount / 2; i++ )
+            for (var i = 0; i < expectedCount / 2; i++)
             {
                 var beerTypeName = this.Fixture.Create<string>();
                 allTypes.Add(new BeerType() { Type = beerTypeName });

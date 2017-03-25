@@ -5,14 +5,14 @@
         </div>
         <div class="collapsible-body">
             @using (Ajax.BeginForm("Follow", null, new AjaxOptions()
-            {
-                HttpMethod = "POST",
-                InsertionMode = InsertionMode.Replace,
-                LoadingElementId = "loading",
-                UpdateTargetId = "content",
-                OnSuccess = "notifier.showSuccess('User has been followed!')",
-                OnFailure = "notifier.handleAjaxError"
-            }, new { @class = "" }) )
+                                                   {
+                                                       HttpMethod = "POST",
+                                                       InsertionMode = InsertionMode.Replace,
+                                                       LoadingElementId = "loading",
+                                                       UpdateTargetId = "content",
+                                                       OnSuccess = "notifier.showSuccess('User has been followed!')",
+                                                       OnFailure = "notifier.handleAjaxError"
+                                                   }, new { @class = "" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="input-field col s12 m12 l10">

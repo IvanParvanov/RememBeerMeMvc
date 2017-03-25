@@ -30,12 +30,12 @@ namespace RememBeer.Tests.Services.FollowerServiceTests.Base
         {
             var mockSet = new Mock<IDbSet<T>>();
             mockSet.As<IDbAsyncEnumerable<T>>()
-                .Setup(m => m.GetAsyncEnumerator())
-                .Returns(new TestDbAsyncEnumerator<T>(data.GetEnumerator()));
+                   .Setup(m => m.GetAsyncEnumerator())
+                   .Returns(new TestDbAsyncEnumerator<T>(data.GetEnumerator()));
 
             mockSet.As<IQueryable<T>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestDbAsyncQueryProvider<T>(data.Provider));
+                   .Setup(m => m.Provider)
+                   .Returns(new TestDbAsyncQueryProvider<T>(data.Provider));
 
             mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(data.ElementType);
@@ -48,8 +48,8 @@ namespace RememBeer.Tests.Services.FollowerServiceTests.Base
         {
             var mockSet = new Mock<IDbSet<T>>();
             mockSet.As<IQueryable<T>>()
-                .Setup(m => m.Provider)
-                .Returns(data.Provider);
+                   .Setup(m => m.Provider)
+                   .Returns(data.Provider);
 
             mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(data.ElementType);

@@ -53,7 +53,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.TopControllerTests
         {
             // Arrange
             var sut = this.MockingKernel.Get<TopController>();
-            var expectedTopBeers = new List<IBeerRank>() { new Mock<IBeerRank>().Object};
+            var expectedTopBeers = new List<IBeerRank>() { new Mock<IBeerRank>().Object };
             var topService = this.MockingKernel.GetMock<ITopBeersService>();
             topService.Setup(s => s.GetTopBeers(It.IsAny<int>()))
                       .Returns(expectedTopBeers);

@@ -24,4 +24,3 @@ namespace RememBeer.Tests.MvcClient.Controllers.TopControllerTests
         }
     }
 }
-

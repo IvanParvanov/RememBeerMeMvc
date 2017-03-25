@@ -112,7 +112,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
             var userManager = this.MockingKernel.GetMock<IApplicationUserManager>();
             userManager.Setup(m => m.ChangePasswordAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                        .Returns(Task.FromResult(IdentityResult.Success));
-            
+
             // Act
             await sut.ChangePassword(expected);
 
@@ -167,19 +167,19 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
 
             this.MockingKernel.Bind<HttpContextBase>()
                 .ToMethod(ctx =>
-                {
-                    var identity = new Mock<ClaimsIdentity>();
-                    identity.Setup(i => i.FindFirst(It.IsAny<string>()))
-                            .Returns(new Claim("sa", this.expectedUserId));
+                          {
+                              var identity = new Mock<ClaimsIdentity>();
+                              identity.Setup(i => i.FindFirst(It.IsAny<string>()))
+                                      .Returns(new Claim("sa", this.expectedUserId));
 
-                    var mockedUser = new Mock<IPrincipal>();
-                    mockedUser.Setup(u => u.Identity).Returns(identity.Object);
+                              var mockedUser = new Mock<IPrincipal>();
+                              mockedUser.Setup(u => u.Identity).Returns(identity.Object);
 
-                    var context = new Mock<HttpContextBase>();
-                    context.SetupGet(x => x.User).Returns(mockedUser.Object);
+                              var context = new Mock<HttpContextBase>();
+                              context.SetupGet(x => x.User).Returns(mockedUser.Object);
 
-                    return context.Object;
-                })
+                              return context.Object;
+                          })
                 .InSingletonScope()
                 .Named(RegularContextName);
         }

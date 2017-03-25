@@ -1,117 +1,117 @@
 ﻿@using RememBeer.MvcClient.Models.Reviews
 @model SingleReviewViewModel
 
-    <div class="card horizontal fade-quick">
-        <div class="row">
-            <div class="col s12 l4 center-align">
-                <div class="">
-                    <img class="materialboxed responsive-img" src="@Model.ImgUrl" alt="Review image">
-                    <p>
-                        <label for="imgUpload">Upload a new image:</label>
-                        @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
-                        {
-                            <div class="image-loader fade-quick">
-                                <i class="fa fa-cog fa-3x fa-spin" aria-hidden="true"></i>
-                            </div>
-                            @Html.AntiForgeryToken()
-                            @Html.HiddenFor(x => x.Id, new { id = "review-id" })
-                            <input type="file" accept="image/*" id="imgUpload"/>
-                        }
-                    </p>
-                </div>
-            </div>
-            <div class="col s12 l8">
-                @using (Ajax.BeginForm("Index", "Reviews", null,
-                                       new AjaxOptions()
-                                       {
-                                           HttpMethod = "PUT",
-                                           UpdateTargetId = "review-" + Model.Id,
-                                           LoadingElementId = "loading",
-                                           OnFailure = "notifier.handleAjaxError",
-                                           OnSuccess = "notifier.showSuccess('Review has been successfully updated!')",
-                                           InsertionMode = InsertionMode.Replace
-                                       },
-                                       new { enctype = "multipart/form-data", accept = "image/*" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(x => x.Id)
-                    <div class="card-content review-body">
-                        <div class="card-title">
-                            <h5>
-                                @Html.DisplayFor(x => x.BeerName)
-                                <small>@Html.DisplayFor(x => x.BeerBeerTypeType) by <em>@Html.DisplayFor(x => x.BeerBreweryName)</em></small>
-                                <small class="right">@Html.DisplayFor(x => x.CreatedAt)</small>
-                            </h5>
+<div class="card horizontal fade-quick">
+    <div class="row">
+        <div class="col s12 l4 center-align">
+            <div class="">
+                <img class="materialboxed responsive-img" src="@Model.ImgUrl" alt="Review image">
+                <p>
+                    <label for="imgUpload">Upload a new image:</label>
+                    @using (Html.BeginForm("ChangeImage", "Reviews", FormMethod.Post, new { id = "imgUploadForm" }))
+                    {
+                        <div class="image-loader fade-quick">
+                            <i class="fa fa-cog fa-3x fa-spin" aria-hidden="true"></i>
                         </div>
-                        <p>
-                            <div class="input-field">
-                                <i class="prefix material-icons">&#xE0C8;</i>
-                                @Html.LabelFor(x => x.Place)
-                                @Html.TextBoxFor(m => m.Place)
-                                @Html.ValidationMessageFor(m => m.Place)
-                            </div>
-                            <div class="input-field">
-                                @Html.LabelFor(x => x.Description)
-                                @Html.TextAreaFor(m => m.Description, new { @class = "materialize-textarea" })
-                                @Html.ValidationMessageFor(m => m.Description)
-                            </div>
-                        </p>
-                        <ul class="list-inline selects">
-                            <li>
-                                <div class="input-field col s3">
-                                    @Html.LabelFor(m => m.Overall)
-                                    <div>
-                                        @Html.DropDownListFor(m => m.Overall, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="input-field col s3">
-                                    @Html.LabelFor(m => m.Taste)
-                                    <div>
-                                        @Html.DropDownListFor(m => m.Taste, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="input-field col s3">
-                                    @Html.LabelFor(m => m.Look)
-                                    <div>
-                                        @Html.DropDownListFor(m => m.Look, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="input-field col s3">
-                                    @Html.LabelFor(m => m.Smell)
-                                    <div>
-                                        @Html.DropDownListFor(m => m.Smell, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="card-action clearfix">
-                        <input type="submit" class="btn green darken-1 white-text waves-effect waves-light" value="Save"/>
-
-                        @*@Ajax.PageRefreshActionLink("", "btn amber darken-2 white-text waves-effect waves-light", "My", "Reviews", new { page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], area = "" })*@
-
-                        @Ajax.ActionLink("Cancel", "Cancel", "Reviews", new { id = Model.Id },
-                                         new AjaxOptions()
-                                         {
-                                             UpdateTargetId = "review-" + Model.Id,
-                                             InsertionMode = InsertionMode.Replace,
-                                             LoadingElementId = "loading",
-                                             OnSuccess = "initMaterialize()"
-                                         },
-                                         new { @class = "btn amber darken-2 white-text waves-effect waves-light" })
-                    </div>
-                }
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => x.Id, new { id = "review-id" })
+                        <input type="file" accept="image/*" id="imgUpload"/>
+                    }
+                </p>
             </div>
-
         </div>
+        <div class="col s12 l8">
+            @using (Ajax.BeginForm("Index", "Reviews", null,
+                                   new AjaxOptions()
+                                   {
+                                       HttpMethod = "PUT",
+                                       UpdateTargetId = "review-" + Model.Id,
+                                       LoadingElementId = "loading",
+                                       OnFailure = "notifier.handleAjaxError",
+                                       OnSuccess = "notifier.showSuccess('Review has been successfully updated!')",
+                                       InsertionMode = InsertionMode.Replace
+                                   },
+                                   new { enctype = "multipart/form-data", accept = "image/*" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+                <div class="card-content review-body">
+                    <div class="card-title">
+                        <h5>
+                            @Html.DisplayFor(x => x.BeerName)
+                            <small>@Html.DisplayFor(x => x.BeerBeerTypeType) by <em>@Html.DisplayFor(x => x.BeerBreweryName)</em></small>
+                            <small class="right">@Html.DisplayFor(x => x.CreatedAt)</small>
+                        </h5>
+                    </div>
+                    <p>
+                        <div class="input-field">
+                            <i class="prefix material-icons">&#xE0C8;</i>
+                            @Html.LabelFor(x => x.Place)
+                            @Html.TextBoxFor(m => m.Place)
+                            @Html.ValidationMessageFor(m => m.Place)
+                        </div>
+                        <div class="input-field">
+                            @Html.LabelFor(x => x.Description)
+                            @Html.TextAreaFor(m => m.Description, new { @class = "materialize-textarea" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </p>
+                    <ul class="list-inline selects">
+                        <li>
+                            <div class="input-field col s3">
+                                @Html.LabelFor(m => m.Overall)
+                                <div>
+                                    @Html.DropDownListFor(m => m.Overall, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-field col s3">
+                                @Html.LabelFor(m => m.Taste)
+                                <div>
+                                    @Html.DropDownListFor(m => m.Taste, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-field col s3">
+                                @Html.LabelFor(m => m.Look)
+                                <div>
+                                    @Html.DropDownListFor(m => m.Look, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-field col s3">
+                                @Html.LabelFor(m => m.Smell)
+                                <div>
+                                    @Html.DropDownListFor(m => m.Smell, new SelectList(EditReviewBindingModel.ScoreValues, "Value", "Text"))
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-action clearfix">
+                    <input type="submit" class="btn green darken-1 white-text waves-effect waves-light" value="Save"/>
+
+                    @*@Ajax.PageRefreshActionLink("", "btn amber darken-2 white-text waves-effect waves-light", "My", "Reviews", new { page = Request.QueryString["page"], pageSize = Request.QueryString["pageSize"], area = "" })*@
+
+                    @Ajax.ActionLink("Cancel", "Cancel", "Reviews", new { id = Model.Id },
+                                     new AjaxOptions()
+                                     {
+                                         UpdateTargetId = "review-" + Model.Id,
+                                         InsertionMode = InsertionMode.Replace,
+                                         LoadingElementId = "loading",
+                                         OnSuccess = "initMaterialize()"
+                                     },
+                                     new { @class = "btn amber darken-2 white-text waves-effect waves-light" })
+                </div>
+            }
+        </div>
+
     </div>
-    <script>
-        eventManager.attachImageUpload();
-    </script>
+</div>
+<script>
+    eventManager.attachImageUpload();
+</script>

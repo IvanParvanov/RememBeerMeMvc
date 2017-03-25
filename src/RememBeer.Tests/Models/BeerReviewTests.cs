@@ -23,7 +23,7 @@ namespace RememBeer.Tests.Models
 
             // Act
             var review = new BeerReview()
-            {
+                         {
                              Id = expectedId,
                              BeerId = expectedId,
                              ApplicationUserId = expectedText,

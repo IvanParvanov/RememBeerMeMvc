@@ -13,25 +13,24 @@
 }
 
 @using (Ajax.BeginForm(action, controller, null, new AjaxOptions()
-                                              {
-                                                  UpdateTargetId = "content",
-                                                  LoadingElementId = "loading",
-                                                  HttpMethod = "GET",
-                                                  OnSuccess = "initMaterialize()",
-                                                  OnFailure = "notifier.handleAjaxError"
-                                              }, null))
+                                                 {
+                                                     UpdateTargetId = "content",
+                                                     LoadingElementId = "loading",
+                                                     HttpMethod = "GET",
+                                                     OnSuccess = "initMaterialize()",
+                                                     OnFailure = "notifier.handleAjaxError"
+                                                 }, null))
 {
-    
     <div class="input-field inline">
-        <a class="prefix red-text" 
-           data-ajax="true" 
-           data-ajax-failure="notifier.handleAjaxError" 
-           data-ajax-loading="#loading" 
+        <a class="prefix red-text"
+           data-ajax="true"
+           data-ajax-failure="notifier.handleAjaxError"
+           data-ajax-loading="#loading"
            data-ajax-method="GET"
-           data-ajax-mode="replace" 
-           data-ajax-success="initMaterialize()" 
+           data-ajax-mode="replace"
+           data-ajax-success="initMaterialize()"
            data-ajax-update="#content"
-            href="@Url.Action(action, controller, new {area=area})">
+           href="@Url.Action(action, controller, new { area = area })">
             <i class="material-icons">&#xE14C;</i>
         </a>
         <label for="searchPattern">Search reviews</label>
@@ -45,9 +44,9 @@
     </a>
 
     if (!string.IsNullOrEmpty(Request.QueryString["searchPattern"]))
-     {
-         <h6 class="flow-text">Results for @Request.QueryString["searchPattern"]</h6>
-     }
+    {
+        <h6 class="flow-text">Results for @Request.QueryString["searchPattern"]</h6>
+    }
 }
 
 @Html.Partial("_Create", new CreateReviewBindingModel())

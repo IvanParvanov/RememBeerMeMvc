@@ -29,11 +29,11 @@ namespace RememBeer.Common.Services
         public async Task SendAsync(IdentityMessage message)
         {
             await Task.Run(() =>
-                     {
-                         var client = new MailJetClient(this.userName, this.password);
-                         var mailMessage = new MailMessage(this.senderEmail, message.Destination, message.Subject, message.Body);
-                         client.SendMessage(mailMessage);
-                     });
+                           {
+                               var client = new MailJetClient(this.userName, this.password);
+                               var mailMessage = new MailMessage(this.senderEmail, message.Destination, message.Subject, message.Body);
+                               client.SendMessage(mailMessage);
+                           });
         }
     }
 }

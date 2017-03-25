@@ -43,14 +43,14 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             // Arrange
             var searchPattern = Guid.NewGuid().ToString();
             var allBeers = new List<Brewery>()
-                                {
-                                    new Brewery { Name = "" },
-                                    new Brewery { Name = "" },
-                                    new Brewery { Name = this.Fixture.Create<string>() + searchPattern },
-                                    new Brewery { Name = searchPattern },
-                                    new Brewery { Name = this.Fixture.Create<string>() + searchPattern + this.Fixture.Create<string>() },
-                                    new Brewery { Name = searchPattern + this.Fixture.Create<string>() },
-                                };
+                           {
+                               new Brewery { Name = "" },
+                               new Brewery { Name = "" },
+                               new Brewery { Name = this.Fixture.Create<string>() + searchPattern },
+                               new Brewery { Name = searchPattern },
+                               new Brewery { Name = this.Fixture.Create<string>() + searchPattern + this.Fixture.Create<string>() },
+                               new Brewery { Name = searchPattern + this.Fixture.Create<string>() },
+                           };
 
             var breweryRepository = new Mock<IEfRepository<Brewery>>();
             breweryRepository.Setup(r => r.All)

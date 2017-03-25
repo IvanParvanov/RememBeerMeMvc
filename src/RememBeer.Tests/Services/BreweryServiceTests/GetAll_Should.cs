@@ -97,7 +97,7 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
         [TestCase(5, "kasdjkl2j3")]
         [TestCase(5, "asi8789798790123897a9sd")]
         [TestCase(5, "asasd654as")]
-        [TestCase( 10, "Glarus")]
+        [TestCase(10, "Glarus")]
         public void ReturnCorrectResult_WhenSearching(int foundPerCriteria,
                                                       string search)
         {
@@ -118,10 +118,10 @@ namespace RememBeer.Tests.Services.BreweryServiceTests
             for (var i = 0; i < foundPerCriteria; i++)
             {
                 breweries.Add(new Brewery()
-                {
-                    Country = this.Fixture.Create<string>() + search + this.Fixture.Create<string>(),
-                    Name = this.Fixture.Create<string>()
-                });
+                              {
+                                  Country = this.Fixture.Create<string>() + search + this.Fixture.Create<string>(),
+                                  Name = this.Fixture.Create<string>()
+                              });
             }
 
             var queryableBreweries = breweries.AsQueryable();

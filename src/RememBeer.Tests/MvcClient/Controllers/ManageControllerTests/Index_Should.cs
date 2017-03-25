@@ -163,13 +163,13 @@ namespace RememBeer.Tests.MvcClient.Controllers.ManageControllerTests
                 .Named(AjaxContextName);
 
             this.MockingKernel.Bind<ManageController>().ToMethod(ctx =>
-                                                          {
-                                                              var sut = ctx.Kernel.Get<ManageController>();
-                                                              var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
-                                                              sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
+                                                                 {
+                                                                     var sut = ctx.Kernel.Get<ManageController>();
+                                                                     var httpContext = ctx.Kernel.Get<HttpContextBase>(AjaxContextName);
+                                                                     sut.ControllerContext = new ControllerContext(httpContext, new RouteData(), sut);
 
-                                                              return sut;
-                                                          })
+                                                                     return sut;
+                                                                 })
                 .Named(AjaxContextName)
                 .BindingConfiguration.IsImplicit = true;
         }

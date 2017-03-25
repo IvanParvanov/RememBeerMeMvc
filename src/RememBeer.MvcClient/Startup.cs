@@ -10,6 +10,7 @@ using RememBeer.MvcClient.App_Start;
 using RememBeer.MvcClient.Hubs.UserIdProvider;
 
 [assembly: OwinStartup(typeof(Startup))]
+
 namespace RememBeer.MvcClient
 {
     [ExcludeFromCodeCoverage]

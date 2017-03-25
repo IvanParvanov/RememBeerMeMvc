@@ -22,7 +22,7 @@ namespace RememBeer.Tests.Services.BeerServiceTests
             var dbSet = new Mock<IDbSet<Beer>>();
             var repository = new Mock<IBeersDb>();
             repository.Setup(r => r.Beers)
-                .Returns(dbSet.Object);
+                      .Returns(dbSet.Object);
             var sut = new BeerService(repository.Object);
 
             // Act

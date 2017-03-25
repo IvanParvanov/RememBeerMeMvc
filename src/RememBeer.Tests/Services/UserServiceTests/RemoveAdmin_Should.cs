@@ -21,7 +21,7 @@ namespace RememBeer.Tests.Services.UserServiceTests
     internal class RemoveAdmin_Should : TestClassBase
     {
         [Test]
-        public async Task  Call_UserManagerAddToRoleAsyncMethodOnceWithCorrectParams()
+        public async Task Call_UserManagerAddToRoleAsyncMethodOnceWithCorrectParams()
         {
             // Arrange
             var expectedId = this.Fixture.Create<string>();

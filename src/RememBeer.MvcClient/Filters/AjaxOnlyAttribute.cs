@@ -9,10 +9,10 @@ namespace RememBeer.MvcClient.Filters
             if (!filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 filterContext.Result = new ViewResult
-                {
-                    ViewName = "Error",
-                    ViewData = filterContext.Controller.ViewData
-                };
+                                       {
+                                           ViewName = "Error",
+                                           ViewData = filterContext.Controller.ViewData
+                                       };
 
                 filterContext.Controller.ViewData["ErrorMessage"] = "The operation can only be perfomed asynchronously. Please ensure JavaScript is enabled.";
             }
