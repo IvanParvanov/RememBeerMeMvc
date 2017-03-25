@@ -1,43 +1,6 @@
-﻿@model IList<RememBeer.Models.Dtos.IBeerRank>
-
-
-@{
+﻿@{
     ViewBag.Title = "TopBeers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card">
-    <div class="card-content">
-        <h3>Top Beers</h3>
-        <table class="bordered striped responsive-table">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th>Beer</th>
-                    <th>Brewery</th>
-                    <th>Country</th>
-                    <th>Looks</th>
-                    <th>Aroma</th>
-                    <th>Taste</th>
-                    <th>Overall</th>
-                    <th>Final Score</th>
-                </tr>
-            </thead>
-
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@Model[i].Beer.Name</td>
-                    <td>@Model[i].Beer.Brewery.Name</td>
-                    <td>@Model[i].Beer.Brewery.Country</td>
-                    <td>@Model[i].LookScore</td>
-                    <td>@Model[i].SmellScore</td>
-                    <td>@Model[i].TasteScore</td>
-                    <td>@Model[i].OverallScore</td>
-                    <td>@Model[i].CompositeScore</td>
-                </tr>
-            }
-        </table>
-    </div>
-</div>
+@Html.Action("Beers")

@@ -1,13 +1,13 @@
 ﻿body {
-    /*background-color: #ecf0f1;*/
+    background-color: #ecf0f1;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     background:
               linear-gradient(
-                             to bottom,
-                             rgba(0, 0, 0, 0.05),
-                             rgba(0, 0, 0, 0.15)
+                             to top,
+                             #dbdbdb,
+                             #ecf0f1
 );
 }
 
@@ -75,13 +75,24 @@ ul.pagination li a { padding: 0 10px; }
 }
 
 .fade, .fade-quick {
+    -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
+
+    -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
 }
 
-.fade { animation: fadeIn 1s; }
+.fade {
+     -webkit-animation: fadeIn 1s;
+     -moz-animation: fadeIn 1s;
+     animation: fadeIn 1s;
+}
 
-.fade-quick { animation: fadeIn 0.5s; }
+.fade-quick {
+     -webkit-animation: fadeIn 0.5s;
+     -moz-animation: fadeIn 0.5s;
+     animation: fadeIn 0.5s;
+}
 
 @-webkit-keyframes fadeIn {
     from { opacity: 0; }

@@ -473,13 +473,14 @@
     <Content Include="Views\Manage\_ManageFollowing.cshtml" />
     <Content Include="Views\Manage\_AddFollower.cshtml" />
     <Content Include="Views\Manage\_Index.cshtml" />
+    <Content Include="Views\Top\Partial\_Beers.cshtml" />
+    <Content Include="Views\Top\Partial\_Breweries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Beers\" />
     <Folder Include="Views\Reviews\Partial\" />
-    <Folder Include="Views\Top\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

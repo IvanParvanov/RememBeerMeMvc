@@ -239,6 +239,8 @@
     <Compile Include="MvcClient\Controllers\ReviewsControllerTests\Index_Put_Should.cs" />
     <Compile Include="MvcClient\Controllers\ReviewsControllerTests\My_Should.cs" />
     <Compile Include="MvcClient\Controllers\TopControllerTests\Ctor_Should.cs" />
+    <Compile Include="MvcClient\Controllers\TopControllerTests\Beers_Should.cs" />
+    <Compile Include="MvcClient\Controllers\TopControllerTests\Breweries_Should.cs" />
     <Compile Include="MvcClient\Controllers\TopControllerTests\TopBeers_Should.cs" />
     <Compile Include="MvcClient\Controllers\TopControllerTests\TopBreweries_Should.cs" />
     <Compile Include="MvcClient\Filters\AdminOnlyAttributeTests.cs" />
