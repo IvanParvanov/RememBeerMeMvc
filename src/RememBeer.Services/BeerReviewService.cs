@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 using RememBeer.Data.Repositories;
@@ -41,12 +42,18 @@ namespace RememBeer.Services
             }
             else
             {
-                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId && (x.Beer.Name.Contains(searchPattern) || x.Beer.Brewery.Name.Contains(searchPattern) || x.Place.Contains(searchPattern) ));
+                result = result.Where(x => x.IsDeleted == false && x.ApplicationUserId == userId
+                                           && (x.Beer.Name.Contains(searchPattern)
+                                               || x.Beer.Brewery.Name.Contains(searchPattern)
+                                               || x.Place.Contains(searchPattern)));
             }
 
             return result.OrderByDescending(x => x.CreatedAt)
                          .Skip(skip)
                          .Take(pageSize)
+                         .Include(x => x.Beer)
+                         .Include(x => x.Beer.Brewery)
+                         .Include(x => x.User)
                          .ToList();
         }
 
