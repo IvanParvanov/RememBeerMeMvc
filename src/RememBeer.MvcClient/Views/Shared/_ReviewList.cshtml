@@ -4,53 +4,52 @@
 @{
     ViewBag.Page = Model.CurrentPage;
     ViewBag.PageSize = Model.PageSize;
-}
 
-@{
     var controller = ViewContext.RouteData.GetRequiredString("controller");
     var action = ViewContext.RouteData.GetRequiredString("action");
     var area = ViewContext.RouteData.DataTokens["area"];
 }
 
-@using (Ajax.BeginForm(action, controller, null, new AjaxOptions()
-                                                 {
-                                                     UpdateTargetId = "content",
-                                                     LoadingElementId = "loading",
-                                                     HttpMethod = "GET",
-                                                     OnSuccess = "initMaterialize()",
-                                                     OnFailure = "notifier.handleAjaxError"
-                                                 }, null))
-{
-    <div class="input-field inline">
-        <a class="prefix red-text"
-           data-ajax="true"
-           data-ajax-failure="notifier.handleAjaxError"
-           data-ajax-loading="#loading"
-           data-ajax-method="GET"
-           data-ajax-mode="replace"
-           data-ajax-success="initMaterialize()"
-           data-ajax-update="#content"
-           href="@Url.Action(action, controller, new { area = area })">
-            <i class="material-icons">&#xE14C;</i>
-        </a>
-        <label for="searchPattern">Search reviews</label>
-        <input type="text" name="searchPattern" id="searchPattern"/>
-    </div>
-    <button type="submit" class="waves-effect waves-light btn-floating btn-large prefix search-button">
-        <i class="suffix material-icons">&#xE8B6;</i>
-    </button>
-    <a class="waves-effect waves-light btn-floating btn-large modal-trigger green hide-on-med-and-down" href="#createModal">
-        <i class="material-icons">&#xE145;</i>
-    </a>
-
-    if (!string.IsNullOrEmpty(Request.QueryString["searchPattern"]))
+<div class="row">
+    @using ( Ajax.BeginForm(action, controller, null, new AjaxOptions()
     {
-        <h6 class="flow-text">Results for @Request.QueryString["searchPattern"]</h6>
+        UpdateTargetId = "content",
+        LoadingElementId = "loading",
+        HttpMethod = "GET",
+        OnSuccess = "initMaterialize()",
+        OnFailure = "notifier.handleAjaxError"
+    }, new { @class = "col" }) )
+    {
+        <div class="input-field inline">
+            <a class="prefix red-text"
+               data-ajax="true"
+               data-ajax-failure="notifier.handleAjaxError"
+               data-ajax-loading="#loading"
+               data-ajax-method="GET"
+               data-ajax-mode="replace"
+               data-ajax-success="initMaterialize()"
+               data-ajax-update="#content"
+               href="@Url.Action(action, controller, new { area = area })">
+                <i class="material-icons">&#xE14C;</i>
+            </a>
+            <label for="searchPattern">Search reviews</label>
+            <input type="text" name="searchPattern" id="searchPattern" />
+        </div>
+        <button type="submit" class="waves-effect waves-light btn prefix search-button">
+            <i class="suffix material-icons">&#xE8B6;</i>
+        </button>
+        <a class="waves-effect waves-light btn modal-trigger green hide-on-med-and-down" href="#createModal">
+            <i class="material-icons">&#xE145;</i>
+        </a>
+
+        if ( !string.IsNullOrEmpty(Request.QueryString["searchPattern"]) )
+        {
+            <h6 class="flow-text">Results for @Request.QueryString["searchPattern"]</h6>
+        }
     }
-}
+</div>
 
 @Html.Partial("_Create", new CreateReviewBindingModel())
-
 
 @if (Model.Items.Any())
 {
@@ -65,7 +64,7 @@
     <div id="deleteModal" class="modal">
         @using (Ajax.BeginForm("Index", "Reviews", new { area = "" }, new AjaxOptions()
                                                                       {
-                                                                          HttpMethod = "DELETE",
+                                                                         HttpMethod = "DELETE",
                                                                           InsertionMode = InsertionMode.Replace,
                                                                           LoadingElementId = "loading",
                                                                           OnSuccess = "$('.modal').modal('close');notifier.showSuccess('Review has been deleted!')",
@@ -87,7 +86,7 @@
 }
 else
 {
-    <h5>No reviews found!</h5>
+    <h5>No reviews here!</h5>
 }
 
 @Html.Partial("_Pagination", Model)
