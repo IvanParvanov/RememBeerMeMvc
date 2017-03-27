@@ -13,7 +13,7 @@ So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having a
 
 ### Project startup
  * Install NuGet dependencies
- * Create a RememBeerMeSettings.config file in the src/RememBeer.WebClient folder
+ * Create a RememBeerMeSettings.config file in the src/RememBeer.MvcClient folder
     - The file must have the following structure: 
     
             <appSettings>   
@@ -46,7 +46,7 @@ So, you are in <em>&lt;insert foreign country with great beers&gt;</em> having a
 - [My ASP](http://j0hnybg-001-site1.dtempurl.com/)
  
 ### Youtube demo:
- - [Youtube](https://youtu.be/RHeR_bxmJQQ)
+ - [Youtube](https://youtu.be/48pnUyAVw8U)
  
 ### Public Section
  
