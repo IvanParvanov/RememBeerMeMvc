@@ -2,7 +2,7 @@
 
 namespace RememBeer.MvcClient.Models.Shared
 {
-    public class PaginatedViewModel<T> : IPagination
+    public class PaginatedViewModel<T> : IPaginatedViewModel<T>
     {
         public IEnumerable<T> Items { get; set; }
 
@@ -11,14 +11,5 @@ namespace RememBeer.MvcClient.Models.Shared
         public int PageSize { get; set; }
 
         public int CurrentPage { get; set; }
-    }
-
-    public interface IPagination
-    {
-        int TotalCount { get; set; }
-
-        int PageSize { get; set; }
-
-        int CurrentPage { get; set; }
     }
 }

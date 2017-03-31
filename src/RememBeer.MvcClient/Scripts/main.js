@@ -168,6 +168,12 @@ function htmlEncode(value) {
 }
 
 var eventManager = {
+    deleteReview: function (a) {
+        var id = $("#hidden-review-id").val();
+        $("#review-" + id).remove();
+        $('.modal').modal('close');
+        notifier.showSuccess('Review has been deleted!');
+    },
     notifyReviewCreated: function() {
         initMaterialize();
         signalR.server.notifyReviewCreated();

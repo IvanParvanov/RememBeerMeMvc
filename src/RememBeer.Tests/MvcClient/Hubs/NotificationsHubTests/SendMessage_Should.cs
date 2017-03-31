@@ -48,7 +48,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             var sut = this.MockingKernel.Get<NotificationsHub>();
             var followerService = this.MockingKernel.GetMock<IFollowerService>();
             var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
-            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
+            var notificationClients = this.MockingKernel.GetMock<INotificationsClient>();
 
             // Act
             await sut.SendMessage(emptyMessage, null, null);
@@ -56,7 +56,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             // Assert
             followerService.Verify(f => f.GetFollowersForUserIdAsync(It.IsAny<string>()), Times.Never);
             clients.Verify(c => c.Users(It.IsAny<IList<string>>()), Times.Never);
-            mockDynamic.Verify(m => m.ShowNotification(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            notificationClients.Verify(m => m.ShowNotification(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -88,13 +88,13 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             const string expectedLat = "peshooasjklasdjk23125asdas";
 
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
+            var notificationClients = this.MockingKernel.GetMock<INotificationsClient>();
 
             // Act
             await sut.SendMessage(expectedMessage, expectedLat, expectedLon);
 
             // Assert
-            mockDynamic.Verify(m => m.ShowNotification(expectedMessage, this.expectedUserName, expectedLat, expectedLon), Times.Once);
+            notificationClients.Verify(m => m.ShowNotification(expectedMessage, this.expectedUserName, expectedLat, expectedLon), Times.Once);
         }
 
         public override void Init()

@@ -13,5 +13,10 @@ namespace RememBeer.MvcClient.Controllers
         {
             return this.View("Error");
         }
+
+        public ViewResult NotFound()
+        {
+            return this.View("NotFound");
+        }
     }
 }

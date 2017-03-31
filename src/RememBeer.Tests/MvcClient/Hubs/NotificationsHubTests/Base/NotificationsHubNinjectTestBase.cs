@@ -40,10 +40,10 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests.Base
                           {
                               var sut = this.MockingKernel.Get<NotificationsHub>(LoggedInContextName);
 
-                              var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
+                              var notificationClients = this.MockingKernel.GetMock<INotificationsClient>();
                               var clients = this.MockingKernel.GetMock<IHubCallerConnectionContext<INotificationsClient>>();
                               clients.Setup(c => c.Users(It.IsAny<IList<string>>()))
-                                     .Returns(mockDynamic.Object);
+                                     .Returns(notificationClients.Object);
                               sut.Clients = clients.Object;
 
                               var context = this.MockingKernel.GetMock<HubCallerContext>();

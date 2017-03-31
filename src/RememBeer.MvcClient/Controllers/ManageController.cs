@@ -14,6 +14,7 @@ using RememBeer.Services.Contracts;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
+    [ValidateInput(false)]
     public class ManageController : Controller
     {
         private IApplicationUserManager userManager;

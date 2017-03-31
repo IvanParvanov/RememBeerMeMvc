@@ -14,6 +14,7 @@ using RememBeer.MvcClient.Models.Account;
 namespace RememBeer.MvcClient.Controllers
 {
     [Authorize]
+    [ValidateInput(false)]
     public class AccountController : Controller
     {
         private IApplicationSignInManager signInManager;

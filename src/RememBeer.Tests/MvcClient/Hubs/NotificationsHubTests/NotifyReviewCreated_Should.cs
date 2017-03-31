@@ -99,7 +99,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             const string expectedUsername = "peshooasjklasdjkasdas";
 
             var sut = this.MockingKernel.Get<NotificationsHub>();
-            var mockDynamic = this.MockingKernel.GetMock<INotificationsClient>();
+            var notificationClients = this.MockingKernel.GetMock<INotificationsClient>();
 
             var review = new Mock<IBeerReview>();
             review.SetupGet(r => r.User.UserName)
@@ -114,7 +114,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
             await sut.NotifyReviewCreated();
 
             // Assert
-            mockDynamic.Verify(m => m.OnFollowerReviewCreated(expectedId, expectedUsername), Times.Once);
+            notificationClients.Verify(m => m.OnFollowerReviewCreated(expectedId, expectedUsername), Times.Once);
         }
 
         public override void Init()
