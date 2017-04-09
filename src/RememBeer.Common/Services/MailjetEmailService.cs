@@ -26,9 +26,9 @@ namespace RememBeer.Common.Services
             this.password = password;
         }
 
-        public async Task SendAsync(IdentityMessage message)
+        public Task SendAsync(IdentityMessage message)
         {
-            await Task.Run(() =>
+            return Task.Run(() =>
                            {
                                var client = new MailJetClient(this.userName, this.password);
                                var mailMessage = new MailMessage(this.senderEmail, message.Destination, message.Subject, message.Body);

@@ -104,14 +104,13 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
 
             // Assert
             factory.Verify(
-                           f =>
-                               f.CreateBeerRank(expectedOverall,
-                                                expectedTaste,
-                                                expectedLook,
-                                                expectedSmell,
-                                                beer.Object,
-                                                expectedAggregateScore,
-                                                reviews.Count),
+                           f => f.CreateBeerRank(expectedOverall,
+                                                 expectedTaste,
+                                                 expectedLook,
+                                                 expectedSmell,
+                                                 beer.Object,
+                                                 expectedAggregateScore,
+                                                 reviews.Count),
                            Times.Once);
         }
 
@@ -139,14 +138,13 @@ namespace RememBeer.Tests.Services.RankingStrategies.DoubleOverallScoreStrategyT
                           };
             var factory = new Mock<IModelFactory>();
             factory.Setup(
-                          f =>
-                              f.CreateBeerRank(overallScore,
-                                               tasteScore,
-                                               looksScore,
-                                               smellScore,
-                                               beer.Object,
-                                               expectedAggregateScore,
-                                               1))
+                          f => f.CreateBeerRank(overallScore,
+                                                tasteScore,
+                                                looksScore,
+                                                smellScore,
+                                                beer.Object,
+                                                expectedAggregateScore,
+                                                1))
                    .Returns(expectedRank.Object);
 
             var strategy = new DoubleOverallScoreStrategy(factory.Object);

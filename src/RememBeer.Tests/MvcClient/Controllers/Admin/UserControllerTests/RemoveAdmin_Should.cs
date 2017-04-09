@@ -37,9 +37,9 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.UserControllerTests
         public async Task Return_CorrectRedirectToActionResult()
         {
             // Arrange
-            var expectedPageSize = 17;
-            var expectedAction = "Index";
-            var expectedPage = 991;
+            const int expectedPageSize = 17;
+            const string expectedAction = "Index";
+            const int expectedPage = 991;
             var expectedSearch = Guid.NewGuid().ToString();
             var sut = this.MockingKernel.Get<UsersController>();
 

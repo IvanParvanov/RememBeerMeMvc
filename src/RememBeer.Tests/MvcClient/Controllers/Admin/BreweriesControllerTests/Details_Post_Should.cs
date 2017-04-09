@@ -89,6 +89,7 @@ namespace RememBeer.Tests.MvcClient.Controllers.Admin.BreweriesControllerTests
             var breweryService = this.MockingKernel.GetMock<IBreweryService>();
             breweryService.Setup(s => s.AddNewBeer(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                           .Returns(dataResult.Object);
+
             // Act
             var result = sut.Details(new CreateBeerBindingModel() { Id = 15 }) as RedirectToRouteResult;
 

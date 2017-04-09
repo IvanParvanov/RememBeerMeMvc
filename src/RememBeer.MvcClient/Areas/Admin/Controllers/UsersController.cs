@@ -24,13 +24,13 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
 
         public UsersController(IMapper mapper, IUserService userService, IBeerReviewService reviewService)
         {
+            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
             Guard.WhenArgument(userService, nameof(userService)).IsNull().Throw();
             Guard.WhenArgument(reviewService, nameof(reviewService)).IsNull().Throw();
-            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
 
+            this.mapper = mapper;
             this.userService = userService;
             this.reviewService = reviewService;
-            this.mapper = mapper;
         }
 
         // GET: Admin/Users
@@ -93,7 +93,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public async Task<ActionResult> EnableUser(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             await this.userService.EnableUserAsync(userId);
-            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
+
+            return this.RedirectToIndex(page, pageSize, searchPattern);
         }
 
         // POST: Admin/Users/DisableUser
@@ -101,7 +102,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public async Task<ActionResult> DisableUser(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             await this.userService.DisableUserAsync(userId);
-            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
+
+            return this.RedirectToIndex(page, pageSize, searchPattern);
         }
 
         // POST: Admin/Users/MakeAdmin
@@ -109,7 +111,8 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public async Task<ActionResult> MakeAdmin(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             await this.userService.MakeAdminAsync(userId);
-            return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
+
+            return this.RedirectToIndex(page, pageSize, searchPattern);
         }
 
         // POST: Admin/Users/RemoveAdmin
@@ -117,6 +120,12 @@ namespace RememBeer.MvcClient.Areas.Admin.Controllers
         public async Task<ActionResult> RemoveAdmin(string userId, int page = 0, int pageSize = Constants.DefaultPageSize, string searchPattern = null)
         {
             await this.userService.RemoveAdminAsync(userId);
+
+            return this.RedirectToIndex(page, pageSize, searchPattern);
+        }
+
+        private RedirectToRouteResult RedirectToIndex(int page, int pageSize, string searchPattern)
+        {
             return this.RedirectToAction("Index", new { page = page, pageSize = pageSize, searchPattern = searchPattern });
         }
     }

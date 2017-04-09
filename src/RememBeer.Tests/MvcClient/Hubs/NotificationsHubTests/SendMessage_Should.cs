@@ -80,7 +80,7 @@ namespace RememBeer.Tests.MvcClient.Hubs.NotificationsHubTests
         }
 
         [Test]
-        public async Task Call_Users_onFollowerReviewCreatedMethodOnceWithCorrectParams()
+        public async Task Call_Users_ShowNotificationMethodOnceWithCorrectParams()
         {
             // Arrange
             const string expectedMessage = "peshooasjklasdaasdjkasdas";
