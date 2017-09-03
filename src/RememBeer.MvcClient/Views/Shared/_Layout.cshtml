@@ -19,9 +19,10 @@
 <script src="/signalr/hubs"></script>
 
 <script type="text/javascript">
-    $.validator.setDefaults({
-        ignore: ""
-    });
+    $.validator.setDefaults(
+        {
+            ignore: ""
+        });
 </script>
 @Scripts.Render("~/bundles/custom")
 
@@ -88,80 +89,80 @@
         <a href="@Url.Action("TopBreweries", "Top", new { area = "" })">Breweries</a>
     </li>
 </ul>
-
 <a href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large teal darken-1 hide-on-large-only waves-effect waves-light" id="mobile-menu-trigger">
     <i class="material-icons large">menu</i>
 </a>
-
-<nav class="hide-on-med-and-down">
-    <div class="nav-wrapper teal darken-1">
-        <a class="brand-logo center" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
-        <ul id="nav-mobile" class="left">
-            <li class="@Html.IsSelected("TopBeers,TopBreweries", "Top")">
-                <a class="dropdown-button" data-activates="topDropdown"><i class="fa fa-trophy"></i> Top<i class="material-icons right">arrow_drop_down</i></a>
-            </li>
-            @if (Request.IsAuthenticated)
-            {
-                if (this.User.IsInRole(Constants.AdminRole))
+<div class="navbar-fixed hide-on-med-and-down">
+    <nav>
+        <div class="nav-wrapper teal darken-1">
+            <a class="brand-logo center" href="~/">Remem<i class="fa fa-beer fa-lg"></i>Me</a>
+            <ul id="nav-mobile" class="left">
+                <li class="@Html.IsSelected("TopBeers,TopBreweries", "Top")">
+                    <a class="dropdown-button" data-activates="topDropdown"><i class="fa fa-trophy"></i> Top<i class="material-icons right">arrow_drop_down</i></a>
+                </li>
+                @if (Request.IsAuthenticated)
                 {
-                    <li class="@Html.IsSelected("Index", "Users")">
-                        <a class="dropdown-button" data-activates="adminDropdown"><i class="fa fa-address-card"></i> Admin<i class="material-icons right">arrow_drop_down</i></a>
+                    if (this.User.IsInRole(Constants.AdminRole))
+                    {
+                        <li class="@Html.IsSelected("Index", "Users")">
+                            <a class="dropdown-button" data-activates="adminDropdown"><i class="fa fa-address-card"></i> Admin<i class="material-icons right">arrow_drop_down</i></a>
+                        </li>
+                    }
+
+                    <li class="@Html.IsSelected("My", "Reviews")">
+                        <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
                     </li>
                 }
-
-                <li class="@Html.IsSelected("My", "Reviews")">
-                    <a href="@Url.Action("My", "Reviews", new { area = "" })"><i class="fa fa-heart" aria-hidden="true"></i> My Reviews</a>
-                </li>
-            }
-        </ul>
-        @if (Request.IsAuthenticated)
-        {
-            using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            </ul>
+            @if (Request.IsAuthenticated)
             {
-                @Html.AntiForgeryToken()
+                using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <ul id="nav-mobile-right" class="right">
+                        <li class="@Html.IsSelected("Index", "Manage")">
+                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
+                        </li>
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        </li>
+                    </ul>
+                }
+            }
+            else
+            {
                 <ul id="nav-mobile-right" class="right">
-                    <li class="@Html.IsSelected("Index", "Manage")">
-                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
+                    <li class="@Html.IsSelected("Register", "Account")">
+                        @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: null)
                     </li>
-                    <li>
-                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    <li class="@Html.IsSelected("Login", "Account")">
+                        @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: null)
                     </li>
                 </ul>
             }
-        }
-        else
+        </div>
+        @if (this.User.IsInRole(Constants.AdminRole))
         {
-            <ul id="nav-mobile-right" class="right">
-                <li class="@Html.IsSelected("Register", "Account")">
-                    @Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: null)
+            <ul id="adminDropdown" class="dropdown-content">
+                <li class="@Html.IsSelected("Index", "Breweries")">
+                    <a href="@Url.Action("Index", "Breweries", new { area = "Admin" })"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
                 </li>
-                <li class="@Html.IsSelected("Login", "Account")">
-                    @Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: null)
+                <li class="@Html.IsSelected("Index", "Users")">
+                    <a href="@Url.Action("Index", "Users", new { area = "Admin" })"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
                 </li>
             </ul>
         }
-    </div>
-    @if (this.User.IsInRole(Constants.AdminRole))
-    {
-        <ul id="adminDropdown" class="dropdown-content">
-            <li class="@Html.IsSelected("Index", "Breweries")">
-                <a href="@Url.Action("Index", "Breweries", new { area = "Admin" })"><i class="fa fa-beer" aria-hidden="true"></i> Breweries</a>
+
+        <ul id="topDropdown" class="dropdown-content">
+            <li class="@Html.IsSelected("TopBeers", "Top")">
+                <a href="@Url.Action("TopBeers", "Top", new { area = "" })">Beers</a>
             </li>
-            <li class="@Html.IsSelected("Index", "Users")">
-                <a href="@Url.Action("Index", "Users", new { area = "Admin" })"><i class="fa fa-user" aria-hidden="true"></i> Users</a>
+            <li class="@Html.IsSelected("TopBreweries", "Top")">
+                <a href="@Url.Action("TopBreweries", "Top", new { area = "" })">Breweries</a>
             </li>
         </ul>
-    }
-
-    <ul id="topDropdown" class="dropdown-content">
-        <li class="@Html.IsSelected("TopBeers", "Top")">
-            <a href="@Url.Action("TopBeers", "Top", new { area = "" })">Beers</a>
-        </li>
-        <li class="@Html.IsSelected("TopBreweries", "Top")">
-            <a href="@Url.Action("TopBreweries", "Top", new { area = "" })">Breweries</a>
-        </li>
-    </ul>
-</nav>
+    </nav>
+</div>
 <div id="loading">
     <span class="vh-center white-text">
         <i class="fa fa-cog fa-spin fa-5x"></i>
